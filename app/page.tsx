@@ -1,19 +1,33 @@
+import Image from "next/image";
+import { LogoMark } from "@/components/logo-mark";
 import { MobileCta } from "@/components/mobile-cta";
 import { SiteHeader } from "@/components/site-header";
 import { TrackedLink } from "@/components/tracked-link";
 import { TrackedSection } from "@/components/tracked-section";
-import { LogoMark } from "@/components/logo-mark";
-import { beans, cultureItems, externalLinks, openingInfo } from "@/lib/content";
+import { beans, externalLinks, openingInfo } from "@/lib/content";
+
+const asset = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+
+const storyItems = [
+  { number: "01", title: "街の少し奥で", body: "見つけた場所。", image: "/images/entrance-stairs.jpg", position: "18% center" },
+  { number: "02", title: "コーヒーとの", body: "出会い。", image: "/images/coffee-space.jpg", position: "22% center" },
+  { number: "03", title: "丁寧に、", body: "心を込めて。", image: "/images/coffee-pour.jpg", position: "72% center" },
+  { number: "04", title: "この空間が", body: "生まれるまで。", image: "/images/entrance-stairs.jpg", position: "80% center" },
+  { number: "05", title: "人と人をつなぐ、", body: "一杯を。", image: "/images/hero-barista.jpg", position: "78% center" },
+];
+
+const journalImages = [
+  ["/images/coffee-space.jpg", "店内カウンターのコンセプトイメージ"],
+  ["/images/entrance-stairs.jpg", "2階へ続く入口のコンセプトイメージ"],
+  ["/images/pudding-and-coffee.jpg", "コーヒーとプリンのコンセプトイメージ"],
+  ["/images/coffee-pour.jpg", "ハンドドリップのコンセプトイメージ"],
+  ["/images/coffee-beans.jpg", "コーヒー豆パッケージのコンセプトイメージ"],
+  ["/images/hero-barista.jpg", "バリスタのコンセプトイメージ"],
+] as const;
 
 const calendarDays = Array.from({ length: 35 }, (_, index) => index + 1);
-const openDays = new Set([2, 3, 6, 7, 9, 10, 13, 14, 16, 17, 20, 21, 23, 24, 27, 28]);
-
-const statusLabel = {
-  confirmed: "CONFIRMED",
-  "official-public": "PUBLIC INFO",
-  "third-party": "PROVISIONAL",
-  sample: "SAMPLE",
-} as const;
+const openDays = new Set([3, 4, 10, 11, 17, 18, 24, 25, 31]);
+const eventDays = new Set([7, 14, 21, 28]);
 
 export default function HomePage() {
   return (
@@ -21,338 +35,222 @@ export default function HomePage() {
       <SiteHeader />
       <main id="main-content">
         <TrackedSection id="top" className="hero" labelledBy="hero-title">
-          <div className="hero-noise" aria-hidden="true" />
-          <div className="hero-orbit hero-orbit--one" aria-hidden="true" />
-          <div className="hero-orbit hero-orbit--two" aria-hidden="true" />
-          <div className="hero-copy">
-            <p className="eyebrow">SPECIALTY COFFEE / KYOTO KAWARAMACHI</p>
-            <h1 id="hero-title">
-              <span>BASHIIIN!</span>
-              <span>COFFEE</span>
-            </h1>
-            <div className="hero-copy__bottom">
-              <p className="hero-lead">ちょっといい珈琲を、<br />四条河原町の少し南で。</p>
-              <div className="hero-actions">
+          <Image
+            className="hero__image"
+            src={asset("/images/hero-barista.jpg")}
+            alt="暗い木のカウンターでハンドドリップするバリスタのコンセプトイメージ"
+            fill
+            priority
+            sizes="100vw"
+          />
+          <div className="hero__shade" aria-hidden="true" />
+          <div className="hero__inner page-shell">
+            <div className="hero__mark" aria-hidden="true">
+              <LogoMark size="large" />
+              <strong>Bashiiin!</strong>
+              <small>COFFEE &amp; CULTURE</small>
+            </div>
+            <div className="hero__copy">
+              <p className="overline">SPECIALTY COFFEE / KYOTO</p>
+              <h1 id="hero-title">ちょっといい珈琲を、<br />四条河原町の少し奥で。</h1>
+              <p>丁寧に淹れた一杯と、静かにほどける時間。<br />日常のすぐそばで、いいひとときを。</p>
+              <div className="button-row">
                 <TrackedLink
                   href={externalLinks["open-info"].href!}
                   eventName="open_info_click"
                   placement="hero"
-                  className="button button--orange"
+                  className="button button--amber"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span>営業情報を確認</span><b aria-hidden="true">↗</b>
+                  OPEN CALENDAR <span aria-hidden="true">↗</span>
                 </TrackedLink>
-                <TrackedLink
-                  href={externalLinks["google-maps"].href!}
-                  eventName="map_click"
-                  placement="hero"
-                  className="text-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GOOGLE MAPS <span aria-hidden="true">↗</span>
-                </TrackedLink>
+                <a className="button button--slate" href="#coffee">VIEW COFFEE</a>
               </div>
             </div>
           </div>
-          <div className="hero-art" aria-label="許諾済み店舗写真の差し替え領域">
-            <div className="hero-art__poster">
-              <span>APPROVED<br />IMAGE SLOT</span>
-              <small>PHOTO / 01</small>
-            </div>
-            <div className="hero-art__cup" aria-hidden="true">
-              <i className="steam steam--one" />
-              <i className="steam steam--two" />
-              <span />
-            </div>
-            <div className="hero-art__stamp" aria-hidden="true">
-              <LogoMark size="large" />
-              <span>SERIOUS COFFEE<br />PLAYFUL CULTURE</span>
-            </div>
-          </div>
-          <div className="scroll-note" aria-hidden="true"><span /> SCROLL TO TASTE</div>
         </TrackedSection>
 
-        <TrackedSection id="about" className="about section-light" labelledBy="about-title">
-          <div className="section-index">01 — ABOUT</div>
-          <div className="about-grid">
-            <div>
-              <p className="kicker">A COFFEE BREAK,<br />WITH A LITTLE IMPACT.</p>
-              <h2 id="about-title">コーヒーの真剣さと、<br />カルチャーの遊び心。</h2>
+        <TrackedSection id="about" className="about" labelledBy="about-title">
+          <div className="page-shell about__grid">
+            <div className="section-copy">
+              <p className="section-label">ABOUT</p>
+              <h2 id="about-title" className="sr-only">Bashiiin! coffeeについて</h2>
+              <p>Bashiiin! は、京都・四条河原町の少し奥にある<br />スペシャルティコーヒースタンドです。</p>
+              <p>厳選した豆と丁寧な抽出、そして心地よい空間で、<br />あなたの日常に、ちょっといい時間をお届けします。</p>
+              <small className="content-note">CONCEPT COPY / 店舗確認後に正式文へ更新</small>
             </div>
-            <div className="about-copy">
-              <p>
-                暗く温かい空間、丁寧に向き合う一杯、ポスターやグッズの自由な色。Bashiiin! coffeeの二面性を、ひとつのWeb体験として再構成するコンセプトです。
-              </p>
-              <p className="sample-disclaimer">SAMPLE COPY — 店舗確認後に正式文へ差し替え</p>
+            <div className="about__photo media-frame">
+              <Image
+                src={asset("/images/pudding-and-coffee.jpg")}
+                alt="木のカウンターに置かれたコーヒーとプリンのコンセプトイメージ"
+                fill
+                sizes="(max-width: 760px) 100vw, 52vw"
+              />
             </div>
           </div>
-          <ol className="entry-sequence" aria-label="店舗までの導線イメージ">
-            {[
-              ["01", "THE CITY", "四条河原町から、少し南へ。"],
-              ["02", "THE BUILDING", "街に溶け込む入口を探す。"],
-              ["03", "THE STAIRS", "階段を上がって2Fへ。"],
-              ["04", "BASHIIIN!", "扉の先で、コーヒーブレイク。"],
-            ].map(([number, title, description], index) => (
-              <li key={number}>
-                <span className="entry-sequence__number">{number}</span>
-                <div className={`entry-visual entry-visual--${index + 1}`} aria-hidden="true">
-                  <span>APPROVED IMAGE</span>
-                </div>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </li>
-            ))}
-          </ol>
         </TrackedSection>
 
-        <TrackedSection id="coffee" className="coffee section-dark" labelledBy="coffee-title">
-          <div className="coffee-marquee" aria-hidden="true">
-            <span>SPECIALTY COFFEE • SPECIALTY COFFEE • SPECIALTY COFFEE • </span>
+        <TrackedSection id="story" className="story ruled-section" labelledBy="story-title">
+          <div className="page-shell">
+            <h2 id="story-title" className="section-title">OUR STORY</h2>
+            <ol className="story__grid">
+              {storyItems.map((item) => (
+                <li key={item.number}>
+                  <div className="story__image media-frame">
+                    <Image
+                      src={asset(item.image)}
+                      alt=""
+                      fill
+                      sizes="(max-width: 760px) 46vw, 18vw"
+                      style={{ objectPosition: item.position }}
+                    />
+                  </div>
+                  <span>{item.number}</span>
+                  <p>{item.title}<br />{item.body}</p>
+                </li>
+              ))}
+            </ol>
           </div>
-          <div className="section-shell">
-            <div className="section-index section-index--light">02 — COFFEE / CURRENT BEANS</div>
-            <div className="coffee-intro">
-              <div>
-                <p className="eyebrow eyebrow--green">SERIOUS ABOUT THE CUP</p>
-                <h2 id="coffee-title">TODAY&apos;S<br />COFFEE.</h2>
-              </div>
-              <p>
-                産地、精製、焙煎、抽出。それぞれの違いを難しく見せすぎず、一杯を選ぶ楽しさへ。ここは、現在楽しめる豆を更新できる本番UIのサンプルです。
-              </p>
+        </TrackedSection>
+
+        <TrackedSection id="coffee" className="coffee-feature ruled-section" labelledBy="coffee-title">
+          <Image
+            className="coffee-feature__image"
+            src={asset("/images/coffee-pour.jpg")}
+            alt="コーヒー粉へ湯を注ぐハンドドリップのコンセプトイメージ"
+            fill
+            sizes="100vw"
+          />
+          <div className="coffee-feature__shade" aria-hidden="true" />
+          <div className="page-shell coffee-feature__inner">
+            <div className="section-copy section-copy--large">
+              <h2 id="coffee-title">SPECIALTY<br />COFFEE</h2>
+              <p>世界中から厳選したスペシャルティコーヒーを、<br />一杯ずつ丁寧にドリップ。</p>
+              <p>豆の個性を引き出すための、<br />シンプルで誠実な一杯を。</p>
+              <a href="#current-beans" className="outline-link">VIEW BEANS</a>
             </div>
-            <div className="bean-grid">
+          </div>
+        </TrackedSection>
+
+        <TrackedSection id="current-beans" className="beans ruled-section" labelledBy="beans-title">
+          <div className="page-shell">
+            <div className="section-heading-row">
+              <h2 id="beans-title" className="section-title">CURRENT BEANS</h2>
+              <span>ALL SAMPLE DATA</span>
+            </div>
+            <div className="beans__grid">
               {beans.map((bean, index) => (
-                <article key={bean.id} className={`bean-card bean-card--${index + 1}`}>
-                  <header>
-                    <span>{statusLabel[bean.source.status]}</span>
-                    <b>0{index + 1}</b>
-                  </header>
-                  <div className="bean-symbol" aria-hidden="true"><span /></div>
-                  <h3>{bean.name}</h3>
-                  <dl>
-                    <div><dt>COUNTRY</dt><dd>{bean.country}</dd></div>
-                    <div><dt>REGION</dt><dd>{bean.region}</dd></div>
-                    <div><dt>PROCESS</dt><dd>{bean.process}</dd></div>
-                    <div><dt>ROAST</dt><dd>{bean.roast}</dd></div>
-                  </dl>
-                  <ul aria-label="フレーバー候補">
-                    {bean.flavor?.map((flavor) => <li key={flavor}>{flavor}</li>)}
-                  </ul>
+                <article className="bean" key={bean.id}>
+                  <div className="bean__copy">
+                    <small>SAMPLE / 0{index + 1}</small>
+                    <h3>{bean.name}</h3>
+                    <p>{bean.flavor?.join(" / ")}</p>
+                    <span>{index === 1 ? "MEDIUM" : "LIGHT"}</span>
+                  </div>
+                  <div className="bean__image">
+                    <Image
+                      src={asset("/images/coffee-beans.jpg")}
+                      alt="ラベル未確定の金色コーヒー豆パッケージのコンセプトイメージ"
+                      fill
+                      sizes="(max-width: 760px) 100vw, 33vw"
+                      style={{ objectPosition: `${12 + index * 38}% 62%` }}
+                    />
+                  </div>
                 </article>
               ))}
             </div>
-            <p className="data-note">※ 表示されている豆情報はUI確認用で、実在商品・在庫情報ではありません。</p>
+            <p className="fine-print">豆名・価格・在庫はサンプルです。最新の取扱情報は店頭またはInstagramでご確認ください。</p>
           </div>
         </TrackedSection>
 
-        <TrackedSection id="sweets" className="sweets" labelledBy="sweets-title">
-          <div className="sweets-art" aria-label="許諾済みスイーツ写真の差し替え領域">
-            <div className="sweets-art__label">APPROVED<br />IMAGE SLOT</div>
-            <div className="plate" aria-hidden="true"><span className="pudding" /></div>
-            <div className="sweets-sticker" aria-hidden="true">COFFEE&apos;S<br />BEST FRIEND</div>
-          </div>
-          <div className="sweets-copy">
-            <div className="section-index">03 — SWEETS</div>
-            <p className="eyebrow eyebrow--red">SOMETHING SWEET</p>
-            <h2 id="sweets-title">A LITTLE<br />MORE, PLEASE.</h2>
-            <p>
-              コーヒーの余韻に、もうひとつ。プリンや焼き菓子などを紹介できる領域です。正式商品名と価格は、店舗確認後に掲載します。
-            </p>
-            <div className="sweets-tags" aria-label="サンプルコンテンツ候補">
-              <span>SAMPLE CONTENT</span><span>PUDDING</span><span>BAKED SWEETS</span>
-            </div>
-          </div>
-        </TrackedSection>
-
-        <TrackedSection id="culture" className="culture" labelledBy="culture-title">
-          <div className="culture-heading">
-            <div className="section-index section-index--light">04 — SPACE / BASHIIIN! CULTURE</div>
-            <p className="eyebrow eyebrow--orange">MORE THAN COFFEE</p>
-            <h2 id="culture-title">COFFEE,<br />GOODS,<br />PEOPLE &<br />CULTURE.</h2>
-          </div>
-          <div className="culture-collage">
-            <div className="collage-space" aria-label="許諾済み店内写真の差し替え領域">
-              <span>SPACE / APPROVED IMAGE SLOT</span>
-              <i aria-hidden="true" />
-            </div>
-            <div className="collage-note">
-              <p>暗い空間に、アンバーの光。コーヒー器具と木のカウンター。</p>
-              <small>SAMPLE COPY</small>
-            </div>
-            <div className="collage-poster" aria-hidden="true">
-              <LogoMark size="large" />
-              <strong>BASHIIIN!</strong>
-              <span>KYOTO / COFFEE / CULTURE</span>
-            </div>
-          </div>
-          <div className="culture-cards">
-            {cultureItems.map((item, index) => (
-              <article key={item.id} className={`culture-card culture-card--${index + 1}`}>
-                <span className="sample-chip">{statusLabel[item.source.status]}</span>
-                <small>0{index + 1} / {item.category.toUpperCase()}</small>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <i aria-hidden="true">↗</i>
-              </article>
-            ))}
+        <TrackedSection id="culture" className="feature-grid ruled-section" labelledBy="culture-title">
+          <h2 id="culture-title" className="sr-only">Sweets, Space and Culture</h2>
+          <div className="page-shell feature-grid__inner">
+            <article className="feature-card">
+              <div className="feature-card__copy"><h3>SWEETS</h3><p>コーヒーと相性のよい、<br />手づくりのお菓子。</p><a href="#journal">VIEW SWEETS</a></div>
+              <div className="feature-card__image media-frame"><Image src={asset("/images/pudding-and-coffee.jpg")} alt="プリンとコーヒーのコンセプトイメージ" fill sizes="50vw" style={{ objectPosition: "72% center" }} /></div>
+            </article>
+            <article id="space" className="feature-card feature-card--reverse">
+              <div className="feature-card__copy"><h3>SPACE</h3><p>木の温もりと落ち着いた<br />灯りの小さな空間。</p><a href="#access">VIEW SPACE</a></div>
+              <div className="feature-card__image media-frame"><Image src={asset("/images/coffee-space.jpg")} alt="木のカウンターが続く店内のコンセプトイメージ" fill sizes="50vw" /></div>
+            </article>
+            <article className="feature-card">
+              <div className="feature-card__copy"><h3>CULTURE</h3><p>コーヒーとともに、<br />音楽やアート、カルチャーを。</p><a href={externalLinks.instagram.href!} target="_blank" rel="noopener noreferrer">VIEW JOURNAL</a></div>
+              <div className="feature-card__image media-frame"><Image src={asset("/images/coffee-space.jpg")} alt="コーヒー器具が並ぶ店内のコンセプトイメージ" fill sizes="50vw" style={{ objectPosition: "78% center" }} /></div>
+            </article>
+            <article className="feature-card feature-card--statement">
+              <div className="feature-card__copy"><h3>MORE<br />THAN<br />COFFEE.</h3><p>日常を少し豊かにする、<br />コーヒーとカルチャーの<br />ある暮らし。</p></div>
+              <div className="feature-card__symbol" aria-hidden="true"><LogoMark size="large" /></div>
+            </article>
           </div>
         </TrackedSection>
 
-        <TrackedSection id="open-info" className="open-info" labelledBy="open-title">
-          <div className="open-copy">
-            <div className="section-index">05 — OPEN INFO</div>
-            <p className="eyebrow">BEFORE YOU VISIT</p>
-            <h2 id="open-title">ARE WE<br />OPEN?</h2>
-            <p>
-              営業日は変動する場合があります。ご来店前に、Instagramで最新情報をご確認ください。
-            </p>
-            <TrackedLink
-              href={externalLinks["open-info"].href!}
-              eventName="open_info_click"
-              placement="open-info"
-              className="button button--dark"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>最新の営業情報を見る</span><b aria-hidden="true">↗</b>
-            </TrackedLink>
-          </div>
-          <div className="calendar-wrap">
-            <div className="calendar-alert"><b>SAMPLE CALENDAR</b><span>実際の営業日ではありません</span></div>
-            <div className="calendar-header"><span>20XX</span><strong>MONTH / XX</strong><LogoMark /></div>
-            <div className="calendar-weekdays" aria-hidden="true">
-              {['M','T','W','T','F','S','S'].map((day, index) => <span key={`${day}-${index}`}>{day}</span>)}
-            </div>
-            <div className="calendar-grid" aria-label="サンプル営業カレンダー">
-              {calendarDays.map((day) => (
-                <span key={day} className={openDays.has(day) ? "is-open" : ""}>
-                  {day}<i>{openDays.has(day) ? "OPEN" : "—"}</i>
-                </span>
-              ))}
-            </div>
-            <p>{openingInfo.notice}</p>
-          </div>
-        </TrackedSection>
-
-        <TrackedSection id="access" className="access section-light" labelledBy="access-title">
-          <div className="section-index">06 — ACCESS</div>
-          <div className="access-heading">
+        <TrackedSection id="open-info" className="calendar-section ruled-section" labelledBy="calendar-title">
+          <div className="page-shell calendar-section__grid">
             <div>
-              <p className="eyebrow eyebrow--blue">LOOK UP. WE&apos;RE UPSTAIRS.</p>
+              <h2 id="calendar-title">OPEN<br />CALENDAR</h2>
+              <p>営業カレンダー</p>
+              <ul className="legend"><li><i className="is-open" />営業日</li><li><i className="is-event" />イベント・休業日</li></ul>
+            </div>
+            <div className="calendar">
+              <header><strong>20XX / SAMPLE</strong></header>
+              <div className="calendar__week"><span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span></div>
+              <div className="calendar__days">
+                {calendarDays.map((day) => <span key={day} className={openDays.has(day) ? "is-open" : eventDays.has(day) ? "is-event" : ""}>{day}</span>)}
+              </div>
+            </div>
+            <div className="hours-card">
+              <p>営業時間</p>
+              <dl><div><dt>平日</dt><dd>店舗確認中</dd></div><div><dt>土日祝</dt><dd>店舗確認中</dd></div></dl>
+              <small>{openingInfo.notice}</small>
+              <TrackedLink href={externalLinks["open-info"].href!} eventName="open_info_click" placement="open-info" className="outline-link" target="_blank" rel="noopener noreferrer">VIEW CALENDAR ↗</TrackedLink>
+            </div>
+          </div>
+        </TrackedSection>
+
+        <TrackedSection id="access" className="access ruled-section" labelledBy="access-title">
+          <div className="page-shell access__grid">
+            <div className="access__copy">
               <h2 id="access-title">FIND US<br />ON THE 2F.</h2>
+              <span className="status-chip">PROVISIONAL</span>
+              <address>京都府京都市下京区<br />西木屋町通松原上ル<br />三丁目一之町239-1<br />やながわビル 2F</address>
+              <TrackedLink href={externalLinks["google-maps"].href!} eventName="map_click" placement="access" className="outline-link" target="_blank" rel="noopener noreferrer">GOOGLE MAPS ↗</TrackedLink>
             </div>
-            <div className="access-address">
-              <span className="sample-chip sample-chip--dark">PROVISIONAL / 店舗確認前</span>
-              <address>
-                京都府京都市下京区<br />西木屋町通松原上ル<br />三丁目一之町239-1<br /><strong>やながわビル 2F</strong>
-              </address>
-              <p>阪急 京都河原町駅から徒歩圏内</p>
-              <TrackedLink
-                href={externalLinks["google-maps"].href!}
-                eventName="map_click"
-                placement="access"
-                className="button button--blue"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span>Google Mapsで確認</span><b aria-hidden="true">↗</b>
-              </TrackedLink>
+            <div className="map-card" aria-label="店舗位置の概略図">
+              <div className="map-card__grid" aria-hidden="true" />
+              <span className="map-card__pin"><LogoMark />2F</span>
+              <small>MAP / SAMPLE</small>
             </div>
+            <div className="access__photo access__photo--door media-frame"><Image src={asset("/images/entrance-stairs.jpg")} alt="2階へ続く入口のコンセプトイメージ" fill sizes="25vw" style={{ objectPosition: "18% center" }} /></div>
+            <div className="access__photo access__photo--stairs media-frame"><Image src={asset("/images/entrance-stairs.jpg")} alt="暖色の灯りが続く階段のコンセプトイメージ" fill sizes="25vw" style={{ objectPosition: "82% center" }} /></div>
           </div>
-          <div className="route-map" aria-label="店舗までの案内イメージ">
-            <div className="route-grid" aria-hidden="true" />
-            <svg viewBox="0 0 900 380" role="img" aria-label="河原町から店舗2階までのサンプル経路図">
-              <path d="M45 310 C 160 260, 180 80, 345 105 S 520 315, 700 230 S 820 110, 865 70" />
-              <circle cx="48" cy="310" r="16" />
-              <circle cx="865" cy="70" r="25" />
-            </svg>
-            <span className="route-label route-label--start">KAWARAMACHI</span>
-            <span className="route-label route-label--end">BASHIIIN!<br /><b>2F</b></span>
-            <div className="route-steps">
-              <span>01 MAP</span><span>02 BUILDING</span><span>03 ENTRANCE</span><span>04 STAIRS</span><span>05 2F</span>
-            </div>
-          </div>
-          <p className="data-note data-note--dark">住所・アクセス情報は第三者公開情報をもとにした暫定表示です。店舗確認後に確定します。</p>
         </TrackedSection>
 
-        <TrackedSection id="journal" className="journal" labelledBy="journal-title">
-          <div className="journal-heading">
-            <div className="section-index">07 — BASHIIIN! JOURNAL</div>
-            <h2 id="journal-title">WHAT&apos;S<br />HAPPENING?</h2>
-            <p>コーヒー、イベント、グッズ。最新のBashiiin!はInstagramへ。</p>
-            <TrackedLink
-              href={externalLinks.instagram.href!}
-              eventName="instagram_click"
-              placement="section"
-              className="text-link text-link--dark"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              @BASHIIIN_COFFEE <span aria-hidden="true">↗</span>
-            </TrackedLink>
+        <TrackedSection id="journal" className="journal ruled-section" labelledBy="journal-title">
+          <div className="page-shell">
+            <div className="section-heading-row">
+              <h2 id="journal-title" className="section-title">INSTAGRAM JOURNAL</h2>
+              <TrackedLink href={externalLinks.instagram.href!} eventName="instagram_click" placement="section" target="_blank" rel="noopener noreferrer">@bashiiin_coffee ↗</TrackedLink>
+            </div>
+            <div className="journal__grid">
+              {journalImages.map(([src, alt], index) => <a key={`${src}-${index}`} href={externalLinks.instagram.href!} target="_blank" rel="noopener noreferrer" aria-label="Bashiiin! coffeeのInstagramを見る"><Image src={asset(src)} alt={alt} fill sizes="(max-width: 760px) 42vw, 16vw" /></a>)}
+            </div>
+            <p className="fine-print">掲載写真は完成イメージ確認用の生成素材です。許可済みInstagram写真の選定後、順次差し替え可能です。</p>
           </div>
-          <div className="journal-grid" aria-label="Instagram連携のサンプルレイアウト">
-            <article className="journal-card journal-card--orange">
-              <span>SAMPLE 01</span><strong>COFFEE<br />NEWS</strong><small>API NOT CONNECTED</small>
-            </article>
-            <article className="journal-card journal-card--photo">
-              <span>APPROVED<br />IMAGE SLOT</span><small>POST / 02</small>
-            </article>
-            <article className="journal-card journal-card--cream">
-              <LogoMark size="large" /><strong>GOOD<br />COFFEE,<br />GOOD<br />PEOPLE.</strong>
-            </article>
-            <article className="journal-card journal-card--blue">
-              <span>SAMPLE 04</span><strong>KYOTO<br />COFFEE<br />CULTURE</strong><small>EDITORIAL CARD</small>
-            </article>
-          </div>
-          <p className="journal-note">Instagram投稿画像・本文は転載していません。掲載許諾後に差し替える想定です。</p>
         </TrackedSection>
 
-        <TrackedSection id="final-cta" className="final-cta" labelledBy="final-title">
-          <div className="final-symbol" aria-hidden="true"><LogoMark size="large" /></div>
-          <p className="eyebrow eyebrow--orange">SEE YOU AT BASHIIIN!</p>
-          <h2 id="final-title">次の珈琲は、<br /><span>Bashiiin!</span>で。</h2>
-          <div className="final-actions">
-            <TrackedLink
-              href={externalLinks["open-info"].href!}
-              eventName="open_info_click"
-              placement="footer"
-              className="button button--orange"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>営業情報を確認</span><b aria-hidden="true">↗</b>
-            </TrackedLink>
-            <TrackedLink
-              href={externalLinks["google-maps"].href!}
-              eventName="map_click"
-              placement="footer"
-              className="button button--outline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>Google Maps</span><b aria-hidden="true">↗</b>
-            </TrackedLink>
-            <TrackedLink
-              href={externalLinks.instagram.href!}
-              eventName="instagram_click"
-              placement="footer"
-              className="button button--outline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>Instagram</span><b aria-hidden="true">↗</b>
-            </TrackedLink>
+        <TrackedSection id="final-cta" className="final-cta ruled-section" labelledBy="final-title">
+          <div className="page-shell final-cta__grid">
+            <h2 id="final-title">SEE YOU AT<br /><span>BASHIIIN!</span></h2>
+            <div><p>ちょっといい珈琲と、<br />いい時間を。</p><div className="button-row"><TrackedLink href={externalLinks["open-info"].href!} eventName="open_info_click" placement="footer" className="button button--amber" target="_blank" rel="noopener noreferrer">OPEN CALENDAR ↗</TrackedLink><TrackedLink href={externalLinks.instagram.href!} eventName="instagram_click" placement="footer" className="button button--slate" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</TrackedLink></div></div>
+            <div className="final-cta__mark" aria-hidden="true"><LogoMark size="large" /></div>
           </div>
         </TrackedSection>
       </main>
 
       <footer className="site-footer">
-        <div className="site-footer__brand"><LogoMark /><strong>BASHIIIN! COFFEE</strong></div>
-        <p>UNOFFICIAL CONCEPT / SAMPLE<br />営業提案用の非公式サイトです</p>
-        <small>© 2026 CONCEPT PREVIEW — NOT AN OFFICIAL WEBSITE</small>
+        <div className="page-shell"><span>© 2026 BASHIIIN! COFFEE — CONCEPT PREVIEW</span><span>UNOFFICIAL CONCEPT / SAMPLE</span><a href={externalLinks.instagram.href!} target="_blank" rel="noopener noreferrer">INSTAGRAM</a></div>
       </footer>
       <MobileCta />
     </>
