@@ -98,18 +98,37 @@ async function run() {
     await writeFile(path, Buffer.from(screenshot.data, "base64"));
   }
 
+  async function captureFullPage(path) {
+    const { contentSize } = await send("Page.getLayoutMetrics");
+    const screenshot = await send("Page.captureScreenshot", {
+      format: "png",
+      captureBeyondViewport: true,
+      clip: {
+        x: 0,
+        y: 0,
+        width: contentSize.width,
+        height: contentSize.height,
+        scale: 1,
+      },
+    });
+    await writeFile(path, Buffer.from(screenshot.data, "base64"));
+  }
+
   await send("Page.enable");
   await send("Runtime.enable");
   await waitForPath(initialPath);
   await pause(400);
   await capture("/private/tmp/bashiiin-desktop.png", 1440, 1000);
+  await captureFullPage("/private/tmp/bashiiin-full.png");
 
   await evaluate("document.getElementById('culture').scrollIntoView() ");
   await pause(250);
   await capture("/private/tmp/bashiiin-culture.png", 1440, 1000);
 
-  await evaluate("scrollTo(0, 0)");
+  await evaluate("document.documentElement.style.scrollBehavior = 'auto'; scrollTo(0, 0)");
+  await pause(150);
   await capture("/private/tmp/bashiiin-mobile.png", 390, 844, true);
+  await captureFullPage("/private/tmp/bashiiin-mobile-full.png");
 
   socket.close();
   console.log("Captured public-page visual checks in /private/tmp/bashiiin-*.png");

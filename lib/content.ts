@@ -1,6 +1,5 @@
 import type {
   BeanCard,
-  CultureItem,
   ExternalLink,
   OpeningInfo,
 } from "@/lib/types";
@@ -82,27 +81,3 @@ export const openingInfo: OpeningInfo = {
   latestInfoUrl: externalLinks["open-info"].href,
   source: { status: "sample", note: "カレンダーUI確認用。" },
 };
-
-export const cultureItems: CultureItem[] = [
-  {
-    id: "culture-goods",
-    category: "goods",
-    title: "GOODS",
-    description: "T-shirts, original items & everyday coffee tools.",
-    source: { status: "sample" },
-  },
-  {
-    id: "culture-cupping",
-    category: "cupping",
-    title: "CUPPING",
-    description: "Taste, learn and share the character of coffee.",
-    source: { status: "sample" },
-  },
-  {
-    id: "culture-events",
-    category: "event",
-    title: "EVENTS",
-    description: "Coffee, people, music and the city of Kyoto.",
-    source: { status: "sample" },
-  },
-];

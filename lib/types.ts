@@ -40,15 +40,6 @@ export type OpeningInfo = {
   source: SourceReference;
 };
 
-export type CultureItem = {
-  id: string;
-  category: "goods" | "event" | "cupping" | "collaboration" | "other";
-  title: string;
-  description?: string;
-  imageId?: string;
-  source: SourceReference;
-};
-
 export type AnalyticsEventName =
   | "open_info_click"
   | "map_click"
