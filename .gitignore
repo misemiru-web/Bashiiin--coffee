@@ -1,9 +1,7 @@
 .DS_Store
 Bashiiin_coffee_LP_要件定義書_*
-node_modules/
-.next/
-out/
-coverage/
+ChatGPT Image 2026年8月12日 20_16_51.png
+images/source/
 *.log
-*.tsbuildinfo
 .env*
+node_modules
