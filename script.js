@@ -76,6 +76,63 @@
     });
   });
 
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const revealGroups = [
+    "#latest-info .copy-block, #latest-info .photo-frame",
+    "#about .copy-block, #about .photo-frame",
+    "#coffee .photo-frame, #coffee .copy-block",
+    "#pudding .copy-block, #pudding .photo-frame",
+    "#space .photo-frame, #space .copy-block",
+    "#access .access__copy, #access .arrival-steps li, #access .map-card",
+    "#instagram .copy-block, #instagram .instagram__gallery",
+    "#final-cta h2, #final-cta p, #final-cta .button-row",
+    ".site-footer .footer-brand, .site-footer .footer-links, .site-footer .footer-follow",
+  ];
+  const revealTargets = revealGroups.flatMap((selector) => [...document.querySelectorAll(selector)]);
+
+  revealTargets.forEach((element, index) => {
+    element.dataset.reveal = "";
+    element.style.setProperty("--reveal-delay", `${(index % 3) * 90}ms`);
+  });
+
+  if (!reducedMotion && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("reveal-ready");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-revealed");
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.05, rootMargin: "0px 0px -6%" });
+
+    revealTargets.forEach((element) => revealObserver.observe(element));
+
+    const revealCurrentHash = () => {
+      if (!window.location.hash) return;
+      const targetSection = document.querySelector(window.location.hash);
+      targetSection?.querySelectorAll("[data-reveal]").forEach((element) => {
+        element.classList.add("is-revealed");
+        revealObserver.unobserve(element);
+      });
+    };
+
+    const revealVisibleTargets = () => {
+      revealTargets.forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        if (rect.top >= window.innerHeight || rect.bottom <= 0) return;
+        element.classList.add("is-revealed");
+        revealObserver.unobserve(element);
+      });
+    };
+
+    revealCurrentHash();
+    window.requestAnimationFrame(revealVisibleTargets);
+    window.addEventListener("load", revealVisibleTargets, { once: true });
+    window.addEventListener("hashchange", revealCurrentHash);
+  } else {
+    revealTargets.forEach((element) => element.classList.add("is-revealed"));
+  }
+
   if ("IntersectionObserver" in window) {
     const viewed = new WeakSet();
     const timers = new WeakMap();

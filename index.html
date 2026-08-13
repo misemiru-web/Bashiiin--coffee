@@ -7,8 +7,9 @@
     <meta name="description" content="京都・四条河原町の少し奥にあるBashiiin! coffee。丁寧に淹れたコーヒーとプリン、最新の営業情報、初めての方へのアクセスをご案内します。">
     <meta name="theme-color" content="#080908">
     <title>Bashiiin! coffee | Concept Preview</title>
-    <link rel="icon" href="images/bashiiin-coffee-primary-logo-white-transparent.png" type="image/png">
-    <link rel="preload" href="images/web/hero-bar-interior.jpg" as="image">
+    <link rel="icon" href="images/web/favicon.png" type="image/png">
+    <link rel="preload" href="images/web/hero-bar-interior.jpg" as="image" media="(min-width: 641px)" fetchpriority="high">
+    <link rel="preload" href="images/web/hero-bar-interior-mobile.jpg" as="image" media="(max-width: 640px)" fetchpriority="high">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
   </head>
@@ -22,7 +23,7 @@
     <header class="site-header">
       <div class="page-shell site-header__inner">
         <a class="site-brand" href="#top" aria-label="Bashiiin! coffee ページ上部へ">
-          <img src="images/bashiiin-coffee-header-logo-white-transparent.png" alt="Bashiiin! coffee" width="1447" height="377">
+          <img src="images/web/logo-header.png" alt="Bashiiin! coffee" width="400" height="104">
         </a>
 
         <nav class="desktop-nav" aria-label="メインナビゲーション">
@@ -55,12 +56,13 @@
 
     <main id="main-content">
       <section id="top" class="hero tracked-section" aria-labelledby="hero-title">
-        <img class="hero__image" src="images/web/hero-bar-interior.jpg" alt="木のカウンターとコーヒー器具が並ぶBashiiin! coffeeの店内" width="1448" height="1086">
+        <picture>
+          <source media="(max-width: 640px)" srcset="images/web/hero-bar-interior-mobile.jpg">
+          <img class="hero__image" src="images/web/hero-bar-interior.jpg" alt="木のカウンターとコーヒー器具が並ぶBashiiin! coffeeの店内" width="1448" height="1086" fetchpriority="high" decoding="async">
+        </picture>
         <div class="hero__overlay" aria-hidden="true"></div>
         <div class="page-shell hero__inner">
-          <div class="hero__brand" aria-hidden="true">
-            <img src="images/bashiiin-coffee-primary-logo-white-transparent.png" alt="" width="920" height="890">
-          </div>
+          <div class="hero__brand" aria-hidden="true"></div>
           <div class="hero__copy">
             <p class="eyebrow">SPECIALTY COFFEE / KYOTO</p>
             <h1 id="hero-title"><span>丁寧に淹れた一杯を、</span><span>四条河原町の少し奥で。</span></h1>
@@ -85,7 +87,7 @@
             <a class="outline-cta tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="open_info_click" data-placement="latest-info">Instagramで最新情報を見る <span aria-hidden="true">▣</span></a>
           </div>
           <figure class="photo-frame photo-frame--latest">
-            <img src="images/web/coffee-cup.jpg" alt="Bashiiin! coffeeのカードとコーヒーカップ" width="1400" height="1400" loading="lazy">
+            <img src="images/web/coffee-cup.jpg" alt="Bashiiin! coffeeのカードとコーヒーカップ" width="1400" height="1400" loading="lazy" decoding="async" fetchpriority="low">
           </figure>
         </div>
       </section>
@@ -102,7 +104,7 @@
             <p class="concept-note">※店舗体験は店舗確認前のコンセプトです。</p>
           </div>
           <figure class="photo-frame photo-frame--about">
-            <img src="images/web/interior-counter.jpg" alt="Bashiiin! coffeeの木のカウンターと店内" width="1800" height="1350" loading="lazy">
+            <img src="images/web/interior-counter.jpg" alt="Bashiiin! coffeeの木のカウンターと店内" width="1800" height="1350" loading="lazy" decoding="async" fetchpriority="low">
           </figure>
         </div>
       </section>
@@ -110,7 +112,7 @@
       <section id="coffee" class="dark-section tracked-section" aria-labelledby="coffee-title">
         <div class="page-shell two-column two-column--coffee">
           <figure class="photo-frame photo-frame--coffee">
-            <img src="images/web/moody_hand_drip_coffee_4x3.png" alt="ドリッパーへ丁寧にお湯を注ぎ、コーヒーを抽出する様子" width="1448" height="1086" loading="lazy">
+            <img src="images/web/moody-hand-drip-coffee.jpg" alt="ドリッパーへ丁寧にお湯を注ぎ、コーヒーを抽出する様子" width="1448" height="1086" loading="lazy" decoding="async" fetchpriority="low">
           </figure>
           <div class="copy-block">
             <p class="eyebrow">COFFEE / ROAST &amp; BREW</p>
@@ -136,7 +138,7 @@
             <a class="outline-cta outline-cta--ink tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="instagram_click" data-placement="pudding">Instagramでメニューを見る <span aria-hidden="true">▣</span></a>
           </div>
           <figure class="photo-frame photo-frame--pudding">
-            <img src="images/web/pudding.jpg" alt="カラメルソースをかけたプリン" width="1400" height="1750" loading="lazy">
+            <img src="images/web/pudding.jpg" alt="カラメルソースをかけたプリン" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low">
           </figure>
         </div>
       </section>
@@ -144,7 +146,7 @@
       <section id="space" class="dark-section tracked-section" aria-labelledby="space-title">
         <div class="page-shell two-column two-column--space">
           <figure class="photo-frame photo-frame--space">
-            <img src="images/web/interior-counter.jpg" alt="Bashiiin! coffeeのカウンター席" width="1800" height="1350" loading="lazy">
+            <img src="images/web/interior-counter.jpg" alt="Bashiiin! coffeeのカウンター席" width="1800" height="1350" loading="lazy" decoding="async" fetchpriority="low">
           </figure>
           <div class="copy-block">
             <p class="eyebrow">SPACE / CULTURE</p>
@@ -172,11 +174,11 @@
           <div class="access__visuals">
             <ol class="arrival-steps" aria-label="初回来店時の道順">
               <li>
-                <figure><img src="images/web/building.jpg" alt="Bashiiin! coffeeの看板がある建物入口" width="1400" height="1750" loading="lazy"><span>1</span></figure>
+                <figure><img src="images/web/building.jpg" alt="Bashiiin! coffeeの看板がある建物入口" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low"><span>1</span></figure>
                 <strong>このビルの2階へ</strong>
               </li>
               <li>
-                <figure><img src="images/web/entrance-door.jpg" alt="2階にあるBashiiin! coffeeの店舗入口" width="1400" height="1750" loading="lazy"><span>2</span></figure>
+                <figure><img src="images/web/entrance-door.jpg" alt="2階にあるBashiiin! coffeeの店舗入口" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low"><span>2</span></figure>
                 <strong>この扉が店舗入口</strong>
               </li>
             </ol>
@@ -196,11 +198,11 @@
             <a class="outline-cta tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="instagram_click" data-placement="instagram">@bashiiin_coffeeを見る <span aria-hidden="true">▣</span></a>
           </div>
           <div class="instagram__gallery">
-            <img src="images/web/brewing-station.jpg" alt="コーヒー豆と抽出器具" width="1400" height="1750" loading="lazy">
-            <img src="images/web/coffee-cup.jpg" alt="Bashiiin! coffeeのコーヒー" width="1400" height="1400" loading="lazy">
-            <img src="images/web/pudding.jpg" alt="Bashiiin! coffeeのプリン" width="1400" height="1750" loading="lazy">
-            <img src="images/web/hand-drip.jpg" alt="ハンドドリップでコーヒーを淹れる様子" width="1400" height="1750" loading="lazy">
-            <img src="images/web/interior-counter.jpg" alt="Bashiiin! coffeeの店内" width="1800" height="1350" loading="lazy">
+            <img src="images/web/brewing-station.jpg" alt="コーヒー豆と抽出器具" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low">
+            <img src="images/web/coffee-cup.jpg" alt="Bashiiin! coffeeのコーヒー" width="1400" height="1400" loading="lazy" decoding="async" fetchpriority="low">
+            <img src="images/web/pudding.jpg" alt="Bashiiin! coffeeのプリン" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low">
+            <img src="images/web/hand-drip.jpg" alt="ハンドドリップでコーヒーを淹れる様子" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low">
+            <img src="images/web/interior-counter.jpg" alt="Bashiiin! coffeeの店内" width="1800" height="1350" loading="lazy" decoding="async" fetchpriority="low">
             <a class="gallery-more tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="instagram_click" data-placement="gallery">もっと見る　↗</a>
           </div>
         </div>
@@ -221,7 +223,7 @@
     <footer class="site-footer">
       <div class="page-shell site-footer__grid">
         <div class="footer-brand">
-          <img src="images/bashiiin-coffee-footer-logo-white-transparent.png" alt="Bashiiin! coffee" width="1479" height="409" loading="lazy">
+          <img src="images/web/logo-footer.png" alt="Bashiiin! coffee" width="400" height="111" loading="lazy" decoding="async" fetchpriority="low">
           <p>© <span id="copyright-year">2026</span> Bashiiin! coffee. All Rights Reserved.</p>
         </div>
         <div class="footer-links"><strong>LINKS</strong><a href="#about">ABOUT</a><a href="#coffee">COFFEE</a><a href="#pudding">PUDDING</a><a href="#space">SPACE</a><a href="#access">ACCESS</a></div>
