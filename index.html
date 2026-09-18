@@ -4,228 +4,212 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow, noarchive">
-    <meta name="description" content="京都・四条河原町の少し奥にあるBashiiin! coffee。丁寧に淹れたコーヒーとプリン、最新の営業情報、初めての方へのアクセスをご案内します。">
-    <meta name="theme-color" content="#080908">
-    <title>Bashiiin! coffee | Concept Preview</title>
+    <meta name="description" content="京都のBashiiin! coffee。スペシャルティコーヒーを中心に、スイーツ、店内、最新情報をご案内する正式サイト確認版です。">
+    <meta name="theme-color" content="#fafaf7">
+    <title>Bashiiin! coffee | Specialty Coffee in Kyoto</title>
     <link rel="icon" href="images/web/favicon.png" type="image/png">
-    <link rel="preload" href="images/web/hero-bar-interior.jpg" as="image" media="(min-width: 641px)" fetchpriority="high">
-    <link rel="preload" href="images/web/hero-bar-interior-mobile.jpg" as="image" media="(max-width: 640px)" fetchpriority="high">
+    <link rel="preload" href="images/source/ai-placeholder/03_coffee_bar_interior.jpg" as="image" media="(min-width: 641px)" fetchpriority="high">
+    <link rel="preload" href="images/source/ai-placeholder/01_brewing_station_retouch_v1.jpg" as="image" media="(max-width: 640px)" fetchpriority="high">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">本文へ移動</a>
+    <div class="preview-notice" role="status"><strong>FORMAL PREVIEW</strong><span>正式写真受領前の確認版です。掲載写真は仮素材です。</span></div>
 
-    <div class="preview-notice" role="status">
-      <strong>CONCEPT PREVIEW</strong><i aria-hidden="true"></i><span>店舗確認前の営業サンプルです</span>
-    </div>
-
-    <header class="site-header">
+    <header class="site-header" data-site-header>
       <div class="page-shell site-header__inner">
-        <a class="site-brand" href="#top" aria-label="Bashiiin! coffee ページ上部へ">
-          <img src="images/web/logo-header.png" alt="Bashiiin! coffee" width="400" height="104">
-        </a>
-
+        <a class="site-brand" href="#top" aria-label="Bashiiin! coffee ページ上部へ"><img src="images/web/logo-header.png" alt="Bashiiin! coffee" width="400" height="104"></a>
         <nav class="desktop-nav" aria-label="メインナビゲーション">
-          <a href="#about">ABOUT</a>
-          <a href="#coffee">COFFEE</a>
-          <a href="#pudding">PUDDING</a>
-          <a href="#space">SPACE</a>
-          <a href="#access">ACCESS</a>
+          <a href="#coffee">Coffee</a><a href="#beans">Beans</a><a href="#sweets">Sweets</a><a href="#space">Space</a><a href="#culture">Culture</a><a href="#instagram">Instagram</a><a href="#contact">Contact</a>
         </nav>
-
-        <div class="header-actions">
-          <a class="outline-cta outline-cta--small tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="open_info_click" data-placement="header">営業情報 / LATEST HOURS</a>
-          <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
-            <span class="sr-only">メニューを開く</span><span aria-hidden="true">MENU</span>
-          </button>
-        </div>
-      </div>
-
-      <div id="mobile-menu" class="mobile-menu" hidden>
-        <nav aria-label="モバイルナビゲーション">
-          <a href="#about"><span>01</span>ABOUT</a>
-          <a href="#coffee"><span>02</span>COFFEE</a>
-          <a href="#pudding"><span>03</span>PUDDING</a>
-          <a href="#space"><span>04</span>SPACE</a>
-          <a href="#access"><span>05</span>ACCESS</a>
-          <a href="#instagram"><span>06</span>INSTAGRAM</a>
-        </nav>
+        <div class="header-actions"><a class="header-utility tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-analytics-event="outbound_click" data-analytics-destination="instagram" data-analytics-placement="header">最新情報を見る</a></div>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu"><span class="sr-only">メニューを開く</span><span aria-hidden="true" data-menu-label>MENU</span></button>
       </div>
     </header>
+    <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="モバイルメニュー" hidden>
+        <div class="mobile-menu__inner">
+          <div class="mobile-menu__header">
+            <a class="mobile-menu__brand" href="#top" aria-label="Bashiiin! coffee ページ上部へ"><img src="images/web/logo-header.png" alt="Bashiiin! coffee" width="400" height="104"></a>
+            <button class="mobile-menu__close" type="button"><span class="sr-only">メニューを閉じる</span><span aria-hidden="true">CLOSE</span></button>
+          </div>
+          <nav class="mobile-menu__nav" aria-label="モバイルナビゲーション">
+            <a class="mobile-menu__link" href="#coffee"><span class="mobile-menu__number">01</span><span class="mobile-menu__label">COFFEE</span></a>
+            <a class="mobile-menu__link" href="#beans"><span class="mobile-menu__number">02</span><span class="mobile-menu__label">BEANS</span></a>
+            <a class="mobile-menu__link" href="#sweets"><span class="mobile-menu__number">03</span><span class="mobile-menu__label">SWEETS</span></a>
+            <a class="mobile-menu__link" href="#space"><span class="mobile-menu__number">04</span><span class="mobile-menu__label">SPACE</span></a>
+            <a class="mobile-menu__link" href="#culture"><span class="mobile-menu__number">05</span><span class="mobile-menu__label">CULTURE</span></a>
+            <a class="mobile-menu__link" href="#instagram"><span class="mobile-menu__number">06</span><span class="mobile-menu__label">INSTAGRAM</span></a>
+            <a class="mobile-menu__link" href="#contact"><span class="mobile-menu__number">07</span><span class="mobile-menu__label">CONTACT</span></a>
+          </nav>
+          <p class="mobile-menu__note">GOOD COFFEE, GOOD DAYS.</p>
+        </div>
+    </div>
 
     <main id="main-content">
-      <section id="top" class="hero tracked-section" aria-labelledby="hero-title">
-        <picture>
-          <source media="(max-width: 640px)" srcset="images/web/hero-bar-interior-mobile.jpg">
-          <img class="hero__image" src="images/web/hero-bar-interior.jpg" alt="木のカウンターとコーヒー器具が並ぶBashiiin! coffeeの店内" width="1448" height="1086" fetchpriority="high" decoding="async">
-        </picture>
-        <div class="hero__overlay" aria-hidden="true"></div>
-        <div class="page-shell hero__inner">
-          <div class="hero__brand" aria-hidden="true"></div>
-          <div class="hero__copy">
-            <p class="eyebrow">SPECIALTY COFFEE / KYOTO</p>
-            <h1 id="hero-title"><span>丁寧に淹れた一杯を、</span><span>四条河原町の少し奥で。</span></h1>
-            <p class="hero__lead">河原町の賑わいを少し抜けた、雑居ビル2階のコーヒースタンド。一人でふらりと、丁寧に淹れたコーヒーとプリンをどうぞ。</p>
-            <p class="concept-note">※店舗確認前のコンセプトとして掲載しています。</p>
-            <div class="button-row">
-              <a class="button button--gold tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="open_info_click" data-placement="hero"><span>最新の営業情報を見る</span><small>LATEST HOURS　↗</small></a>
-              <a class="button button--dark tracked-link" href="https://www.google.com/maps/search/?api=1&amp;query=Bashiiin%21%20coffee%20Kyoto" target="_blank" rel="noopener noreferrer" data-event="map_click" data-placement="hero"><span>Google Mapsで場所を見る</span><small>OPEN MAP　↗</small></a>
-            </div>
+      <section id="top" class="hero tracked-section" aria-labelledby="hero-title" data-section="hero">
+        <div class="hero__content">
+          <img class="hero__logo" src="images/web/logo-primary.png" alt="" width="500" height="454">
+          <p class="eyebrow">SPECIALTY COFFEE / KYOTO</p>
+          <h1 id="hero-title"><span>丁寧に淹れた一杯を、</span><span>京都・河原町で。</span></h1>
+          <i class="short-rule" aria-hidden="true"></i>
+          <p class="hero__lead">Bashiiin! coffeeは、スペシャルティコーヒーを中心に、<br class="hero__desktop-break">スイーツや空間、カルチャーを楽しめる<br class="hero__desktop-break">コーヒースタンドです。</p>
+          <div class="button-row">
+            <a class="button button--primary tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-analytics-event="outbound_click" data-analytics-destination="instagram" data-analytics-placement="hero">最新情報をInstagramで見る</a>
+            <a class="button button--secondary" href="#contact" data-analytics-event="navigation_click" data-analytics-destination="contact" data-analytics-placement="hero">お問い合わせ</a>
           </div>
+          <p class="hero__signature">GOOD COFFEE, GOOD DAYS.</p>
         </div>
-        <a class="scroll-cue" href="#latest-info">SCROLL <span aria-hidden="true"></span></a>
+        <div class="hero__media">
+          <picture>
+            <source media="(max-width: 640px)" srcset="images/web/hero-bar-interior.jpg">
+            <img src="images/source/ai-placeholder/03_coffee_bar_interior.jpg" alt="木のカウンターとコーヒー器具が並ぶ店内" width="1448" height="1086" fetchpriority="high" decoding="async">
+          </picture>
+          <p class="hero__media-note">PLACEHOLDER PHOTO / FORMAL IMAGE PENDING</p>
+        </div>
       </section>
 
-      <section id="latest-info" class="latest-info dark-section tracked-section" aria-labelledby="latest-title">
-        <div class="page-shell two-column two-column--latest">
-          <div class="copy-block">
+      <section id="latest-info" class="latest-info tracked-section" aria-labelledby="latest-title" data-section="latest-info">
+        <div class="page-shell latest-info__panel">
+          <div class="latest-info__copy">
             <p class="eyebrow">LATEST INFO</p>
-            <h2 id="latest-title"><span>ご来店の前に、</span><span>今日の営業をチェック。</span></h2>
-            <p>営業日と営業時間は、週ごとに変わります。お出かけ前に、公式Instagramで最新情報をご確認ください。</p>
-            <p class="english" lang="en">Hours vary week to week.<br>Check our official Instagram for the latest updates.</p>
-            <a class="outline-cta tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="open_info_click" data-placement="latest-info">Instagramで最新情報を見る <span aria-hidden="true">▣</span></a>
+            <h2 id="latest-title"><span>ご来店前に、</span><span>最新情報をご確認ください。</span></h2>
+            <p>営業日と営業時間は変動します。お出かけ前に、公式Instagramで最新情報をご確認ください。</p>
+            <a class="button button--latest tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-analytics-event="outbound_click" data-analytics-destination="instagram" data-analytics-placement="latest-info">Instagramで最新情報を見る</a>
           </div>
-          <figure class="photo-frame photo-frame--latest">
-            <img src="images/web/coffee-cup.jpg" alt="Bashiiin! coffeeのカードとコーヒーカップ" width="1400" height="1400" loading="lazy" decoding="async" fetchpriority="low">
-          </figure>
+          <figure class="latest-info__image media-frame"><img src="images/source/ai-placeholder/02_coffee_cup_and_brand_card.jpg" alt="コーヒーカップとブランドカードを表現した正式写真受領前の仮素材" width="800" height="1000" loading="lazy" decoding="async"></figure>
         </div>
       </section>
 
-      <section id="about" class="light-section tracked-section" aria-labelledby="about-title">
-        <div class="page-shell two-column two-column--about">
-          <div class="copy-block copy-block--dark">
-            <p class="eyebrow">ABOUT</p>
-            <h2 id="about-title"><span>ひとりの時間に、</span><span>ちょうどいい。</span></h2>
-            <i class="short-rule" aria-hidden="true"></i>
-            <p>四条河原町の賑わいから、ほんの少し奥へ。扉を開けると、木のカウンターが迎えます。</p>
-            <p>一人で静かに過ごしたい日も、コーヒーの話を聞いてみたい日も。</p>
-            <p>京都散策の合間に、自分のペースで一杯を楽しめる場所です。</p>
-            <p class="concept-note">※店舗体験は店舗確認前のコンセプトです。</p>
+      <section id="coffee" class="coffee section tracked-section" aria-labelledby="coffee-title" data-section="coffee">
+        <div class="page-shell">
+          <div class="section-heading coffee__heading">
+            <p class="eyebrow">COFFEE / CRAFT</p><h2 id="coffee-title"><span>丁寧に淹れた一杯を、</span><span>日常のそばに。</span></h2>
+            <p>豆ごとの風味や個性を楽しむ、スペシャルティコーヒー。Bashiiin! coffeeが大切にする一杯を、写真とともにご紹介します。</p>
           </div>
-          <figure class="photo-frame photo-frame--about">
-            <img src="images/web/interior-counter.jpg" alt="Bashiiin! coffeeの木のカウンターと店内" width="1800" height="1350" loading="lazy" decoding="async" fetchpriority="low">
-          </figure>
-        </div>
-      </section>
-
-      <section id="coffee" class="dark-section tracked-section" aria-labelledby="coffee-title">
-        <div class="page-shell two-column two-column--coffee">
-          <figure class="photo-frame photo-frame--coffee">
-            <img src="images/web/moody-hand-drip-coffee.jpg" alt="ドリッパーへ丁寧にお湯を注ぎ、コーヒーを抽出する様子" width="1448" height="1086" loading="lazy" decoding="async" fetchpriority="low">
-          </figure>
-          <div class="copy-block">
-            <p class="eyebrow">COFFEE / ROAST &amp; BREW</p>
-            <h2 id="coffee-title"><span>豆の個性を、</span><span>一杯の中へ。</span></h2>
-            <p>焙煎から抽出まで、豆の持ち味と向き合い、ご注文ごとに一杯ずつ丁寧に淹れます。</p>
-            <p>カウンター越しに眺める抽出の時間も、コーヒーを味わう楽しみのひとつです。</p>
-            <p>その日の豆や提供内容は、Instagramでご案内します。</p>
-            <p class="concept-note">※焙煎・抽出の表現は店舗確認前のコンセプトです。</p>
+          <figure class="coffee__main media-frame"><img src="images/source/ai-placeholder/04_pour_over_coffee_closeup.jpg" alt="コーヒー抽出を表現した正式写真受領前の仮素材" width="1448" height="1086" loading="lazy" decoding="async"></figure>
+          <div class="coffee__features" aria-label="コーヒーのご案内">
+            <article>
+              <svg class="coffee__feature-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M29.5 7.5c6.9 3.8 8.6 13.6 3.7 22.1S18.8 42.3 12 38.5 3.4 24.9 8.3 16.4 22.7 3.7 29.5 7.5Z"/><path d="M30.1 8.2c-2.3 6.1-5.9 11.2-10.8 15.2-4.1 3.4-6.5 8.2-6.8 14.2"/></svg>
+              <div><h3>スペシャルティコーヒー</h3><p>スペシャルティコーヒーを中心に、その魅力が伝わる情報をご案内します。</p></div>
+            </article>
+            <article>
+              <svg class="coffee__feature-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 12.5h28l-5.2 19H15.2L10 12.5Z"/><path d="M14.2 18.5h19.6M18 31.5h12M16 38.5h16"/><path d="M38 17h2.5a4.5 4.5 0 0 1 0 9H34"/></svg>
+              <div><h3>豆ごとの個性</h3><p>豆ごとの風味や個性を楽しむコーヒーをご紹介します。</p></div>
+            </article>
+            <article>
+              <svg class="coffee__feature-icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="16"/><path d="M24 14v11l7 4"/></svg>
+              <div><h3>コーヒーの時間</h3><p>Bashiiin! coffeeが大切にする一杯を、写真とともにご紹介します。</p></div>
+            </article>
           </div>
         </div>
       </section>
 
-      <section id="pudding" class="light-section tracked-section" aria-labelledby="pudding-title">
-        <div class="page-shell two-column two-column--pudding">
-          <div class="copy-block copy-block--dark">
-            <p class="eyebrow">PUDDING</p>
-            <h2 id="pudding-title"><span>コーヒーの余韻に、</span><span>やさしい甘さを。</span></h2>
-            <p>一杯とゆっくり向き合う時間に、プリンという小さな楽しみを添えて。</p>
-            <p>一杯と一緒に味わいたい、Bashiiin! coffeeらしい組み合わせです。</p>
-            <p>当日の提供状況は、Instagramでご確認ください。</p>
-            <p class="concept-note">※提供内容は店舗確認前のコンセプトです。</p>
-          </div>
-          <figure class="photo-frame photo-frame--pudding">
-            <img src="images/web/pudding.jpg" alt="カラメルソースをかけたプリン" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low">
-          </figure>
-        </div>
-      </section>
-
-      <section id="space" class="dark-section tracked-section" aria-labelledby="space-title">
-        <div class="page-shell two-column two-column--space">
-          <figure class="photo-frame photo-frame--space">
-            <img src="images/web/interior-counter.jpg" alt="Bashiiin! coffeeのカウンター席" width="1800" height="1350" loading="lazy" decoding="async" fetchpriority="low">
-          </figure>
-          <div class="copy-block">
-            <p class="eyebrow">SPACE / CULTURE</p>
-            <h2 id="space-title"><span>一人で落ち着ける。</span><span>話したくなれば、</span><span>すぐ近くに。</span></h2>
-            <p>抽出を眺めたり、豆や淹れ方について話したり。静かな時間と、店とのほどよい距離を楽しめるカウンターです。</p>
-            <p>店の日常やカルチャーは、Instagramでも発信しています。</p>
-            <p class="concept-note">※店内の過ごし方は店舗確認前のコンセプトです。</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="access" class="light-section access tracked-section" aria-labelledby="access-title">
-        <div class="page-shell access__grid">
-          <div class="copy-block copy-block--dark access__copy">
-            <p class="eyebrow">ACCESS / FIRST VISIT GUIDE</p>
-            <h2 id="access-title"><span>初めての方へ。</span><span>入口から、2階まで。</span></h2>
-            <p>少し見つけにくい場所だからこそ、建物と入口の写真を目印にお越しください。</p>
-            <address><span aria-hidden="true">●</span> 京都府京都市下京区<br>三丁目之町239-1 やながわビル 2F</address>
-            <p class="concept-note">※住所は店舗確認前の情報です。</p>
-            <a class="button button--ink tracked-link" href="https://www.google.com/maps/search/?api=1&amp;query=Bashiiin%21%20coffee%20Kyoto" target="_blank" rel="noopener noreferrer" data-event="map_click" data-placement="access"><span>Google Mapsで開く</span><small>↗</small></a>
-          </div>
-
-          <div class="access__visuals">
-            <ol class="arrival-steps" aria-label="初回来店時の道順">
-              <li>
-                <figure><img src="images/web/building.jpg" alt="Bashiiin! coffeeの看板がある建物入口" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low"><span>1</span></figure>
-                <strong>このビルの2階へ</strong>
-              </li>
-              <li>
-                <figure><img src="images/web/entrance-door.jpg" alt="2階にあるBashiiin! coffeeの店舗入口" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low"><span>2</span></figure>
-                <strong>この扉が店舗入口</strong>
-              </li>
-            </ol>
-            <div class="map-card">
-              <iframe title="Bashiiin! coffee 周辺地図" src="https://www.google.com/maps?q=%E4%BA%AC%E9%83%BD%E5%BA%9C%E4%BA%AC%E9%83%BD%E5%B8%82%E4%B8%8B%E4%BA%AC%E5%8C%BA%E4%B8%89%E4%B8%81%E7%9B%AE%E4%B9%8B%E7%94%BA239-1%20Bashiiin%20coffee&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      <section id="beans" class="current-beans section tracked-section" aria-labelledby="beans-title" data-section="current-beans">
+        <div class="page-shell">
+          <div class="current-beans__intro">
+            <div class="current-beans__copy">
+              <p class="eyebrow">CURRENT BEANS</p>
+              <h2 id="beans-title"><span>いま、</span><span>店に並ぶ豆</span></h2>
+              <p>公開時点の最新ラインナップを、確認済みの情報だけで掲載する予定です。</p>
+              <a class="button button--secondary current-beans__cta current-beans__cta--desktop tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-analytics-event="outbound_click" data-analytics-destination="instagram" data-analytics-placement="current-beans">Instagramで最新情報を見る</a>
             </div>
+            <figure class="current-beans__visual media-frame"><img src="images/source/ai-placeholder/14_colorful_drip_coffee_bags.jpg" alt="カラフルなドリップコーヒーバッグを表現した正式写真受領前の仮素材" width="1122" height="1402" loading="lazy" decoding="async"></figure>
+          </div>
+
+          <div class="current-beans__grid" aria-label="現在の豆の掲載予定欄">
+            <article class="bean-card">
+              <figure class="bean-card__image"><img src="images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png" alt="焙煎したコーヒー豆を表現した正式写真受領前の仮素材" width="1448" height="1086" loading="lazy" decoding="async"></figure>
+              <div class="bean-card__body"><p class="bean-card__meta">BEAN 01 / PENDING</p><h3>ラインナップ準備中</h3><p>商品名・産地・焙煎度・価格などは、店舗確認後に掲載します。</p></div>
+            </article>
+            <article class="bean-card">
+              <figure class="bean-card__image bean-card__image--center"><img src="images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png" alt="焙煎したコーヒー豆を表現した正式写真受領前の仮素材" width="1448" height="1086" loading="lazy" decoding="async"></figure>
+              <div class="bean-card__body"><p class="bean-card__meta">BEAN 02 / PENDING</p><h3>ラインナップ準備中</h3><p>商品名・産地・焙煎度・価格などは、店舗確認後に掲載します。</p></div>
+            </article>
+            <article class="bean-card">
+              <figure class="bean-card__image bean-card__image--right"><img src="images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png" alt="焙煎したコーヒー豆を表現した正式写真受領前の仮素材" width="1448" height="1086" loading="lazy" decoding="async"></figure>
+              <div class="bean-card__body"><p class="bean-card__meta">BEAN 03 / PENDING</p><h3>ラインナップ準備中</h3><p>商品名・産地・焙煎度・価格などは、店舗確認後に掲載します。</p></div>
+            </article>
+          </div>
+
+          <a class="button button--secondary current-beans__cta current-beans__cta--mobile tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-analytics-event="outbound_click" data-analytics-destination="instagram" data-analytics-placement="current-beans-mobile">Instagramで最新情報を見る</a>
+        </div>
+      </section>
+
+      <section id="sweets" class="sweets section tracked-section" aria-labelledby="sweets-title" data-section="sweets">
+        <div class="page-shell sweets__layout">
+          <div class="section-heading sweets__copy"><p class="eyebrow">SWEETS</p><h2 id="sweets-title"><span>コーヒーのそばに、</span><span>甘いものを。</span></h2><p>スイーツの内容と提供状況は、確認済みの情報に合わせてご案内します。新作は、正式な商品情報と写真の受領後に追加します。</p></div>
+          <figure class="sweets__main media-frame"><img src="images/source/ai-placeholder/05_caramel_pudding.jpg" alt="プリンを表現した正式写真受領前の仮素材" width="800" height="1000" loading="lazy" decoding="async"></figure>
+          <div class="sweets__aside">
+            <figure class="sweets__sub media-frame"><img src="images/source/ai-placeholder/08_coffee_and_pound_cake.jpg" alt="コーヒーと焼き菓子を表現した正式写真受領前の仮素材" width="1122" height="1402" loading="lazy" decoding="async"></figure>
+            <figure class="sweets__sub media-frame"><img src="images/source/ai-placeholder/17_iced_latte_and_pound_cake.jpg" alt="アイスドリンクと焼き菓子を表現した正式写真受領前の仮素材" width="1122" height="1402" loading="lazy" decoding="async"></figure>
           </div>
         </div>
       </section>
 
-      <section id="instagram" class="instagram dark-section tracked-section" aria-labelledby="instagram-title">
-        <div class="page-shell instagram__grid">
-          <div class="copy-block">
+      <section id="space" class="space tracked-section" aria-labelledby="space-title" data-section="space">
+        <div class="page-shell space__heading">
+          <div class="space__title"><p class="eyebrow">SPACE / INTERIOR</p><h2 id="space-title"><span>Bashiiin! coffeeの</span><span>空間。</span></h2></div>
+          <div class="space__copy"><p>店内の様子を、実際の雰囲気が伝わる正式写真でご紹介する予定です。</p><p>木の質感やカウンターの表情など、Bashiiin! coffeeの空間を構成する要素を、過度に演出せずお伝えします。</p></div>
+        </div>
+        <figure class="page-shell space__visual media-frame"><img src="images/web/hero-bar-interior.jpg" alt="木のカウンターとコーヒー器具が並ぶ店内" width="1448" height="1086" loading="lazy" decoding="async"></figure>
+      </section>
+
+      <section id="culture" class="culture section tracked-section" aria-labelledby="culture-title" data-section="culture">
+        <div class="page-shell culture__layout">
+          <div class="culture__copy"><p class="eyebrow">CULTURE</p><h2 id="culture-title"><span>一杯から、</span><span>広がること</span></h2><p>商品や企画、店の日々など、Bashiiin! coffeeのカルチャーを紹介するための場所です。具体的な掲載内容は店舗確認後に更新します。</p></div>
+          <div class="culture__collage">
+            <figure class="culture__main media-frame"><img src="images/source/ai-placeholder/15_gold_blend_coffee_bag.jpg" alt="コーヒー商品を表現した正式写真受領前の仮素材" width="1122" height="1402" loading="lazy" decoding="async"></figure>
+            <figure class="culture__accent media-frame"><img src="images/source/ai-placeholder/16_hibiki_whisky_coffee_pairing.jpg" alt="コーヒーを取り巻くカルチャーを表現した正式写真受領前の仮素材" width="1513" height="1039" loading="lazy" decoding="async"></figure>
+          </div>
+          <div class="culture__cards">
+            <article><span>01</span><h3>STORE STORIES</h3><p>店の日々や活動は、確認できた内容から掲載します。</p></article><article><span>02</span><h3>COFFEE CULTURE</h3><p>コーヒーを取り巻く情報を、分かりやすく整理します。</p></article><article><span>03</span><h3>LATEST NEWS</h3><p>最新の発信は公式Instagramをご覧ください。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="instagram" class="journal tracked-section" aria-labelledby="journal-title" data-section="instagram">
+        <div class="page-shell journal__layout">
+          <div class="journal__copy">
             <p class="eyebrow">INSTAGRAM</p>
-            <h2 id="instagram-title"><span>今日の営業も、</span><span>次の一杯も。</span></h2>
-            <p>最新の営業予定をはじめ、コーヒーやプリン、店で過ごす時間をInstagramでお届けします。</p>
-            <a class="outline-cta tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="instagram_click" data-placement="instagram">@bashiiin_coffeeを見る <span aria-hidden="true">▣</span></a>
+            <h2 id="journal-title"><span>最新のBashiiin!は、</span><span>Instagramで。</span></h2>
+            <p>営業情報、コーヒー、スイーツなどの最新情報をご確認いただけます。</p>
+            <a class="button journal__cta journal__cta--desktop tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-analytics-event="outbound_click" data-analytics-destination="instagram" data-analytics-placement="instagram">@bashiiin_coffeeを見る</a>
           </div>
-          <div class="instagram__gallery">
-            <img src="images/web/brewing-station.jpg" alt="コーヒー豆と抽出器具" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low">
-            <img src="images/web/coffee-cup.jpg" alt="Bashiiin! coffeeのコーヒー" width="1400" height="1400" loading="lazy" decoding="async" fetchpriority="low">
-            <img src="images/web/pudding.jpg" alt="Bashiiin! coffeeのプリン" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low">
-            <img src="images/web/hand-drip.jpg" alt="ハンドドリップでコーヒーを淹れる様子" width="1400" height="1750" loading="lazy" decoding="async" fetchpriority="low">
-            <img src="images/web/interior-counter.jpg" alt="Bashiiin! coffeeの店内" width="1800" height="1350" loading="lazy" decoding="async" fetchpriority="low">
+          <div class="journal__gallery" aria-label="正式写真受領前の仮写真ギャラリー">
+            <figure><img src="images/source/ai-placeholder/01_brewing_station_retouch_v1.jpg" alt="抽出スペースを表現した正式写真受領前の仮素材" width="800" height="1000" loading="lazy" decoding="async"></figure>
+            <figure><img src="images/source/ai-placeholder/11_pour_over_brewing_closeup.jpg" alt="コーヒー抽出を表現した正式写真受領前の仮素材" width="1448" height="1086" loading="lazy" decoding="async"></figure>
+            <figure><img src="images/source/ai-placeholder/05_caramel_pudding.jpg" alt="プリンを表現した正式写真受領前の仮素材" width="800" height="1000" loading="lazy" decoding="async"></figure>
+            <figure><img src="images/source/ai-placeholder/14_colorful_drip_coffee_bags.jpg" alt="コーヒー商品を表現した正式写真受領前の仮素材" width="1122" height="1402" loading="lazy" decoding="async"></figure>
+            <figure><img src="images/source/ai-placeholder/17_iced_latte_and_pound_cake.jpg" alt="ドリンクと焼き菓子を表現した正式写真受領前の仮素材" width="1122" height="1402" loading="lazy" decoding="async"></figure>
+            <figure><img src="images/source/ai-placeholder/02_coffee_cup_and_brand_card.jpg" alt="コーヒーカップとブランドカードを表現した正式写真受領前の仮素材" width="800" height="1000" loading="lazy" decoding="async"></figure>
           </div>
+          <a class="button journal__cta journal__cta--mobile tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-analytics-event="outbound_click" data-analytics-destination="instagram" data-analytics-placement="instagram-mobile">@bashiiin_coffeeを見る</a>
         </div>
       </section>
 
-      <section id="final-cta" class="final-cta tracked-section" aria-labelledby="final-title">
-        <div class="page-shell final-cta__inner">
-          <h2 id="final-title"><span>今日の営業を確かめたら、</span><span>四条河原町の少し奥へ。</span></h2>
-          <p>丁寧に淹れた一杯と、ゆっくり流れる時間を用意してお待ちしています。</p>
-          <div class="final-cta__actions">
-            <a class="final-cta__primary tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="open_info_click" data-placement="footer"><span>営業情報を確認する</span><small>LATEST HOURS</small><i aria-hidden="true">↗</i></a>
-            <a class="final-cta__secondary tracked-link" href="https://www.google.com/maps/search/?api=1&amp;query=Bashiiin%21%20coffee%20Kyoto" target="_blank" rel="noopener noreferrer" data-event="map_click" data-placement="footer"><span>Google Mapsで場所を見る</span><i aria-hidden="true">↗</i></a>
-          </div>
+      <section id="contact" class="contact section tracked-section" aria-labelledby="contact-title" data-section="contact">
+        <div class="page-shell contact__layout">
+          <div class="contact__copy"><p class="eyebrow">CONTACT</p><h2 id="contact-title">お問い合わせはこちら。</h2><p>Bashiiin! coffeeに関するお問い合わせは、こちらのフォームをご利用ください。</p><p class="contact__notice">現在は確認用フォームです。送信機能は、送信先と運用環境の確定後に接続します。</p></div>
+          <form id="contact-form" class="contact-form" novalidate data-analytics-form="contact">
+            <div class="form-field"><label for="contact-name">お名前 <span>必須</span></label><input id="contact-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="contact-name-error"><p id="contact-name-error" class="field-error" data-error-for="name"></p></div>
+            <div class="form-field"><label for="contact-email">メールアドレス <span>必須</span></label><input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="contact-email-error"><p id="contact-email-error" class="field-error" data-error-for="email"></p></div>
+            <div class="form-field"><label for="contact-message">お問い合わせ内容 <span>必須</span></label><textarea id="contact-message" name="message" rows="6" maxlength="2000" required aria-describedby="contact-message-error"></textarea><div class="form-field__meta"><p id="contact-message-error" class="field-error" data-error-for="message"></p><span data-message-count>0 / 2000</span></div></div>
+            <p class="form-purpose">ご入力いただいた情報は、お問い合わせへの回答のために利用します。</p>
+            <button class="button button--primary contact-form__submit" type="submit" data-analytics-event="form_submit_attempt" data-analytics-form="contact">入力内容を確認する</button>
+            <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+          </form>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="page-shell site-footer__grid">
-        <div class="footer-brand">
-          <img src="images/web/logo-footer.png" alt="Bashiiin! coffee" width="400" height="111" loading="lazy" decoding="async" fetchpriority="low">
-          <p>© <span id="copyright-year">2026</span> Bashiiin! coffee. All Rights Reserved.</p>
-        </div>
-        <div class="footer-links"><strong>LINKS</strong><a href="#about">ABOUT</a><a href="#coffee">COFFEE</a><a href="#pudding">PUDDING</a><a href="#space">SPACE</a><a href="#access">ACCESS</a></div>
-        <div class="footer-follow"><strong>FOLLOW</strong><a class="tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="instagram_click" data-placement="footer-link">◎ Instagramで最新情報を見る　↗</a></div>
+        <div class="footer-brand"><img src="images/web/logo-footer.png" alt="Bashiiin! coffee" width="400" height="111" loading="lazy" decoding="async"><p>SPECIALTY COFFEE / KYOTO</p></div>
+        <nav class="footer-nav" aria-label="フッターナビゲーション"><a href="#coffee">COFFEE</a><a href="#beans">BEANS</a><a href="#sweets">SWEETS</a><a href="#space">SPACE</a><a href="#culture">CULTURE</a><a href="#contact">CONTACT</a></nav>
+        <div class="footer-info"><p class="footer-label">ADDRESS</p><address>京都府京都市下京区市之町239-1<br>やながわビル2F</address><a class="tracked-link" href="https://www.google.com/maps/search/?api=1&amp;query=%E4%BA%AC%E9%83%BD%E5%BA%9C%E4%BA%AC%E9%83%BD%E5%B8%82%E4%B8%8B%E4%BA%AC%E5%8C%BA%E5%B8%82%E4%B9%8B%E7%94%BA239-1%20%E3%82%84%E3%81%AA%E3%81%8C%E3%82%8F%E3%83%93%E3%83%AB2F" target="_blank" rel="noopener noreferrer" data-analytics-event="outbound_click" data-analytics-destination="google_maps" data-analytics-placement="footer">Google Mapsで見る →</a><p>営業時間は、公式Instagramで<br>最新情報をご確認ください。</p><a class="tracked-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-analytics-event="outbound_click" data-analytics-destination="instagram" data-analytics-placement="footer">Instagram @bashiiin_coffee</a></div>
       </div>
-      <div class="page-shell footer-bottom"><span>CONCEPT PREVIEW</span><i aria-hidden="true"></i><span>店舗確認前の営業サンプルです</span></div>
+      <div class="page-shell footer-bottom"><p>© <span id="copyright-year">2026</span> Bashiiin! coffee. All Rights Reserved.</p><p>FORMAL PREVIEW / PHOTOS PENDING</p></div>
     </footer>
-
   </body>
 </html>
