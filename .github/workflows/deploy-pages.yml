@@ -24,12 +24,60 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Prepare referenced static files only
+        env:
+          STATIC_SITE_DIR: ${{ runner.temp }}/bashiiin-static-site
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import unquote, urlsplit
+          import os
+          import re
+          import shutil
+
+          root = Path.cwd().resolve()
+          output = Path(os.environ["STATIC_SITE_DIR"])
+          files = {"index.html", "styles.css", "script.js"}
+
+          def add_image(url):
+              parsed = urlsplit(url)
+              if parsed.scheme or parsed.netloc:
+                  return
+              path = unquote(parsed.path)
+              if path.startswith("images/"):
+                  files.add(path)
+
+          class References(HTMLParser):
+              def handle_starttag(self, tag, attrs):
+                  values = dict(attrs)
+                  if tag == "img":
+                      add_image(values.get("src", ""))
+                      for candidate in values.get("srcset", "").split(","):
+                          if candidate.strip():
+                              add_image(candidate.strip().split()[0])
+                  if tag == "link" and values.get("rel") == "icon":
+                      add_image(values.get("href", ""))
+
+          References().feed((root / "index.html").read_text())
+          for url in re.findall(r'url\(["\']?([^"\')]+)', (root / "styles.css").read_text()):
+              add_image(url)
+          for filename in sorted(files):
+              source = (root / filename).resolve()
+              if not source.is_relative_to(root) or not source.is_file():
+                  raise SystemExit("Invalid or missing static asset")
+              if filename.startswith("images/formal ver/") and not filename.startswith("images/formal ver/web/"):
+                  raise SystemExit("Original photos must not be published")
+              target = output / filename
+              target.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copyfile(source, target)
+          PY
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: ${{ runner.temp }}/bashiiin-static-site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
