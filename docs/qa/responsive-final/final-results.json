@@ -1,0 +1,1396 @@
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "layout": {
+      "clientWidth": 1440,
+      "scrollWidth": 1440,
+      "bodyScrollWidth": 1440,
+      "overflowingElements": [],
+      "headings": [
+        {
+          "id": "hero-title",
+          "text": "丁寧に淹れた一杯を、京都・河原町で。",
+          "spans": [
+            {
+              "text": "丁寧に淹れた一杯を、",
+              "lineRects": 1,
+              "top": 358,
+              "right": 552.44
+            },
+            {
+              "text": "京都・河原町で。",
+              "lineRects": 1,
+              "top": 420.91,
+              "right": 552.44
+            }
+          ]
+        },
+        {
+          "id": "latest-title",
+          "text": "ご来店前に、最新情報をご確認ください。",
+          "spans": [
+            {
+              "text": "ご来店前に、",
+              "lineRects": 1,
+              "top": 1074.34,
+              "right": 580
+            },
+            {
+              "text": "最新情報をご確認ください。",
+              "lineRects": 1,
+              "top": 1124.44,
+              "right": 580
+            }
+          ]
+        },
+        {
+          "id": "coffee-title",
+          "text": "丁寧に淹れた一杯を、日常のそばに。",
+          "spans": [
+            {
+              "text": "丁寧に淹れた一杯を、",
+              "lineRects": 1,
+              "top": 1777.78,
+              "right": 452.8
+            },
+            {
+              "text": "日常のそばに。",
+              "lineRects": 1,
+              "top": 1838.27,
+              "right": 452.8
+            }
+          ]
+        },
+        {
+          "id": "beans-title",
+          "text": "いま、店に並ぶ豆",
+          "spans": [
+            {
+              "text": "いま、",
+              "lineRects": 1,
+              "top": 2676.25,
+              "right": 550
+            },
+            {
+              "text": "店に並ぶ豆",
+              "lineRects": 1,
+              "top": 2741.25,
+              "right": 550
+            }
+          ]
+        },
+        {
+          "id": "sweets-title",
+          "text": "コーヒーのそばに、甘いものを。",
+          "spans": [
+            {
+              "text": "コーヒーのそばに、",
+              "lineRects": 1,
+              "top": 3805.81,
+              "right": 507.05
+            },
+            {
+              "text": "甘いものを。",
+              "lineRects": 1,
+              "top": 3867.16,
+              "right": 507.05
+            }
+          ]
+        },
+        {
+          "id": "space-title",
+          "text": "Bashiiin! coffeeの空間。",
+          "spans": [
+            {
+              "text": "Bashiiin! coffeeの",
+              "lineRects": 1,
+              "top": 4483,
+              "right": 711.36
+            },
+            {
+              "text": "空間。",
+              "lineRects": 1,
+              "top": 4555.36,
+              "right": 711.36
+            }
+          ]
+        },
+        {
+          "id": "culture-title",
+          "text": "一杯から、広がること",
+          "spans": [
+            {
+              "text": "一杯から、",
+              "lineRects": 1,
+              "top": 5426.36,
+              "right": 496.2
+            },
+            {
+              "text": "広がること",
+              "lineRects": 1,
+              "top": 5496.03,
+              "right": 496.2
+            }
+          ]
+        },
+        {
+          "id": "journal-title",
+          "text": "最新のBashiiin!は、Instagramで。",
+          "spans": [
+            {
+              "text": "最新のBashiiin!は、",
+              "lineRects": 1,
+              "top": 6289.73,
+              "right": 520.89
+            },
+            {
+              "text": "Instagramで。",
+              "lineRects": 1,
+              "top": 6357.73,
+              "right": 520.89
+            }
+          ]
+        },
+        {
+          "id": "contact-title",
+          "text": "お問い合わせはこちら。",
+          "spans": []
+        }
+      ],
+      "ctas": [
+        {
+          "text": "最新情報をInstagramで見る",
+          "left": 86.39,
+          "right": 403.19,
+          "width": 316.8,
+          "withinViewport": true
+        },
+        {
+          "text": "お問い合わせ",
+          "left": 417.19,
+          "right": 604.38,
+          "width": 187.19,
+          "withinViewport": true
+        },
+        {
+          "text": "Instagramで最新情報を見る",
+          "left": 60,
+          "right": 400,
+          "width": 340,
+          "withinViewport": true
+        },
+        {
+          "text": "Instagramで最新情報を見る",
+          "left": 120,
+          "right": 420,
+          "width": 300,
+          "withinViewport": true
+        },
+        {
+          "text": "@bashiiin_coffeeを見る",
+          "left": 120,
+          "right": 450,
+          "width": 330,
+          "withinViewport": true
+        },
+        {
+          "text": "入力内容を確認する",
+          "left": 742.5,
+          "right": 1285,
+          "width": 542.5,
+          "withinViewport": true
+        }
+      ],
+      "images": [
+        {
+          "src": "images/web/logo-header.png",
+          "complete": true,
+          "naturalWidth": 400,
+          "naturalHeight": 104,
+          "visible": true
+        },
+        {
+          "src": "images/web/logo-header.png",
+          "complete": true,
+          "naturalWidth": 400,
+          "naturalHeight": 104,
+          "visible": false
+        },
+        {
+          "src": "images/web/logo-primary.png",
+          "complete": true,
+          "naturalWidth": 500,
+          "naturalHeight": 454,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/03_coffee_bar_interior.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/02_coffee_cup_and_brand_card.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/04_pour_over_coffee_closeup.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/14_colorful_drip_coffee_bags.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/05_caramel_pudding.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/08_coffee_and_pound_cake.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/17_iced_latte_and_pound_cake.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/web/hero-bar-interior.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/15_gold_blend_coffee_bag.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/16_hibiki_whisky_coffee_pairing.jpg",
+          "complete": true,
+          "naturalWidth": 1513,
+          "naturalHeight": 1039,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/01_brewing_station_retouch_v1.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/11_pour_over_brewing_closeup.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/05_caramel_pudding.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/14_colorful_drip_coffee_bags.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/17_iced_latte_and_pound_cake.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/02_coffee_cup_and_brand_card.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/web/logo-footer.png",
+          "complete": true,
+          "naturalWidth": 400,
+          "naturalHeight": 111,
+          "visible": true
+        }
+      ],
+      "brokenImages": [],
+      "menuButtonVisible": false,
+      "desktopNavVisible": true,
+      "previewNoticeVisible": true
+    },
+    "menu": null,
+    "navTarget": {
+      "hash": "#coffee",
+      "sectionTop": 132.47,
+      "headingTop": 451.78,
+      "headerBottom": 132,
+      "headingCovered": false
+    },
+    "navTargets": [
+      {
+        "id": "coffee",
+        "hash": "#coffee",
+        "sectionTop": 132.47,
+        "headerBottom": 132,
+        "sectionCovered": false
+      },
+      {
+        "id": "beans",
+        "hash": "#beans",
+        "sectionTop": 131.52,
+        "headerBottom": 132,
+        "sectionCovered": false
+      },
+      {
+        "id": "sweets",
+        "hash": "#sweets",
+        "sectionTop": 132.13,
+        "headerBottom": 132,
+        "sectionCovered": false
+      },
+      {
+        "id": "space",
+        "hash": "#space",
+        "sectionTop": 131.61,
+        "headerBottom": 132,
+        "sectionCovered": false
+      },
+      {
+        "id": "culture",
+        "hash": "#culture",
+        "sectionTop": 132.02,
+        "headerBottom": 132,
+        "sectionCovered": false
+      },
+      {
+        "id": "instagram",
+        "hash": "#instagram",
+        "sectionTop": 131.84,
+        "headerBottom": 132,
+        "sectionCovered": false
+      },
+      {
+        "id": "contact",
+        "hash": "#contact",
+        "sectionTop": 132.03,
+        "headerBottom": 132,
+        "sectionCovered": false
+      }
+    ],
+    "form": {
+      "invalidCount": 3,
+      "errorTexts": [
+        "お名前を入力してください。",
+        "有効なメールアドレスを入力してください。",
+        "お問い合わせ内容を入力してください。"
+      ],
+      "status": "入力内容をご確認ください。",
+      "focusedId": "contact-name"
+    },
+    "messageCount": "2 / 2000",
+    "validForm": {
+      "invalidCount": 0,
+      "status": "現在は確認用フォームです。送信機能は正式な送信環境の確定後に接続します。",
+      "focusedId": null
+    },
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "viewport": {
+      "width": 768,
+      "height": 1024
+    },
+    "layout": {
+      "clientWidth": 768,
+      "scrollWidth": 768,
+      "bodyScrollWidth": 768,
+      "overflowingElements": [],
+      "headings": [
+        {
+          "id": "hero-title",
+          "text": "丁寧に淹れた一杯を、京都・河原町で。",
+          "spans": [
+            {
+              "text": "丁寧に淹れた一杯を、",
+              "lineRects": 1,
+              "top": 920.39,
+              "right": 490.05
+            },
+            {
+              "text": "京都・河原町で。",
+              "lineRects": 1,
+              "top": 983.3,
+              "right": 490.05
+            }
+          ]
+        },
+        {
+          "id": "latest-title",
+          "text": "ご来店前に、最新情報をご確認ください。",
+          "spans": [
+            {
+              "text": "ご来店前に、",
+              "lineRects": 1,
+              "top": 2133.14,
+              "right": 604
+            },
+            {
+              "text": "最新情報をご確認ください。",
+              "lineRects": 1,
+              "top": 2186.91,
+              "right": 604
+            }
+          ]
+        },
+        {
+          "id": "coffee-title",
+          "text": "丁寧に淹れた一杯を、日常のそばに。",
+          "spans": [
+            {
+              "text": "丁寧に淹れた一杯を、",
+              "lineRects": 1,
+              "top": 2667.42,
+              "right": 744
+            },
+            {
+              "text": "日常のそばに。",
+              "lineRects": 1,
+              "top": 2709.42,
+              "right": 744
+            }
+          ]
+        },
+        {
+          "id": "beans-title",
+          "text": "いま、店に並ぶ豆",
+          "spans": [
+            {
+              "text": "いま、",
+              "lineRects": 1,
+              "top": 4124.2,
+              "right": 604
+            },
+            {
+              "text": "店に並ぶ豆",
+              "lineRects": 1,
+              "top": 4173.59,
+              "right": 604
+            }
+          ]
+        },
+        {
+          "id": "sweets-title",
+          "text": "コーヒーのそばに、甘いものを。",
+          "spans": [
+            {
+              "text": "コーヒーのそばに、",
+              "lineRects": 1,
+              "top": 5762.58,
+              "right": 604
+            },
+            {
+              "text": "甘いものを。",
+              "lineRects": 1,
+              "top": 5806.59,
+              "right": 604
+            }
+          ]
+        },
+        {
+          "id": "space-title",
+          "text": "Bashiiin! coffeeの空間。",
+          "spans": [
+            {
+              "text": "Bashiiin! coffeeの",
+              "lineRects": 1,
+              "top": 6975.7,
+              "right": 744
+            },
+            {
+              "text": "空間。",
+              "lineRects": 1,
+              "top": 7023.94,
+              "right": 744
+            }
+          ]
+        },
+        {
+          "id": "culture-title",
+          "text": "一杯から、広がること",
+          "spans": [
+            {
+              "text": "一杯から、",
+              "lineRects": 1,
+              "top": 7874.33,
+              "right": 594
+            },
+            {
+              "text": "広がること",
+              "lineRects": 1,
+              "top": 7927.92,
+              "right": 594
+            }
+          ]
+        },
+        {
+          "id": "journal-title",
+          "text": "最新のBashiiin!は、Instagramで。",
+          "spans": [
+            {
+              "text": "最新のBashiiin!は、",
+              "lineRects": 1,
+              "top": 8883.73,
+              "right": 604
+            },
+            {
+              "text": "Instagramで。",
+              "lineRects": 1,
+              "top": 8935.41,
+              "right": 604
+            }
+          ]
+        },
+        {
+          "id": "contact-title",
+          "text": "お問い合わせはこちら。",
+          "spans": []
+        }
+      ],
+      "ctas": [
+        {
+          "text": "最新情報をInstagramで見る",
+          "left": 24,
+          "right": 379,
+          "width": 355,
+          "withinViewport": true
+        },
+        {
+          "text": "お問い合わせ",
+          "left": 397,
+          "right": 627,
+          "width": 230,
+          "withinViewport": true
+        },
+        {
+          "text": "Instagramで最新情報を見る",
+          "left": 24,
+          "right": 384,
+          "width": 360,
+          "withinViewport": true
+        },
+        {
+          "text": "Instagramで最新情報を見る",
+          "left": 24,
+          "right": 384,
+          "width": 360,
+          "withinViewport": true
+        },
+        {
+          "text": "@bashiiin_coffeeを見る",
+          "left": 24,
+          "right": 354,
+          "width": 330,
+          "withinViewport": true
+        },
+        {
+          "text": "入力内容を確認する",
+          "left": 59,
+          "right": 709,
+          "width": 650,
+          "withinViewport": true
+        }
+      ],
+      "images": [
+        {
+          "src": "images/web/logo-header.png",
+          "complete": true,
+          "naturalWidth": 400,
+          "naturalHeight": 104,
+          "visible": true
+        },
+        {
+          "src": "images/web/logo-header.png",
+          "complete": true,
+          "naturalWidth": 400,
+          "naturalHeight": 104,
+          "visible": false
+        },
+        {
+          "src": "images/web/logo-primary.png",
+          "complete": true,
+          "naturalWidth": 500,
+          "naturalHeight": 454,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/03_coffee_bar_interior.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/02_coffee_cup_and_brand_card.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/04_pour_over_coffee_closeup.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/14_colorful_drip_coffee_bags.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/05_caramel_pudding.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/08_coffee_and_pound_cake.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/17_iced_latte_and_pound_cake.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/web/hero-bar-interior.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/15_gold_blend_coffee_bag.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/16_hibiki_whisky_coffee_pairing.jpg",
+          "complete": true,
+          "naturalWidth": 1513,
+          "naturalHeight": 1039,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/01_brewing_station_retouch_v1.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/11_pour_over_brewing_closeup.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/05_caramel_pudding.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/14_colorful_drip_coffee_bags.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/17_iced_latte_and_pound_cake.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/02_coffee_cup_and_brand_card.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/web/logo-footer.png",
+          "complete": true,
+          "naturalWidth": 400,
+          "naturalHeight": 111,
+          "visible": true
+        }
+      ],
+      "brokenImages": [],
+      "menuButtonVisible": true,
+      "desktopNavVisible": false,
+      "previewNoticeVisible": true
+    },
+    "menu": {
+      "openState": {
+        "hidden": false,
+        "expanded": "true",
+        "bodyLocked": true,
+        "activeElement": "mobile-menu__close"
+      },
+      "escapeState": {
+        "hidden": true,
+        "expanded": "false",
+        "bodyLocked": false,
+        "focusReturned": true
+      },
+      "linkState": {
+        "hidden": true,
+        "expanded": "false",
+        "bodyLocked": false,
+        "hash": "#coffee"
+      }
+    },
+    "navTarget": {
+      "hash": "#coffee",
+      "sectionTop": 105.83,
+      "headingTop": 243.42,
+      "headerBottom": 106,
+      "headingCovered": false
+    },
+    "navTargets": [
+      {
+        "id": "coffee",
+        "hash": "#coffee",
+        "sectionTop": 105.83,
+        "headerBottom": 106,
+        "sectionCovered": false
+      },
+      {
+        "id": "beans",
+        "hash": "#beans",
+        "sectionTop": 105.61,
+        "headerBottom": 106,
+        "sectionCovered": false
+      },
+      {
+        "id": "sweets",
+        "hash": "#sweets",
+        "sectionTop": 105.98,
+        "headerBottom": 106,
+        "sectionCovered": false
+      },
+      {
+        "id": "space",
+        "hash": "#space",
+        "sectionTop": 106.11,
+        "headerBottom": 106,
+        "sectionCovered": false
+      },
+      {
+        "id": "culture",
+        "hash": "#culture",
+        "sectionTop": 105.73,
+        "headerBottom": 106,
+        "sectionCovered": false
+      },
+      {
+        "id": "instagram",
+        "hash": "#instagram",
+        "sectionTop": 106.14,
+        "headerBottom": 106,
+        "sectionCovered": false
+      },
+      {
+        "id": "contact",
+        "hash": "#contact",
+        "sectionTop": 105.73,
+        "headerBottom": 106,
+        "sectionCovered": false
+      }
+    ],
+    "form": {
+      "invalidCount": 3,
+      "errorTexts": [
+        "お名前を入力してください。",
+        "有効なメールアドレスを入力してください。",
+        "お問い合わせ内容を入力してください。"
+      ],
+      "status": "入力内容をご確認ください。",
+      "focusedId": "contact-name"
+    },
+    "messageCount": "2 / 2000",
+    "validForm": {
+      "invalidCount": 0,
+      "status": "現在は確認用フォームです。送信機能は正式な送信環境の確定後に接続します。",
+      "focusedId": null
+    },
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "layout": {
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "bodyScrollWidth": 390,
+      "overflowingElements": [],
+      "headings": [
+        {
+          "id": "hero-title",
+          "text": "丁寧に淹れた一杯を、京都・河原町で。",
+          "spans": [
+            {
+              "text": "丁寧に淹れた一杯を、",
+              "lineRects": 1,
+              "top": 444.3,
+              "right": 279.89
+            },
+            {
+              "text": "京都・河原町で。",
+              "lineRects": 1,
+              "top": 484.27,
+              "right": 229.5
+            }
+          ]
+        },
+        {
+          "id": "latest-title",
+          "text": "ご来店前に、最新情報をご確認ください。",
+          "spans": [
+            {
+              "text": "ご来店前に、",
+              "lineRects": 1,
+              "top": 1293.77,
+              "right": 374
+            },
+            {
+              "text": "最新情報をご確認ください。",
+              "lineRects": 1,
+              "top": 1332.5,
+              "right": 374
+            }
+          ]
+        },
+        {
+          "id": "coffee-title",
+          "text": "丁寧に淹れた一杯を、日常のそばに。",
+          "spans": [
+            {
+              "text": "丁寧に淹れた一杯を、",
+              "lineRects": 1,
+              "top": 1759.83,
+              "right": 374
+            },
+            {
+              "text": "日常のそばに。",
+              "lineRects": 1,
+              "top": 1807.2,
+              "right": 374
+            }
+          ]
+        },
+        {
+          "id": "beans-title",
+          "text": "いま、店に並ぶ豆",
+          "spans": [
+            {
+              "text": "いま、",
+              "lineRects": 1,
+              "top": 3003.25,
+              "right": 374
+            },
+            {
+              "text": "店に並ぶ豆",
+              "lineRects": 1,
+              "top": 3055.5,
+              "right": 374
+            }
+          ]
+        },
+        {
+          "id": "sweets-title",
+          "text": "コーヒーのそばに、甘いものを。",
+          "spans": [
+            {
+              "text": "コーヒーのそばに、",
+              "lineRects": 1,
+              "top": 4359.09,
+              "right": 374
+            },
+            {
+              "text": "甘いものを。",
+              "lineRects": 1,
+              "top": 4411.69,
+              "right": 374
+            }
+          ]
+        },
+        {
+          "id": "space-title",
+          "text": "Bashiiin! coffeeの空間。",
+          "spans": [
+            {
+              "text": "Bashiiin! coffeeの",
+              "lineRects": 1,
+              "top": 5184.88,
+              "right": 374
+            },
+            {
+              "text": "空間。",
+              "lineRects": 1,
+              "top": 5234,
+              "right": 374
+            }
+          ]
+        },
+        {
+          "id": "culture-title",
+          "text": "一杯から、広がること",
+          "spans": [
+            {
+              "text": "一杯から、",
+              "lineRects": 1,
+              "top": 5966.72,
+              "right": 160.31
+            },
+            {
+              "text": "広がること",
+              "lineRects": 1,
+              "top": 5966.72,
+              "right": 304.63
+            }
+          ]
+        },
+        {
+          "id": "journal-title",
+          "text": "最新のBashiiin!は、Instagramで。",
+          "spans": [
+            {
+              "text": "最新のBashiiin!は、",
+              "lineRects": 1,
+              "top": 6889.45,
+              "right": 374
+            },
+            {
+              "text": "Instagramで。",
+              "lineRects": 1,
+              "top": 6936.53,
+              "right": 374
+            }
+          ]
+        },
+        {
+          "id": "contact-title",
+          "text": "お問い合わせはこちら。",
+          "spans": []
+        }
+      ],
+      "ctas": [
+        {
+          "text": "最新情報をInstagramで見る",
+          "left": 31.19,
+          "right": 358.81,
+          "width": 327.63,
+          "withinViewport": true
+        },
+        {
+          "text": "お問い合わせ",
+          "left": 31.19,
+          "right": 358.81,
+          "width": 327.63,
+          "withinViewport": true
+        },
+        {
+          "text": "Instagramで最新情報を見る",
+          "left": 16,
+          "right": 374,
+          "width": 358,
+          "withinViewport": true
+        },
+        {
+          "text": "Instagramで最新情報を見る",
+          "left": 16,
+          "right": 374,
+          "width": 358,
+          "withinViewport": true
+        },
+        {
+          "text": "@bashiiin_coffeeを見る",
+          "left": 16,
+          "right": 374,
+          "width": 358,
+          "withinViewport": true
+        },
+        {
+          "text": "入力内容を確認する",
+          "left": 33,
+          "right": 357,
+          "width": 324,
+          "withinViewport": true
+        }
+      ],
+      "images": [
+        {
+          "src": "images/web/logo-header.png",
+          "complete": true,
+          "naturalWidth": 400,
+          "naturalHeight": 104,
+          "visible": true
+        },
+        {
+          "src": "images/web/logo-header.png",
+          "complete": true,
+          "naturalWidth": 400,
+          "naturalHeight": 104,
+          "visible": false
+        },
+        {
+          "src": "images/web/logo-primary.png",
+          "complete": true,
+          "naturalWidth": 500,
+          "naturalHeight": 454,
+          "visible": false
+        },
+        {
+          "src": "images/source/ai-placeholder/03_coffee_bar_interior.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/02_coffee_cup_and_brand_card.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/04_pour_over_coffee_closeup.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/14_colorful_drip_coffee_bags.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/18_neutral_coffee_beans_placeholder.png",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/05_caramel_pudding.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/08_coffee_and_pound_cake.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/17_iced_latte_and_pound_cake.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/web/hero-bar-interior.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/15_gold_blend_coffee_bag.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/16_hibiki_whisky_coffee_pairing.jpg",
+          "complete": true,
+          "naturalWidth": 1513,
+          "naturalHeight": 1039,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/01_brewing_station_retouch_v1.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/11_pour_over_brewing_closeup.jpg",
+          "complete": true,
+          "naturalWidth": 1448,
+          "naturalHeight": 1086,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/05_caramel_pudding.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/14_colorful_drip_coffee_bags.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/17_iced_latte_and_pound_cake.jpg",
+          "complete": true,
+          "naturalWidth": 1122,
+          "naturalHeight": 1402,
+          "visible": true
+        },
+        {
+          "src": "images/source/ai-placeholder/02_coffee_cup_and_brand_card.jpg",
+          "complete": true,
+          "naturalWidth": 800,
+          "naturalHeight": 1000,
+          "visible": true
+        },
+        {
+          "src": "images/web/logo-footer.png",
+          "complete": true,
+          "naturalWidth": 400,
+          "naturalHeight": 111,
+          "visible": true
+        }
+      ],
+      "brokenImages": [],
+      "menuButtonVisible": true,
+      "desktopNavVisible": false,
+      "previewNoticeVisible": true
+    },
+    "menu": {
+      "openState": {
+        "hidden": false,
+        "expanded": "true",
+        "bodyLocked": true,
+        "activeElement": "mobile-menu__close"
+      },
+      "escapeState": {
+        "hidden": true,
+        "expanded": "false",
+        "bodyLocked": false,
+        "focusReturned": true
+      },
+      "linkState": {
+        "hidden": true,
+        "expanded": "false",
+        "bodyLocked": false,
+        "hash": "#coffee"
+      }
+    },
+    "navTarget": {
+      "hash": "#coffee",
+      "sectionTop": 100.23,
+      "headingTop": 229.83,
+      "headerBottom": 100,
+      "headingCovered": false
+    },
+    "navTargets": [
+      {
+        "id": "coffee",
+        "hash": "#coffee",
+        "sectionTop": 100.23,
+        "headerBottom": 100,
+        "sectionCovered": false
+      },
+      {
+        "id": "beans",
+        "hash": "#beans",
+        "sectionTop": 99.66,
+        "headerBottom": 100,
+        "sectionCovered": false
+      },
+      {
+        "id": "sweets",
+        "hash": "#sweets",
+        "sectionTop": 99.5,
+        "headerBottom": 100,
+        "sectionCovered": false
+      },
+      {
+        "id": "space",
+        "hash": "#space",
+        "sectionTop": 100.28,
+        "headerBottom": 100,
+        "sectionCovered": false
+      },
+      {
+        "id": "culture",
+        "hash": "#culture",
+        "sectionTop": 100.13,
+        "headerBottom": 100,
+        "sectionCovered": false
+      },
+      {
+        "id": "instagram",
+        "hash": "#instagram",
+        "sectionTop": 99.86,
+        "headerBottom": 100,
+        "sectionCovered": false
+      },
+      {
+        "id": "contact",
+        "hash": "#contact",
+        "sectionTop": 100.39,
+        "headerBottom": 100,
+        "sectionCovered": false
+      }
+    ],
+    "form": {
+      "invalidCount": 3,
+      "errorTexts": [
+        "お名前を入力してください。",
+        "有効なメールアドレスを入力してください。",
+        "お問い合わせ内容を入力してください。"
+      ],
+      "status": "入力内容をご確認ください。",
+      "focusedId": "contact-name"
+    },
+    "messageCount": "2 / 2000",
+    "validForm": {
+      "invalidCount": 0,
+      "status": "現在は確認用フォームです。送信機能は正式な送信環境の確定後に接続します。",
+      "focusedId": null
+    },
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  }
+]

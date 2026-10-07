@@ -184,3 +184,10 @@ Bashiiin! coffeeのWebサイトを管理するリポジトリです。コード�
 | DSC_0167.webp | ecccbd75db17ad4ffd42d3ad75686fa775097bb8efdeeb11019137a4a71d70a6 |
 | R0000476.webp | b88bff4c7c22eb38e40f3a73ec7427df1affd95b0a173966757526525c6f912e |
 | R0002506.webp | 637509bc24dc75f05a7bb9ab66ec2b0348c7e2be53970c9ba623de808c6af0b8 |
+
+
+## 17. formal-productionの履歴統合
+
+- リモートの既存3commitは履歴・追加資料を保持してmerge。競合したHTML / CSS / JavaScriptは、v1.5と最新の写真ルール・フォーム仕様に基づく検証済み実装を採用した。
+- `docs/`、`design-qa.md` はリモートにあった過去の資料・検証記録として保持。v1.3資料や旧実装の画面は現在の受入基準ではなく、指定のv1.5資料と最新ユーザー指示を優先する。
+- リモート履歴に含まれる `images/source/ai-placeholder/` は正式版の採用素材ではない。現在のページ・CSS・JavaScriptから参照せず、静的配信対象にも含めない。履歴を保つため削除や書き換えは行っていない。
