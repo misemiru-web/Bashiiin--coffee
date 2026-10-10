@@ -690,6 +690,7 @@ address { margin-bottom: 14px; font-style: normal; font-size: 13px; line-height:
 .journal__list li { flex: 0 0 76vw; min-width: 0; }
 .journal__list img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
 .journal__list li:first-child img { object-position: center 65%; }
+.journal__list li:last-child img { object-position: center 65%; }
 .journal--formal:focus-visible { outline: 2px solid #4A3427; outline-offset: -4px; }
 .journal--formal :focus-visible { outline: 2px solid #4A3427; outline-offset: 4px; }
 @media (min-width: 641px) {

@@ -10,7 +10,7 @@ Bashiiin! coffeeのWebサイトを管理するリポジトリです。コード�
 - robots設定: `noindex, nofollow, noarchive`
 - 現在の制作・承認・公開・保守状態: 要確認
 - 正式な公開URL: 要確認
-- README最終更新日: 2026-10-07
+- README最終更新日: 2026-10-08
 
 上記のコード表記は確認済みですが、現在の契約区分や公開判断を示すものとは断定しません。
 
@@ -123,28 +123,42 @@ Bashiiin! coffeeのWebサイトを管理するリポジトリです。コード�
 - `menu` はメニューページを設けないため除外。`openingHoursSpecification` は固定営業時間を掲載しない方針のため除外。
 - `alternateName`、`priceRange`、`currenciesAccepted`、`geo`、`hasMap`、`servesCuisine`、`acceptsReservations`、住所の `postalCode` は未確認のため除外。掲載が必要な項目だけ、店舗確認後に反映する。提供descriptionの未確認の製法・人気表現は使用しない。
 - 正式ドメインは未確定。`@id`、`url`、`image`、`logo` は値を推測せず、現在のJSON-LDには含めていない。公開前に正規トップページの絶対URL、同URLに `#shop` を付けた一意の `@id`、実ファイルの本番絶対URLを追加する。
-- `image` 候補: `images/formal ver/web/DSC_0167-1450.jpg`（店内）、`images/formal ver/web/DSC_0052-1450.jpg`（コーヒー）。正式素材フォルダ内の原本から生成し、SPACE / COFFEEで使用。`logo` 候補: HEADER / FOOTERで使用中の `images/web/logo-header.png`。本番で各URLから画像が取得できることも確認する。
+- `image` 候補: `images/web/space/DSC_0167-1450.webp`（店内）、`images/web/hero/DSC_0052-1450.webp`（コーヒー）。正式素材フォルダ内の原本から生成し、SPACE / HEROで使用。`logo` 候補: HEADER / FOOTERで使用中の `images/web/logo-header.png`。本番で各URLから画像が取得できることも確認する。
 - `index.html` のJSON-LDには `example.com` を残さない。提供原稿は改変せず保存しているため、原稿内には仮URL・未確認値が残る。原稿は公開アセットに含めないこと。GitHub Pages workflowはページと参照アセットだけを一時ディレクトリへコピーし、原稿・README・元写真を配信しない。本番Cloudflareでも同じ配信範囲を使い、リポジトリrootをそのままStatic Assetsにしない。
 - 現在のrobots `noindex, nofollow, noarchive` は維持。ドメイン・画像URL追加と検索公開への切り替えは、公開工程で別途確認する。
 
 ## 14. 正式版の写真素材ルール
 
-- 写真は原本が `images/formal ver/` に存在するもののみ使用する。HERO、全セクション、OGP、JSON-LDのimage、背景写真にも適用する。原本由来のWeb最適化版は `images/web/` 等でも使用可能。保存先だけで可否を判断せず、原本との対応を確認する。営業サンプル専用写真や出所不明の写真は使用しない。
-- ロゴ・ブランドマーク・faviconのみフォルダ制限の例外。現在のブランド素材は `images/web/logo-header.png`、`images/web/favicon.png`。
-- 原本6枚は変更せず保存。拡張子は `.webp` だが実形式はJPEG。表示用のJPEGは `images/formal ver/web/` に元ファイル名＋幅の命名で生成し、向きを正規化・EXIFを除去。400px / 800px / 原本の表示幅を用意する。HTMLのパスでは空白を `%20` にエンコードする。
-- AI生成、AIによる内容改変、未確認の商品名の断定は行わない。別写真を優先し、不足時は必要最小限の重複、次に枚数削減とする。重複は使用箇所を報告する。
-- OGPは未確定。写真候補は `DSC_0052.webp`（コーヒーと店舗カード）。作成・採用は公開工程で確認する。
+- 写真は原本が `images/formal ver/` に存在する店舗提供素材だけを使用する。HERO、全セクション、OGP、JSON-LDのimage、背景写真にも適用する。保存先だけで可否を判断せず、原本との対応を確認する。営業サンプル専用写真や出所不明の写真は使用しない。
+- ロゴ・ブランドマーク・faviconのみ例外。現在は `images/web/logo-header.png`、`images/web/favicon.png` をPNGのまま使用する。
+- 2026-10-08確認時点の更新後の原本は17枚。全原本の拡張子は `.webp` だが、実形式はJPEG。原本の削除・上書き・移動・renameはしない。
+- 現在の表示用写真は実形式がWebP。最新のユーザー指示に従い `images/web/{hero,coffee,sweets,space,culture,journal}/` に生成。各写真400 / 800 / 原本幅の3サイズ、品質84、向きの正規化、EXIF除去のみで、拡大・色調変更・AI加工・内容の追加はしない。
+- CURRENT BEANSは現在販売中の豆情報が未確認のため案内のみ。パッケージ写真はHEROに使用し、写真内のラベルから豆名・現在の在庫を推測しない。`beans/` と `common/` は採用素材が必要になった時点で作成する。
+- 別写真を優先し、今回の割り当てではセクション間の同一写真の重複はなし。HEROのループ複製は読み上げ・focusから除外する。
+- `srcset` / `sizes` は表示寸法とobject-fitによるトリミングを考慮。HERO先頭だけhigh priority、その他はlazy。原本以上の解像度は作らないため、高密度画面のCOFFEE / SPACEは原本解像度が上限となる。
+- OGPは未確定。候補は `images/web/hero/DSC_0052-1450.webp`。写真の選定・本番絶対URL・OGP用比率の決定は公開工程で確認する。現時点でOGPを新規作成・設定していない。
 
-| 原本（images/formal ver/） | 実内容 | 表示用JPEGの最大幅 |
+更新後の全原本を内容確認した一覧（先頭11枚が追加素材）：
+
+| 原本（images/formal ver/） | 内容 | 今回の用途 |
 |---|---|---|
-| DSC_0052.webp | コーヒー入りサーバー・グラス・カード、奥にプリン | DSC_0052-1450.jpg |
-| DSC_0132.webp | 氷入りドリンク・焼き菓子・カード | DSC_0132-1450.jpg |
-| DSC_0165.webp | イラスト入りTシャツ・レンガ壁 | DSC_0165-1450.jpg |
-| DSC_0167.webp | カウンター・テーブル・コーヒー器具のある店内 | DSC_0167-1450.jpg |
-| R0000476.webp | プリン・皿・スプーン | R0000476-1920.jpg |
-| R0002506.webp | グラスに盛られた層状のスイーツ。商品名は未確定 | R0002506-1280.jpg |
-
-- 豆・パッケージ、抽出中、外観・入口の専用写真はこの6枚にない。必要時は店舗の追加素材確認待ちとし、旧写真へ戻らない。CURRENT BEANSの豆情報も引き続き確認待ち。
+| `829940080_1786515612391095_3237499876071483915_n.webp` | ロゴ入りパッケージ | HERO 2 |
+| `830324349_4550763371904964_7100813407432157579_n.webp` | 金属のスプーン・木のテーブル | JOURNAL 3 |
+| `830416943_1686497192996545_8268471576687266553_n.webp` | グラスに盛られた層状スイーツ | 未使用。商品情報未確認 |
+| `831183319_1430301269249591_8222574010323692921_n.webp` | イラスト入りTシャツ・レンガ壁 | 未使用。同じ写真の高解像度原本をCULTUREで使用 |
+| `833135303_1893980718650582_7245257760060958267_n.webp` | グラスへコーヒーを注ぐ手元 | JOURNAL 1 |
+| `833271010_1402944518670214_7334833199519804194_n.webp` | サーバー・グラス・カード・奥のプリン | 未使用。同じ写真の高解像度原本をHEROで使用 |
+| `834720508_1439441991453605_1079492859231359163_n.webp` | 店内・カウンター・器具 | 未使用。同じ写真の高解像度原本をSPACEで使用 |
+| `835355627_2191449308084144_6214797320265951783_n.webp` | ロゴと2階への案内がある入口看板 | HERO 3 |
+| `835657091_2283790962443589_2894471994776161918_n.webp` | 氷入りドリンク・焼き菓子・カード | 未使用。同じ写真の高解像度原本をJOURNALで使用 |
+| `836500267_1085156011078265_5022858138063918314_n.webp` | プリン・皿・スプーン | 未使用。同じ写真の高解像度原本をSWEETSで使用 |
+| `836650886_1839293087060384_1504843703391329726_n.webp` | コーヒーを準備する手元・ドリッパー・サーバー・ポット | COFFEE |
+| `DSC_0052.webp` | サーバー・グラス・カード・奥のプリン | HERO 1 |
+| `DSC_0132.webp` | 氷入りドリンク・焼き菓子・カード | JOURNAL 2 |
+| `DSC_0165.webp` | イラスト入りTシャツ・レンガ壁 | CULTURE |
+| `DSC_0167.webp` | 店内・カウンター・器具 | SPACE |
+| `R0000476.webp` | プリン・皿・スプーン | SWEETS |
+| `R0002506.webp` | グラスに盛られた層状スイーツ | 未使用。商品情報未確認 |
 
 ## 15. 全体レビュー修正と配信範囲
 
@@ -153,38 +167,50 @@ Bashiiin! coffeeのWebサイトを管理するリポジトリです。コード�
 - CURRENT BEANSは案内のみの間 `current-beans--pending` で余白を縮小。確認済みの豆・写真・更新時点を掲載する際は、このクラスを外して編集リストの寸法を再確認する。
 - COFFEEの反復本文を削除。見出しと大判写真は維持。
 - `.github/workflows/deploy-pages.yml` はHTMLのimg / srcset / faviconとCSSの画像参照を抽出し、index.html / styles.css / script.jsと実際の参照アセットだけを配信対象にする。入力資料、管理文書、元素材は含めない。公開先・main push起動は変更しない。実デプロイは未実施。
-- HEROはDSC_0052 → DSC_0132 → DSC_0167の3枚へ差し替え済み。JOURNALの `images/web/journal/` は正式原本由来であることを画素比較と内容確認で検証し、同じ原本のEXIF除去済み `formal ver/web/` へ参照を統一。全写真参照の不適合は0件。写真監査完了は本番公開承認・送信基盤の完成を意味しない。
+- 最新の写真配分・表示用WebPと原本の対応は§14 / §16を参照。写真監査完了は本番公開承認・送信基盤の完成を意味しない。
 - 公開前: 店舗の豆情報・新作情報・Mapピン・最終承認、本番ドメインとSEO、Worker / Siteverify / メール送信、GA4 / Search Console、Cloudflare配信・HTTPS、実機と性能の確認が必要。送信無効とnoindexは維持する。
 
 
-## 16. 写真の出所監査（2026-10-07）
+## 16. 写真の出所監査（2026-10-08・素材更新後）
 
-- 表示用JPEGの元写真は以下の対応表で管理。原本のSHA-256は下記に記録し、原本自体は上書き・加工していない。
-- JOURNALの400 / 800 / 1,200px画像は、各原本を同寸法へ縮小した画像と比較して対応を確認した。JOURNALの旧参照は正式原本由来で使用可能だが、撮影メタデータを持たない既存の最適化版へ統一した。対応は drink → DSC_0132.webp、interior → DSC_0167.webp、pudding → R0000476.webp。HERO旧写真（coffee-cup / entrance-door / brewing-station）には正式原本がないため参照を解除。旧ファイルは削除していない。
-- 使用中の最適化版だけをGit対象にする。元写真、未使用派生画像、提供JSON-LD原稿はローカルに保持し、静的配信対象へ含めない。
+- 現在の全表示写真は下記10原本から生成した30 WebP。分類B（正式原本由来の最適化版）が30ファイル、C（ブランド素材）が2ファイル。A（原本の直接使用）とD（不適合）は0件。
+- 表中の `{400,800,最大幅}` はその各幅をファイル名に持つ3ファイルを示す。これが今回作成したWebPの全一覧。パスはすべて `images/` 配下。
 
-| 表示ファイル（各幅を含む） | 原本（images/formal ver/） | 使用箇所 | 分類 |
-|---|---|---|---|
-| formal ver/web/DSC_0052-{400,800,1450}.jpg | DSC_0052.webp | HERO 1 / COFFEE | B |
-| formal ver/web/DSC_0132-{400,800,1450}.jpg | DSC_0132.webp | HERO 2 / JOURNAL 1 | B |
-| formal ver/web/DSC_0167-{400,800,1450}.jpg | DSC_0167.webp | HERO 3 / SPACE / JOURNAL 2 | B |
-| formal ver/web/DSC_0165-{400,800,1450}.jpg | DSC_0165.webp | CULTURE | B |
-| formal ver/web/R0000476-{400,800,1920}.jpg | R0000476.webp | SWEETS / JOURNAL 3 | B |
-| web/logo-header.png / web/favicon.png | 正式ブランド素材（写真ではない） | HEADER / FOOTER / favicon | C |
+| 使用箇所 | 表示用WebP（3サイズ） | 原本（formal ver/） |
+|---|---|---|
+| HERO | `web/hero/DSC_0052-{400,800,1450}.webp` | `DSC_0052.webp` |
+| HERO | `web/hero/coffee-packages-{400,800,1206}.webp` | `829940080_1786515612391095_3237499876071483915_n.webp` |
+| HERO | `web/hero/entrance-sign-{400,800,1206}.webp` | `835355627_2191449308084144_6214797320265951783_n.webp` |
+| COFFEE | `web/coffee/coffee-preparation-{400,800,1206}.webp` | `836650886_1839293087060384_1504843703391329726_n.webp` |
+| SWEETS | `web/sweets/R0000476-{400,800,1920}.webp` | `R0000476.webp` |
+| SPACE | `web/space/DSC_0167-{400,800,1450}.webp` | `DSC_0167.webp` |
+| CULTURE | `web/culture/DSC_0165-{400,800,1450}.webp` | `DSC_0165.webp` |
+| JOURNAL | `web/journal/coffee-pouring-{400,800,1206}.webp` | `833135303_1893980718650582_7245257760060958267_n.webp` |
+| JOURNAL | `web/journal/DSC_0132-{400,800,1450}.webp` | `DSC_0132.webp` |
+| JOURNAL | `web/journal/spoon-{400,800,1206}.webp` | `830324349_4550763371904964_7100813407432157579_n.webp` |
+| HEADER / FOOTER / favicon | `web/logo-header.png` / `web/favicon.png`（変換なし） | 正式ブランド素材 |
 
-上記の表示ファイルはすべて `images/` 配下。分類Aは正式原本の直接使用、Bは正式原本由来のWeb最適化版、Cはロゴ等、Dは不適合。現在はBが15ファイル、Cが2ファイル、A / Dは0件。
+- HERO順序: DSC_0052（コーヒー）→ coffee-packages（パッケージ）→ entrance-sign（入口看板）。3枚を維持し、未確認の新作スイーツや他セクションの写真で点数を埋めない。
+- JOURNAL順序: coffee-pouring（注ぐ手元）→ DSC_0132（ドリンク）→ spoon（器具のディテール）。静的／手動横スクロールを維持する。
+- COFFEEはDSC_0052からcoffee-preparationへ変更。SWEETS / SPACE / CULTUREは既存の適切な原本を維持し、WebPへ変換するだけで構図・コピーを変更しない。
+- セクション間の同一写真の重複は0件。17枚には同じ写真の別サイズ版が含まれるので、ファイル名が違うだけの同一カットを別写真として数えない。
+- 旧 `formal ver/web/*.jpg`、`web/hero/*.jpg`、`web/culture/*.jpg`、`web/journal/*.jpg`、`web/space/*.jpg` および `web/` 直下の旧写真は現在のHTML / CSS / JavaScriptから参照なし。削除候補として保持し、今回は削除しない。旧HEROのcoffee-cup / entrance-door / brewing-stationは正式原本がないため再使用しない。
+- 原本と未使用派生画像、提供JSON-LD原稿は静的配信対象へ含めない。既存workflowは参照ファイルを抽出するため、新しいWebPも参照に従って収集する。
 
-重複はDSC_0052（HERO / COFFEE）、DSC_0132（HERO / JOURNAL）、DSC_0167（HERO / SPACE / JOURNAL）、R0000476（SWEETS / JOURNAL）。正式写真の出所を優先し、各ギャラリー内では異なる被写体を選んだ。原本R0002506は商品名未確定のため現在の表示には使わない。HEROは5〜7枚の目安に届かないが、旧写真で補わず3枚を維持。JOURNALも既存の正式原本由来3枚を維持する。
+生成に使用した原本のSHA-256（元ファイルが変更されていないことを確認する基準）：
 
 | 原本 | SHA-256 |
 |---|---|
-| DSC_0052.webp | 07507bab2cd14abd241b538e6cbffd83bc4dedc9ba146a99c5c54d957eb0ad5a |
-| DSC_0132.webp | 5a72bf5c5642d9bb8ef99ddc4f8657f37e535c1e19bbb0e7623d669ddd4319fa |
-| DSC_0165.webp | 400a7e2890118d2b60ca83caf3bcd6dce89af812a39564592db5a6caf1f27bb1 |
-| DSC_0167.webp | ecccbd75db17ad4ffd42d3ad75686fa775097bb8efdeeb11019137a4a71d70a6 |
-| R0000476.webp | b88bff4c7c22eb38e40f3a73ec7427df1affd95b0a173966757526525c6f912e |
-| R0002506.webp | 637509bc24dc75f05a7bb9ab66ec2b0348c7e2be53970c9ba623de808c6af0b8 |
-
+| `DSC_0052.webp` | `07507bab2cd14abd241b538e6cbffd83bc4dedc9ba146a99c5c54d957eb0ad5a` |
+| `829940080_1786515612391095_3237499876071483915_n.webp` | `fa4c53c02a01fa59bf34cdbc2792c2610f2742376b6920c2cb1bd038b804d45a` |
+| `835355627_2191449308084144_6214797320265951783_n.webp` | `d298a50112f3fbed38d41a9e66539fe29a804c1ed8dd66a90175d79324d6fdc3` |
+| `836650886_1839293087060384_1504843703391329726_n.webp` | `91de56aa925f761a15ae59af840f955ffebab98e7d0cd9a5904f30e4a31a0cca` |
+| `R0000476.webp` | `b88bff4c7c22eb38e40f3a73ec7427df1affd95b0a173966757526525c6f912e` |
+| `DSC_0167.webp` | `ecccbd75db17ad4ffd42d3ad75686fa775097bb8efdeeb11019137a4a71d70a6` |
+| `DSC_0165.webp` | `400a7e2890118d2b60ca83caf3bcd6dce89af812a39564592db5a6caf1f27bb1` |
+| `833135303_1893980718650582_7245257760060958267_n.webp` | `abdbddc69ac46e578ec637230ce2eba1aa8936aed8073cd9f312b83b9b9fa115` |
+| `DSC_0132.webp` | `5a72bf5c5642d9bb8ef99ddc4f8657f37e535c1e19bbb0e7623d669ddd4319fa` |
+| `830324349_4550763371904964_7100813407432157579_n.webp` | `ce0d341a89a895ad9a709a006fa0218eb3c503d12f21be095a9b09a432fdc2af` |
 
 ## 17. formal-productionの履歴統合
 
