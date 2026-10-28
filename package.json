@@ -1,0 +1,19 @@
+{
+  "name": "bashiiin-coffee-static",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "node scripts/build-static.mjs",
+    "verify:dist": "node scripts/build-static.mjs --verify",
+    "test": "node --test scripts/build-static.test.mjs",
+    "dev": "npm run build && node scripts/dev-local.mjs",
+    "verify:local": "node scripts/verify-local.mjs"
+  },
+  "devDependencies": {
+    "parse5": "8.0.1",
+    "wrangler": "4.154.0"
+  }
+}

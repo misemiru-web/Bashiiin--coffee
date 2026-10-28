@@ -5,3 +5,9 @@ images/source/
 *.log
 .env*
 node_modules
+
+# Generated local static build and Wrangler state
+/dist/
+/.wrangler/
+/.static-build-*/
+/.dev.vars*
