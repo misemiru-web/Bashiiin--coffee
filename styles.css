@@ -23,14 +23,14 @@
   --font-body: "Hiragino Kaku Gothic ProN", "Yu Gothic", "YuGothic", system-ui, sans-serif;
   --font-heading: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
   --font-size-h1: 40px;
-  --font-size-h2: 32px;
+  --font-size-h2: 28px;
   --font-size-eyebrow: 12px;
   --font-size-body: 16px;
   --font-weight-heading: 500;
   --font-weight-eyebrow: 600;
   --font-weight-body: 400;
   --line-height-h1: 1.25;
-  --line-height-h2: 1.4;
+  --line-height-h2: 1.25;
   --line-height-eyebrow: 1.5;
   --line-height-body: 1.85;
   --letter-spacing-h1: .02em;
@@ -38,16 +38,18 @@
   --letter-spacing-eyebrow: .12em;
   --letter-spacing-body: .04em;
   --space-eyebrow: 16px;
-  --space-heading: 32px;
+  --space-heading: 28px;
   --space-section: 88px;
   --space-section-half: calc(var(--space-section) / 2);
-  --content-max: 1120px;
-  --page-gutter: 10vw;
-  --photo-wide-max: 320px;
+  --content-max: 1200px;
+  --page-gutter: clamp(24px, calc(6.25vw - 16px), 48px);
+  --copy-max: 38em;
+  --photo-wide-max: calc(100vw - 2 * var(--page-gutter));
   --photo-detail-max: 320px;
-  --photo-paired-max: 320px;
+  --photo-paired-max: var(--photo-wide-max);
   --photo-portrait-max: 220px;
   --photo-max-height: min(56svh, 520px);
+  --section-content-max: var(--content-max);
   --hero-photo-scale: .85;
   --link-icon-gap: 3px;
   color-scheme: light;
@@ -56,8 +58,8 @@
 @media (min-width: 641px) {
   :root {
     --font-size-h1: 48px;
-    --font-size-h2: 36px;
-    --space-heading: 40px;
+    --font-size-h2: 32px;
+    --space-heading: 36px;
     --space-section: 104px;
     --photo-wide-max: 640px;
     --photo-detail-max: 600px;
@@ -66,18 +68,21 @@
     --hero-photo-scale: .8;
   }
 }
+/* Join the tablet gutter to 10vw at 1440px without a breakpoint jump. */
+@media (min-width: 1024px) {
+  :root { --page-gutter: clamp(48px, calc(23.076923vw - 188.307692px), 10vw); }
+}
 @media (min-width: 1100px) {
   :root {
     --font-size-h1: 64px;
-    --font-size-h2: 44px;
+    --font-size-h2: 36px;
     --font-size-eyebrow: 13px;
-    --line-height-h2: 1.25;
-    --space-heading: 48px;
+    --space-heading: 44px;
     --space-section: 120px;
     --photo-wide-max: 760px;
     --photo-detail-max: 680px;
     --photo-paired-max: 440px;
-    --photo-portrait-max: 260px;
+    --photo-portrait-max: 320px;
   }
 }
 
@@ -112,11 +117,13 @@ h1, h2 {
   font-weight: var(--font-weight-heading);
 }
 
-h1 span { display: block; white-space: nowrap; }
+h1 span { display: block; white-space: normal; }
 h2 span { display: block; }
 h1 { font-size: var(--font-size-h1); line-height: var(--line-height-h1); letter-spacing: var(--letter-spacing-h1); }
 h2 { font-size: var(--font-size-h2); line-height: var(--line-height-h2); letter-spacing: var(--letter-spacing-h2); }
 .heading-phrase { display: inline-block; white-space: nowrap; }
+/* Keep short semantic phrases together; longer text can still wrap normally. */
+.copy-phrase { display: inline-block; max-width: 100%; white-space: normal; }
 
 .page-shell { width: var(--shell); margin-inline: auto; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
@@ -502,7 +509,7 @@ address { margin-bottom: 14px; font-style: normal; font-size: 13px; line-height:
   .site-header--formal .no-script-nav { display: none; }
 
   .hero--formal h1 span:nth-child(n) { display: inline; }
-  .hero--formal h1 span:last-child { margin-left: .3em; }
+  .hero--formal h1 span:last-child { margin-left: .3em; white-space: nowrap; }
   .hero-gallery { --photo-height: 420px; --gallery-inset: max(80px, calc((100vw - 1240px) / 2)); }
   .hero-gallery__photo { width: 360px; }
   .hero-gallery__photo:nth-child(2n) { width: 420px; }
@@ -785,6 +792,12 @@ address { margin-bottom: 14px; font-style: normal; font-size: 13px; line-height:
 /* Five-page shell. Keep the section styles above for the next content migration. */
 .site--formal { --shell: min(var(--content-max), calc(100% - 2 * var(--page-gutter))); color: var(--ink); background: var(--bg); color-scheme: light; }
 .site--formal .page-shell { width: var(--shell); }
+/* One centered width for each section's photograph, copy and link group. */
+.site--formal main .page-shell,
+.page--about .space__photo {
+  width: min(var(--section-content-max), var(--shell));
+  margin-inline: auto;
+}
 .site--formal :focus-visible { outline: 2px solid var(--coffee); outline-offset: 4px; }
 .site-header--formal .site-header__inner { grid-template-columns: minmax(0, 1fr) auto; }
 .site-header--formal .desktop-nav a[aria-current="page"],
@@ -818,9 +831,12 @@ address { margin-bottom: 14px; font-style: normal; font-size: 13px; line-height:
 
 .page--top .hero--formal { grid-template-areas: "intro" "heading" "gallery" "outro"; }
 
-.page--top .hero-gallery { --photo-height: clamp(240px, 72vw, 304px); --gallery-inset: 0px; width: 100%; max-width: calc(var(--content-max) + 2 * var(--page-gutter)); margin-inline: auto; padding-inline: var(--page-gutter); }
-.page--top .hero-gallery__viewport { width: 100%; margin-inline: 0; }
-.page--top .hero-gallery__toolbar { width: 100%; }
+.page--top .hero-gallery { --photo-height: clamp(240px, 72vw, 304px); --gallery-inset: 0px; display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; max-width: calc(var(--section-content-max) + 2 * var(--page-gutter)); margin-inline: auto; margin-bottom: 16px; padding-inline: var(--page-gutter); }
+.page--top .hero-gallery__viewport { grid-area: 1 / 1; width: 100%; margin-inline: 0; }
+/* A separate normal-flow row keeps the control below, aligned to the viewport. */
+.page--top .hero-gallery .hero-gallery__toolbar { grid-area: 2 / 1; align-self: start; justify-self: stretch; width: 100%; min-height: 0; margin: 0; padding-top: 8px; }
+.page--top .hero-gallery__toggle { min-width: 72px; padding-inline: 12px 0; text-align: right; }
+.page--top .hero-gallery__toggle:focus-visible { outline-offset: -4px; }
 /* Classes keep each photo's crop correct when the order changes. */
 .hero-gallery__photo.hero-gallery__photo--coffee img { object-position: 65% center; }
 .hero-gallery__photo.hero-gallery__photo--packages img { object-position: center 55%; }
@@ -848,7 +864,8 @@ address { margin-bottom: 14px; font-style: normal; font-size: 13px; line-height:
 .site-footer--formal .footer__nav a:hover { text-decoration: underline; text-underline-offset: 6px; }
 .page-intro { padding-block: var(--space-section-half) var(--space-heading); min-height: 0; }
 
-.page-intro h1 { max-width: 18em; overflow-wrap: anywhere; }
+.page-intro h1 { max-width: none; overflow-wrap: normal; }
+.content-page .page-intro h1 .heading-phrase { display: inline-block; white-space: nowrap; }
 .page-intro__lead { max-width: 38em; font-size: 16px; line-height: 1.85; font-style: normal; margin: var(--space-heading) 0 0; }
 
 @media (min-width: 641px) {
@@ -874,8 +891,8 @@ address { margin-bottom: 14px; font-style: normal; font-size: 13px; line-height:
 /* STEP 04 content pages: reuse the existing sections without changing TOP. */
 
 .content-page .page-intro h1 span { white-space: normal; }
-/* Keep the full photograph visible, including in shorter browser windows. */
-.site--formal .content-page figure img { width: auto; max-width: 100%; height: auto; max-height: var(--photo-max-height); margin-inline: auto; }
+/* Cap photo height independently of the shared content width; crop without stretching. */
+.site--formal .content-page figure img { width: 100%; max-width: 100%; height: auto; max-height: var(--photo-max-height); object-fit: cover; margin-inline: auto; }
 .content-link {
   display: inline-flex;
   align-items: center;
@@ -897,46 +914,55 @@ address { margin-bottom: 14px; font-style: normal; font-size: 13px; line-height:
   margin-block: var(--space-section-half) var(--space-section);
 }
 .page--about #space.space--formal { grid-template-areas: "label" "title" "photo"; padding-top: 0; }
-.page--about .space__photo { width: min(var(--photo-wide-max), var(--shell)); }
-.page--about .space__photo img { height: auto; aspect-ratio: auto; object-fit: contain; }
-.page--about .sweets__photo { width: 100%; max-width: var(--photo-paired-max); justify-self: center; }
-.page--about .sweets__copy { width: min(100%, var(--photo-paired-max)); justify-self: center; }
-.page--about .sweets__photo img { height: auto; aspect-ratio: auto; object-fit: contain; }
+.page--about .space__photo img { height: auto; aspect-ratio: auto; }
+.page--about .sweets__photo,
+.page--about .sweets__copy { width: 100%; max-width: none; min-width: 0; margin-inline: auto; }
+.page--about .sweets__photo img { height: auto; aspect-ratio: auto; }
 .page--about .culture { background: var(--bg); }
-
+.page--about .culture__photo { width: 100%; }
 .page--about .culture__photo img { height: auto; }
 .page--coffee #coffee.coffee--formal { padding-block: 0 var(--space-section-half); }
-.page--coffee .coffee__photo { width: 100%; max-width: var(--photo-wide-max); grid-column: auto; grid-row: auto; justify-self: center; }
-.page--coffee .coffee__photo img { height: auto; aspect-ratio: auto; object-fit: contain; }
-.page--coffee .coffee__intro { width: 100%; max-width: var(--photo-wide-max); justify-self: center; margin: 0; font-size: 16px; line-height: 1.85; }
+.page--coffee .coffee__photo { width: 100%; grid-column: auto; grid-row: auto; justify-self: center; }
+.page--coffee .coffee__photo img { height: auto; aspect-ratio: auto; }
+.page--coffee .coffee__intro { width: 100%; max-width: var(--copy-max); justify-self: start; margin: 0; font-size: 16px; line-height: 1.85; }
+.page--coffee .beans__notice p { max-width: var(--copy-max); }
+.page--about .sweets__text { max-width: var(--copy-max); }
+.page--coffee .beans__inner { grid-template-columns: minmax(0, 1fr); }
+.page--coffee .beans__content { grid-column: 1; grid-row: auto; }
 
 .page--coffee .page-intro h1 .coffee-title__phrase { display: inline-block; white-space: nowrap; }
 /* Keep the title, status and all form fields on the same narrow column. */
-.page--contact .contact__inner { width: min(680px, var(--shell)); }
+.page--contact main { --section-content-max: 680px; }
 .page--contact .page-intro { padding-block: 0 var(--space-heading); }
 .page--contact .page-intro h1 { overflow-wrap: normal; }
 .page--contact .contact__submit { width: 100%; }
 .page--contact .contact__field { min-width: 0; }
 .page--contact .contact__turnstile { max-width: 100%; }
 .page--contact .contact__status { overflow-wrap: anywhere; }
-.page--access .access__layout { display: grid; gap: var(--space-heading); padding-bottom: var(--space-section-half); }
+.page--access main { --section-content-max: 880px; }
+.page--access .page-intro { --section-content-max: var(--content-max); text-align: left; }
+.page--access .access__layout { display: grid; align-items: start; gap: var(--space-heading); padding-bottom: var(--space-section-half); }
 .page--access .access__details { min-width: 0; }
-.page--access .access__address { margin: 0 0 16px; font-size: 20px; line-height: 1.85; }
+.page--access .access__address { margin: 0 0 16px; font-size: 20px; line-height: 1.85; line-break: strict; text-wrap: pretty; }
 .page--access .access__hours { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
 .page--access .access__hours p { margin: 0 0 8px; font-size: 16px; }
-.page--access .access__photo { width: 100%; max-width: var(--photo-portrait-max); margin: 0 auto; justify-self: center; }
+.page--access .access__photo { width: 100%; margin: 0 auto; justify-self: center; }
 .page--access .access__photo img { width: 100%; height: auto; }
+
+@media (min-width: 768px) {
+  .page--access .access__layout { grid-template-columns: minmax(0, 1fr) 220px; column-gap: clamp(32px, 3vw, 40px); padding-bottom: 0; }
+  .page--access .access__photo { grid-column: 2; grid-row: 1; }
+  .page--access .page-next { margin-block: 24px 64px; padding-block: 16px; }
+}
 
 @media (max-width: 640px) {
   .site-footer--formal .footer__nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
 }
 
 @media (min-width: 1100px) {
-  .page--about .sweets__copy { width: 100%; max-width: 36em; justify-self: start; }
-
-  .page--access .access__layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .page--access .access__address { font-size: 24px; }
-  .page--access .access__photo { grid-column: 2; grid-row: 1; }
+  .page--about .sweets__layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .page--access .access__address { margin-bottom: 12px; font-size: 24px; }
+  .page--access .access__hours { margin-top: 20px; padding-top: 16px; }
 }
 
 /* Inline Lucide icons and one continuous underline for each text/icon unit. */

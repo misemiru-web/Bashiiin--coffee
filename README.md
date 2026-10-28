@@ -1,219 +1,168 @@
-# Bashiiin! coffee
+# Bashiiin! coffee 正式Webサイト
 
-Bashiiin! coffeeのWebサイトを管理するリポジトリです。コードとGit設定から確認できる事実を記録し、業務状態や公開状態が未確認の項目は `要確認` としています。
+京都・河原町のスペシャルティコーヒー店、Bashiiin! coffeeの正式Webサイト制作リポジトリです。写真主体・短い文章・白／生成りを基調とするシンプルなデザインを、Mobile Firstの静的HTML / CSS / JavaScriptで実装しています。
 
-## 1. 基本情報・現在の状態
+最終更新：2026-10-28（STEP 08-A）
 
-- 案件名: Bashiiin! coffee
-- 内容: 店舗情報を掲載する静的Webサイト
-- 現在のHTML title: `Bashiiin! coffee | SPECIALTY COFFEE / KYOTO`
-- robots設定: `noindex, nofollow, noarchive`
-- 現在の制作・承認・公開・保守状態: 要確認
-- 正式な公開URL: 要確認
-- README最終更新日: 2026-10-08
+## 現在の状態と基準資料
 
-上記のコード表記は確認済みですが、現在の契約区分や公開判断を示すものとは断定しません。
+- TOP / ABOUT / COFFEE / CONTACT / ACCESSの5ページを実装。ユーザーからSTEP 01〜07および07.5の目視デザイン調整完了の連絡を受け、現在の実装を最新の制作状態として記録しています。
+- **正式公開前です。公開準備完了・本番稼働中を意味しません。** 全ページの `noindex, nofollow, noarchive` とCONTACT送信無効状態を維持します。
+- 基準：[要件定義書v1.6](docs/requirements/requirements_v1.6_2026-10-13.md)、[デザイン定義書v1.6](docs/design/design-system_v1.6_2026-10-13.md)、その後のユーザー明示指示とSTEP 07.5の現行実装。
+- 画像の実参照・原本・派生サイズ・許可確認状態は [画像管理表](docs/asset-map.md) を参照してください。
+- `docs/requirements/requirements.md`、`docs/design/design-system.md`、`docs/references/`、`design-qa.md`、既存の `docs/qa/` は過去の資料・検証記録です。旧LPの仕様やQA結果を現行5ページ版の受入完了の根拠にはしません。
+- 契約・支払・保守・公開承認の状態を実装完了から推測しません。店舗の全ページ最終承認は公開前に必要です。
 
-## 2. Repository
+## ページ構成
 
-- GitHub: https://github.com/jiandouchuiming-cell/Bashiiin--coffee.git
-- 基準branch: `main`
-- 公開済み安定版を示すcommit / tag: 要確認
+| ページ | URLパス | ファイル | 現在の役割 |
+|---|---|---|---|
+| TOP | `/` | `index.html` | スペシャルティコーヒーの第一印象、連続写真トラック、営業情報のInstagram案内、各ページへの入口 |
+| ABOUT | `/about/` | `about/index.html` | SPACE / SWEETS / CULTUREを実写と短文で紹介 |
+| COFFEE | `/coffee/` | `coffee/index.html` | コーヒー準備の写真、短い紹介、CURRENT BEANSの案内 |
+| CONTACT | `/contact/` | `contact/index.html` | 3項目の問い合わせフォームの静的初稿。現在は送信不可 |
+| ACCESS | `/access/` | `access/index.html` | 正式住所、Google Maps、最新営業情報へのInstagram導線、入口看板写真 |
 
-## 3. 技術構成
+独立したメニューページ・オンラインショップ・JOURNALページはありません。旧JOURNAL用フォルダの写真3点は現在TOPの写真トラックで使用しています。
 
-- HTML / CSS / JavaScript
-- package manager: なし
-- `package.json`: なし
-- Node.js指定: なし
-- 専用build工程: なし
+## 技術・ディレクトリ構成
 
-## 4. セットアップ・確認方法
+build工程、`package.json`、lockfile、npm依存、フレームワークはありません。HTMLを静的配信し、共通CSSとJavaScriptを直接読み込みます。
 
-依存関係のインストールは不要です。専用の開発起動・buildコマンドはありません。ルートの `index.html` と関連ファイルを静的サイトとして確認します。
+```text
+index.html
+about/index.html
+coffee/index.html
+contact/index.html
+access/index.html
+styles.css
+script.js
+README.md
+AGENTS.md / CLAUDE.md
+docs/
+  asset-map.md
+  requirements/   # v1.6と過去資料
+  design/         # v1.6と過去資料
+  references/     # 過去のデザイン参考
+  qa/             # 過去の検証記録
+images/
+  formal ver/     # 店舗提供原本。非配信。web/には旧JPEG派生あり
+  source/         # 旧素材等。既存追跡ファイルもあるため一括処理しない
+  web/
+    hero/
+    coffee/
+    sweets/
+    space/
+    culture/
+    journal/
+    logo-header.png
+    favicon.png
+.github/workflows/deploy-pages.yml
+bashiiin_coffee_jsonld.html  # 作業用入力資料。配信対象外
+```
 
-### Build
+`images/web/`直下等には未使用の旧素材も残っています。フォルダ全体を本番配信・一括追加しないでください。Workers設定・CONTACTバックエンドは未作成です。
 
-- buildコマンド: なし
-- build出力先: なし
+## デザイン・フロントエンド仕様
 
-存在しないnpmコマンドを追加・実行しないでください。
+現行 `styles.css` の共通トークンを基準とします。v1.6の初期目安に戻すためのデザイン変更は行いません。
 
-## 5. 主な構成と更新箇所
+| 共通設定 | Mobile（〜640px） | Tablet（641〜1099px） | Desktop（1100px〜） |
+|---|---|---|---|
+| H1 | 40px | 48px | 64px |
+| H2 | 28px | 32px | 36px |
+| Eyebrow | 12px | 12px | 13px |
+| 本文 | 16px | 16px | 16px |
+| Eyebrow→見出し | 16px | 16px | 16px |
+| 見出し→コンテンツの基本間隔 | 28px | 36px | 44px |
+| セクション余白トークン | 88px | 104px | 120px |
 
-- `index.html`: 店舗情報、本文、主要リンク、SEO情報
-- `styles.css`: レイアウトと見た目
-- `script.js`: 画面動作、独自分析イベント、dataLayer連携処理
-- `images/web/`: サイトで利用する主な画像
-- `images/source/`: 元素材用の場所。Git追跡状況を確認して扱う
-- `.github/workflows/deploy-pages.yml`: GitHub Pagesデプロイworkflow
+- 日本語見出し：`Noto Serif JP` / `Hiragino Mincho ProN` / `Yu Mincho` / serif。本文はHiragino / Yu Gothic / system-ui。外部Webフォントは読み込みません。環境に存在するフォントへフォールバックします。
+- 見出しweight 500・行高1.25。字間H1 `.02em` / H2 `.04em`。Eyebrowはweight 600・行高1.5・字間 `.12em`、本文はweight 400・行高1.85・字間 `.04em`。
+- 共通幅は `--content-max: 1200px` と `--page-gutter` による中央コンテナ。本文は原則左揃え。Mobileの左右24pxからTablet、Desktopへ連続的に変化します。
+- `--page-gutter` は基本 `clamp(24px, calc(6.25vw - 16px), 48px)`、1024px以上は `clamp(48px, calc(23.076923vw - 188.307692px), 10vw)`。共通幅は `min(1200px, 100% - 左右余白)`。
+- 代表的な計算値：390pxは幅342px／左右24px、1024pxは幅928px／左右48px、1440pxは幅1152px／左右144px。ブラウザーのスクロールバー等による差は別途確認します。
+- 写真・見出し・本文・リンクは同じコンテナ基準。長文は必要に応じ `--copy-max: 38em` で行長を抑えます。通常写真は `max-height: min(56svh, 520px)` と `object-fit: cover` で高さを抑え、原本比率・表示枠に応じてトリミングします。
+- CONTACTはタイトルを含む本文最大680px。ACCESS本文・関連リンクは最大880px、768px以上は情報＋幅220pxの縦長写真の2カラム（間隔32〜40px・上端揃え）。ACCESSタイトルはABOUTと同じ広い共通コンテナで左揃えです。
+- 共通HEADER / FOOTERに5ページナビゲーションを配置。現在ページには `aria-current="page"` を指定。Mobileメニューはキーボード、Esc、focus循環・復帰、背景の `inert` に対応し、JavaScriptが動かない場合も通常リンクを表示します。
+- Lucide系のarrow-right / arrow-up-right / menu / xをinline SVGで使用。各HTMLのライセンス表記を保持します。追加ライブラリやCDNは不要です。
+- テキストリンクは文字＋アイコンを1単位とし、共通gap 3px、連続する擬似要素の下線、原則44px以上の操作高さを確保しています。
 
-店舗情報を変更するときは `index.html` 内の重複表記を確認します。画像差し替えでは公開用と元素材を混同せず、権利とGit追跡状況を確認します。
+### TOPの写真トラック
 
-## 6. 外部サービス・フォーム・解析
+- 5写真の順序は画像管理表に記録。自動移動はWeb Animations APIで24 CSS px/秒。表示領域に必要なループ複製を用意し、複製は `aria-hidden` / `inert` / 空altで読み上げ・操作対象から除きます。
+- PAUSE / PLAYは写真表示領域の**直下8px・右端揃え**の通常フローの独立行。写真を覆いません。操作領域は44px以上です。
+- 停止・再開、停止位置からの手動閲覧、focus・pointer・wheel操作による停止に対応。`prefers-reduced-motion` では自動再生せず、設定変更にも追従します。
+- 写真の表示高さはMobileで可変、Tabletで304px、Desktopで336px。画像単体を巨大化せず、表示領域は共通幅と左右均等な余白に揃えています。
 
-- Instagramへの外部リンク
-- Googleマップへの外部リンク（Footer内の補助導線。地図埋め込み・独立ACCESSなし）
-- 外部Webフォントの読み込みなし（現在のHTML）
-- CONTACTフロントエンド: `POST /api/contact` のJSON送信・入力検証・状態表示を実装。Worker・メール送信は未実装、現在は送信無効。
-- Search Console設定: 要確認
-- GA4タグ: コード上では確認できない
-- `script.js`: 独自イベント `bashiiin:analytics` を送出し、dataLayerが存在する場合にデータを追加
+## 写真・ブランド素材の管理
 
-上記JavaScriptだけを根拠に、GA4が導入・運用中とは判断しません。
+正式写真は原本が `images/formal ver/` に存在する店舗提供写真だけを使用します。Web最適化版を `images/web/` に置くことは可能です。ロゴ・ワードマーク・faviconだけは原本フォルダ制限の例外です。
 
-## 7. SEO
+現在は10原本由来のWebP 30ファイルとロゴ／favicon 2ファイルを参照しています。400 / 800 / 原本幅の3サイズを `srcset` / `sizes` で選択します。TOP・ABOUT・COFFEEは各ページ先頭の主写真1点にhigh priorityを設定し、それ以外の本文写真はlazy loadingです。寸法属性を保持しています。
 
-- `title`、description、robots等は主に `index.html` で管理
-- 現在のrobots: `noindex, nofollow, noarchive`
-- `noindex` を外す条件と承認者: 要確認
-- canonical: コード上では確認できない
+原本の削除・移動・rename・上書き、AI生成・内容改変は行いません。派生生成は必要性と保存先を確認したうえで原本を残して行い、画像管理表に対応関係を記録します。制作使用の許可回答と、個別写真の撮影元・被写体の掲載許可・店舗の最終公開承認は区別します。
 
-## 8. 公開・ホスティング・ドメイン
+## CONTACTの現状と後続API契約
 
-- デプロイ方式: `.github/workflows/deploy-pages.yml` が `main` へのpushでGitHub Pagesへ参照中の静的ファイルをデプロイ
-- 現在実際に公開中か: 要確認
-- 正式な公開URL: 要確認
-- 独自ドメイン、DNS、所有者: 要確認
+`contact/index.html` の `#contact-form` はフロントエンドの静的初稿です。**現在、問い合わせは送信できません。**
 
-`main` へのpushはデプロイを起動し得るため、公開可否を確認せず実行しないでください。
+- 表示項目はお名前 `name` / メールアドレス `email` / お問い合わせ内容 `message` の3つ。常時表示label、required、autocomplete、メール形式、空白のみの拒否、上限100 / 254 / 5,000文字を実装。文字数はUTF-16コード単位です。
+- `data-endpoint-ready="false"`、Turnstile公開sitekeyは空、送信ボタンはdisabled。JavaScript無効時も送信不可。未設定状態ではAPI・Turnstileへ通信せず、偽成功を表示しません。
+- 初期／入力エラー／送信中／成功／失敗の状態、項目別エラー、ARIA通知・focus、二重送信防止、失敗時の入力保持を用意しています。サーバーがない現状で実送信の成功を保証しません。
+- 接続契約は同一オリジン `POST /api/contact`、JSONキー `name`, `email`, `message`, `turnstileToken`。HTTP 200かつJSONの `ok === true` だけ成功。HTML fallback・通信失敗・20秒タイムアウト等は成功扱いにしません。
+- Worker/API、サーバー側再検証、Turnstile Siteverify、本番認証、メール通知は未実装・未接続です。Worker側で入力・サイズ制限、不正リクエスト対策、hostname/action=`contact`、期限切れ・再利用token拒否を実装し、メール通知完了後だけ成功応答を返す必要があります。
+- 公開sitekey、許可hostname、Siteverify secret、正式な送信元／検証済み送信先、Email Service `send_email` binding等は後工程で設定・確認します。secretをフロントやGitに保存しません。
+- 入力値・tokenをconsole、URL、Analytics、Workerログへ出しません。フォーム値をlocalStorage等へ保存しません。タイムアウト時の再送による重複通知対策はWorker側で検討します。
+- `form_start`、`form_submit`、成功応答時だけ1回の `generate_lead` の経路を用意しています。`bashiiin:analytics` と任意のdataLayer連携はGA4導入済みの証拠ではありません。現在の開発用console出力もイベント情報のみで、入力値・tokenを含みません。GA4接続時はフォーム拡張計測との重複・個人情報非送信を確認します。
 
-## 9. QA・素材・引継ぎ
+## SEO・JSON-LD
 
-- リポジトリ内の公開前QAチェックリスト: 確認できない
-- 画像・文章の利用許諾範囲: 要確認
-- 公開前の確認者・承認条件: 要確認
-- 復元はGit履歴を基準にし、安定版commit / tagは関係者へ確認する
+- 5ページそれぞれにtitle / description / robotsを設定し、全ページ `noindex, nofollow, noarchive` を維持。正式なcanonical・OGP・sitemap・robots.txt・GA4接続は未整備です。
+- TOPの `<head>` に `application/ld+json` を1つ設置。JSON-LDの掲載項目は `@context` / `@type: CafeOrCoffeeShop` / `name` / 確認済み内容の `description` / `address` / Instagramの `sameAs`。
+- メニューページがないため `menu`、固定営業時間を掲載しないため `openingHoursSpecification` を除外しています。
+- 正式ドメイン未確定のため `@id` / `url` / `image` / `logo` は省略。公開時に確定済みの絶対URLで追加し、ACCESSの実表示と整合させます。推測ドメイン・example.com・架空画像URLは設定しません。
+- `alternateName` / `priceRange` / `currenciesAccepted` / `geo` / `hasMap` / `servesCuisine` / `acceptsReservations` / `postalCode` は未確認のため掲載していません。必要な項目だけ店舗確認後に検討します。自家焙煎・自家製・人気等を補完しません。
+- JSON-LD image候補は `images/web/space/DSC_0167-1450.webp` または `images/web/hero/DSC_0052-1450.webp`、logo候補は `images/web/logo-header.png`。OGP写真候補は後者ですが、最終選定・比率・本番URLは未確定です。
+- 提供原稿 `bashiiin_coffee_jsonld.html` は未確認値・仮URLを含む入力資料です。公開用HTMLとして配信・一括Git追加しません。
 
-共通QAテンプレートはリポジトリへ自動コピーせず、必要時に別途適用します。
+## ローカルプレビュー
 
-## 10. 未確認事項
+ルート相対パスを使用するため、`file://`でHTMLを開かず、**リポジトリルートをHTTPサーバーのルート**にしてください。Python 3が使える環境で、リポジトリルートから起動します。
 
-- 現在の案件状態、公開状態、承認状態、保守範囲
-- 正式な公開URL、独自ドメイン、DNS
-- `noindex` を外す時期・条件
-- Instagram、Googleマップの正式な運用先
-- Search Console / GA4の導入・管理状況
-- 素材の権利確認状況、公開前QAと承認記録
+```sh
+python3 -m http.server 8875 --bind 127.0.0.1
+```
 
-## 11. 認証情報
+この環境では利用可能なPython 3実行ファイルによる同じ起動引数のサーバーと、`http://127.0.0.1:8875/contact/` のHTTP 200を確認しました。Pythonのインストール先・PATHは環境に合わせて確認してください。既に8875で起動中なら二重起動せず既存サーバーを使用します。
 
-パスワード、APIキー、秘密トークン、個人情報をREADMEやGitへ保存しないでください。必要な認証情報の保管先と共有方法は、関係者へ確認してください。
+- TOP: `http://127.0.0.1:8875/`
+- ABOUT: `http://127.0.0.1:8875/about/`
+- COFFEE: `http://127.0.0.1:8875/coffee/`
+- CONTACT: `http://127.0.0.1:8875/contact/`
+- ACCESS: `http://127.0.0.1:8875/access/`
 
-## 12. CONTACTの実装と後続Workerの契約
+このサーバーは確認用で、API・メール送信・本番の配信対象制限は実装しません。原本・管理資料にも到達し得るため外部公開しないでください。専用build / lint / testコマンドはありません。
 
-- HTML: `index.html` の `#contact-form`。表示項目は `name` / `email` / `message` の3項目だけ。
-- 入力上限: 名前100、メール254、本文5,000。フロントはUTF-16コード単位（`value.length` / `maxlength`）で検証。Workerも同じ上限、必須、空白のみ、メール形式を再検証する。
-- 現在は `data-endpoint-ready="false"`、`#contact-turnstile` の `data-sitekey` は空。送信不可を表示し、APIやTurnstileへ通信しない。JavaScript無効時も送信ボタンは無効。
-- Workerの実装・Siteverify・メール送信の実環境テスト完了後に、正式な公開sitekeyを設定し `data-endpoint-ready="true"` にする。secret・メールサービス認証情報をHTML/JSへ書かない。
-- Turnstileは公式APIを明示的にrender。入力用の項目を増やさず、callbackのトークンをメモリ内だけで保持する。期限切れ・エラーでは送信不可。送信試行後はresetし、新しいトークンを取得する。
-- 送信契約: 同一オリジン `POST /api/contact`、`Content-Type: application/json`、本文キーは `name`, `email`, `message`, `turnstileToken`。URLクエリには入力値を入れない。
-- Workerはサーバー側の入力検証、Turnstile Siteverify（hostname / action=`contact`も確認）、メール通知完了後だけHTTP 200 / JSON `{ "ok": true }` を返す。未検証・期限切れ・再利用トークンを拒否する。その他は非成功のHTTPステータスと入力値を含まない応答にする。
-- フロントはHTTP 200＋JSONの `ok === true` のみ成功扱い。HTML fallback、不正JSON、API未実装、通信失敗、20秒のタイムアウトは成功にしない。失敗時は入力を保持し、自動再送しない。
-- メールサービス側で成功した後に通信が切れる可能性もあるため、再送時の重複通知対策はWorker側で検討する。タイムアウト表示は「送信を確認できませんでした」とする。
-- `form_start` は最初の入力、`form_submit` は検証後のPOST試行、`generate_lead` は成功応答時だけ1回。既存 `bashiiin:analytics` / dataLayer の同一経路を使い、入力値・トークン・API応答・エラー内容は計測やconsoleへ送らない。フォーム値はlocalStorage等へ保存しない。
-- GA4測定IDと本番連携は未設定。将来この独自イベントをGA4へ接続する際は送信経路を1つにし、拡張計測のフォームイベントとの重複を避ける。Googleタグ側からも入力値を収集しない。
-- 公開前: Worker / Static Assetsの同一サイト配信、Siteverify secret・許可hostname、公開sitekey、Email Service `send_email` binding・正式ドメインの送信元・検証済み送信先、入力検証・サイズ制限・不正リクエスト対策・ログの個人情報非出力を確認。DBへの恒常保存・自動返信は行わない。
-- 本番のSiteverify・メール到達・GA4受信は未検証。フロントのテストで応答を置き換えても、これらの完了を意味しない。
+## Git運用と正式配信方針
 
-## 13. JSON-LD
+- repository：`misemiru-web/Bashiiin--coffee`
+- `main`：既存の営業サンプル用。`formal-production`：正式5ページ版の制作branch。正式版を不用意にmainへ反映しません。
+- 営業サンプルと正式版の公開環境は分離します。commit / push / merge / deployはそれぞれ明示許可のある工程だけで行います。
+- `.github/workflows/deploy-pages.yml` はmain pushおよび手動起動でGitHub Pagesへ配信する既存設定です。**正式5ページ版へ流用しません。** 現在の収集処理はルートの3ファイル中心で、サブページを含まず、先頭 `/` の画像パスも収集しないため現行構成に対応していません。workflowは今回変更しません。
+- 正式版は今後Cloudflare Workers Static Assetsで配信する予定です。実装・本番設定は未完了。5 HTML・共通CSS/JS・実参照素材だけを許可する配信対象の限定が必要です。
+- 原本、未使用素材、旧AI仮素材、入力資料、docs、ローカル設定、認証情報を本番配信へ含めません。Gitで保存するかどうかと配信対象かどうかは別の判断です。
+- 保存前は差分・既存変更・未追跡・画像参照・secretを個別確認し、`git add .`や`git add -A`による一括追加を避けます。原本を理由なく追加しません。既存追跡済みの旧素材も無断で削除しません。
 
-- 店舗提供の `bashiiin_coffee_jsonld.html` を入力資料とし、`index.html` の `<head>` に `application/ld+json` を1つ設置。独立した店舗情報ページは追加しない。
-- 現在の掲載項目: `@context`、`@type= CafeOrCoffeeShop`、`name`、確認済み内容に修正した `description`、正式住所に合わせた `address`、Instagramの `sameAs`。
-- `menu` はメニューページを設けないため除外。`openingHoursSpecification` は固定営業時間を掲載しない方針のため除外。
-- `alternateName`、`priceRange`、`currenciesAccepted`、`geo`、`hasMap`、`servesCuisine`、`acceptsReservations`、住所の `postalCode` は未確認のため除外。掲載が必要な項目だけ、店舗確認後に反映する。提供descriptionの未確認の製法・人気表現は使用しない。
-- 正式ドメインは未確定。`@id`、`url`、`image`、`logo` は値を推測せず、現在のJSON-LDには含めていない。公開前に正規トップページの絶対URL、同URLに `#shop` を付けた一意の `@id`、実ファイルの本番絶対URLを追加する。
-- `image` 候補: `images/web/space/DSC_0167-1450.webp`（店内）、`images/web/hero/DSC_0052-1450.webp`（コーヒー）。正式素材フォルダ内の原本から生成し、SPACE / HEROで使用。`logo` 候補: HEADER / FOOTERで使用中の `images/web/logo-header.png`。本番で各URLから画像が取得できることも確認する。
-- `index.html` のJSON-LDには `example.com` を残さない。提供原稿は改変せず保存しているため、原稿内には仮URL・未確認値が残る。原稿は公開アセットに含めないこと。GitHub Pages workflowはページと参照アセットだけを一時ディレクトリへコピーし、原稿・README・元写真を配信しない。本番Cloudflareでも同じ配信範囲を使い、リポジトリrootをそのままStatic Assetsにしない。
-- 現在のrobots `noindex, nofollow, noarchive` は維持。ドメイン・画像URL追加と検索公開への切り替えは、公開工程で別途確認する。
+## 今後の実装・公開前確認
 
-## 14. 正式版の写真素材ルール
+以下は未実装・未完了です。
 
-- 写真は原本が `images/formal ver/` に存在する店舗提供素材だけを使用する。HERO、全セクション、OGP、JSON-LDのimage、背景写真にも適用する。保存先だけで可否を判断せず、原本との対応を確認する。営業サンプル専用写真や出所不明の写真は使用しない。
-- ロゴ・ブランドマーク・faviconのみ例外。現在は `images/web/logo-header.png`、`images/web/favicon.png` をPNGのまま使用する。
-- 2026-10-08確認時点の更新後の原本は17枚。全原本の拡張子は `.webp` だが、実形式はJPEG。原本の削除・上書き・移動・renameはしない。
-- 現在の表示用写真は実形式がWebP。最新のユーザー指示に従い `images/web/{hero,coffee,sweets,space,culture,journal}/` に生成。各写真400 / 800 / 原本幅の3サイズ、品質84、向きの正規化、EXIF除去のみで、拡大・色調変更・AI加工・内容の追加はしない。
-- CURRENT BEANSは現在販売中の豆情報が未確認のため案内のみ。パッケージ写真はHEROに使用し、写真内のラベルから豆名・現在の在庫を推測しない。`beans/` と `common/` は採用素材が必要になった時点で作成する。
-- 別写真を優先し、今回の割り当てではセクション間の同一写真の重複はなし。HEROのループ複製は読み上げ・focusから除外する。
-- `srcset` / `sizes` は表示寸法とobject-fitによるトリミングを考慮。HERO先頭だけhigh priority、その他はlazy。原本以上の解像度は作らないため、高密度画面のCOFFEE / SPACEは原本解像度が上限となる。
-- OGPは未確定。候補は `images/web/hero/DSC_0052-1450.webp`。写真の選定・本番絶対URL・OGP用比率の決定は公開工程で確認する。現時点でOGPを新規作成・設定していない。
+1. Cloudflare Workers Static Assets、5ページ対応の配信対象限定、本番ドメイン・HTTPSと営業サンプルとの分離。
+2. CONTACT API、サーバー側再検証・Siteverify、メール通知・実送信／到達確認。正式な送信元・送信先と必要なbinding/secretの安全な設定。
+3. 正式URLを使用するcanonical / OGP / JSON-LD / sitemap / robots.txt等のSEO最終設定、GA4・Search Consoleの接続と実環境検証。
+4. 最新の豆情報・必要な新作情報、住所とGoogle Mapsの正しい店舗ピン、写真掲載許可・撮影元・人物等の権利、5ページの掲載内容の最終確認。
+5. 360 / 390 / 430 / 768 / 1024 / 1440pxの**全6幅・全ページの実ブラウザー最終QA**。制作中の個別確認と最終受入QAは区別し、iOS Safari / Android Chrome、keyboard / focus、カルーセル、画像品質、性能、実送受信・GA4受信等を確認します。
+6. 店舗による全ページの「公開OK」の文章承認と、要件上の公開条件の確認。その後、別の公開工程でnoindex解除を判断します。
 
-更新後の全原本を内容確認した一覧（先頭11枚が追加素材）：
-
-| 原本（images/formal ver/） | 内容 | 今回の用途 |
-|---|---|---|
-| `829940080_1786515612391095_3237499876071483915_n.webp` | ロゴ入りパッケージ | HERO 2 |
-| `830324349_4550763371904964_7100813407432157579_n.webp` | 金属のスプーン・木のテーブル | JOURNAL 3 |
-| `830416943_1686497192996545_8268471576687266553_n.webp` | グラスに盛られた層状スイーツ | 未使用。商品情報未確認 |
-| `831183319_1430301269249591_8222574010323692921_n.webp` | イラスト入りTシャツ・レンガ壁 | 未使用。同じ写真の高解像度原本をCULTUREで使用 |
-| `833135303_1893980718650582_7245257760060958267_n.webp` | グラスへコーヒーを注ぐ手元 | JOURNAL 1 |
-| `833271010_1402944518670214_7334833199519804194_n.webp` | サーバー・グラス・カード・奥のプリン | 未使用。同じ写真の高解像度原本をHEROで使用 |
-| `834720508_1439441991453605_1079492859231359163_n.webp` | 店内・カウンター・器具 | 未使用。同じ写真の高解像度原本をSPACEで使用 |
-| `835355627_2191449308084144_6214797320265951783_n.webp` | ロゴと2階への案内がある入口看板 | HERO 3 |
-| `835657091_2283790962443589_2894471994776161918_n.webp` | 氷入りドリンク・焼き菓子・カード | 未使用。同じ写真の高解像度原本をJOURNALで使用 |
-| `836500267_1085156011078265_5022858138063918314_n.webp` | プリン・皿・スプーン | 未使用。同じ写真の高解像度原本をSWEETSで使用 |
-| `836650886_1839293087060384_1504843703391329726_n.webp` | コーヒーを準備する手元・ドリッパー・サーバー・ポット | COFFEE |
-| `DSC_0052.webp` | サーバー・グラス・カード・奥のプリン | HERO 1 |
-| `DSC_0132.webp` | 氷入りドリンク・焼き菓子・カード | JOURNAL 2 |
-| `DSC_0165.webp` | イラスト入りTシャツ・レンガ壁 | CULTURE |
-| `DSC_0167.webp` | 店内・カウンター・器具 | SPACE |
-| `R0000476.webp` | プリン・皿・スプーン | SWEETS |
-| `R0002506.webp` | グラスに盛られた層状スイーツ | 未使用。商品情報未確認 |
-
-## 15. 全体レビュー修正と配信範囲
-
-- 独立ABOUTと未確認の店舗体験コピーは削除済み。LATEST INFOからCOFFEEへ直接続く。
-- HEROの停止位置を保持するため、写真列1周＋表示領域分を満たすループ複製を確保。複製はaria-hidden / inert / 空altで読み上げ・focusから除外。写真配分の重複承認とは別の、同一ギャラリー内の処理。
-- CURRENT BEANSは案内のみの間 `current-beans--pending` で余白を縮小。確認済みの豆・写真・更新時点を掲載する際は、このクラスを外して編集リストの寸法を再確認する。
-- COFFEEの反復本文を削除。見出しと大判写真は維持。
-- `.github/workflows/deploy-pages.yml` はHTMLのimg / srcset / faviconとCSSの画像参照を抽出し、index.html / styles.css / script.jsと実際の参照アセットだけを配信対象にする。入力資料、管理文書、元素材は含めない。公開先・main push起動は変更しない。実デプロイは未実施。
-- 最新の写真配分・表示用WebPと原本の対応は§14 / §16を参照。写真監査完了は本番公開承認・送信基盤の完成を意味しない。
-- 公開前: 店舗の豆情報・新作情報・Mapピン・最終承認、本番ドメインとSEO、Worker / Siteverify / メール送信、GA4 / Search Console、Cloudflare配信・HTTPS、実機と性能の確認が必要。送信無効とnoindexは維持する。
-
-
-## 16. 写真の出所監査（2026-10-08・素材更新後）
-
-- 現在の全表示写真は下記10原本から生成した30 WebP。分類B（正式原本由来の最適化版）が30ファイル、C（ブランド素材）が2ファイル。A（原本の直接使用）とD（不適合）は0件。
-- 表中の `{400,800,最大幅}` はその各幅をファイル名に持つ3ファイルを示す。これが今回作成したWebPの全一覧。パスはすべて `images/` 配下。
-
-| 使用箇所 | 表示用WebP（3サイズ） | 原本（formal ver/） |
-|---|---|---|
-| HERO | `web/hero/DSC_0052-{400,800,1450}.webp` | `DSC_0052.webp` |
-| HERO | `web/hero/coffee-packages-{400,800,1206}.webp` | `829940080_1786515612391095_3237499876071483915_n.webp` |
-| HERO | `web/hero/entrance-sign-{400,800,1206}.webp` | `835355627_2191449308084144_6214797320265951783_n.webp` |
-| COFFEE | `web/coffee/coffee-preparation-{400,800,1206}.webp` | `836650886_1839293087060384_1504843703391329726_n.webp` |
-| SWEETS | `web/sweets/R0000476-{400,800,1920}.webp` | `R0000476.webp` |
-| SPACE | `web/space/DSC_0167-{400,800,1450}.webp` | `DSC_0167.webp` |
-| CULTURE | `web/culture/DSC_0165-{400,800,1450}.webp` | `DSC_0165.webp` |
-| JOURNAL | `web/journal/coffee-pouring-{400,800,1206}.webp` | `833135303_1893980718650582_7245257760060958267_n.webp` |
-| JOURNAL | `web/journal/DSC_0132-{400,800,1450}.webp` | `DSC_0132.webp` |
-| JOURNAL | `web/journal/spoon-{400,800,1206}.webp` | `830324349_4550763371904964_7100813407432157579_n.webp` |
-| HEADER / FOOTER / favicon | `web/logo-header.png` / `web/favicon.png`（変換なし） | 正式ブランド素材 |
-
-- HERO順序: DSC_0052（コーヒー）→ coffee-packages（パッケージ）→ entrance-sign（入口看板）。3枚を維持し、未確認の新作スイーツや他セクションの写真で点数を埋めない。
-- JOURNAL順序: coffee-pouring（注ぐ手元）→ DSC_0132（ドリンク）→ spoon（器具のディテール）。静的／手動横スクロールを維持する。
-- COFFEEはDSC_0052からcoffee-preparationへ変更。SWEETS / SPACE / CULTUREは既存の適切な原本を維持し、WebPへ変換するだけで構図・コピーを変更しない。
-- セクション間の同一写真の重複は0件。17枚には同じ写真の別サイズ版が含まれるので、ファイル名が違うだけの同一カットを別写真として数えない。
-- 旧 `formal ver/web/*.jpg`、`web/hero/*.jpg`、`web/culture/*.jpg`、`web/journal/*.jpg`、`web/space/*.jpg` および `web/` 直下の旧写真は現在のHTML / CSS / JavaScriptから参照なし。削除候補として保持し、今回は削除しない。旧HEROのcoffee-cup / entrance-door / brewing-stationは正式原本がないため再使用しない。
-- 原本と未使用派生画像、提供JSON-LD原稿は静的配信対象へ含めない。既存workflowは参照ファイルを抽出するため、新しいWebPも参照に従って収集する。
-
-生成に使用した原本のSHA-256（元ファイルが変更されていないことを確認する基準）：
-
-| 原本 | SHA-256 |
-|---|---|
-| `DSC_0052.webp` | `07507bab2cd14abd241b538e6cbffd83bc4dedc9ba146a99c5c54d957eb0ad5a` |
-| `829940080_1786515612391095_3237499876071483915_n.webp` | `fa4c53c02a01fa59bf34cdbc2792c2610f2742376b6920c2cb1bd038b804d45a` |
-| `835355627_2191449308084144_6214797320265951783_n.webp` | `d298a50112f3fbed38d41a9e66539fe29a804c1ed8dd66a90175d79324d6fdc3` |
-| `836650886_1839293087060384_1504843703391329726_n.webp` | `91de56aa925f761a15ae59af840f955ffebab98e7d0cd9a5904f30e4a31a0cca` |
-| `R0000476.webp` | `b88bff4c7c22eb38e40f3a73ec7427df1affd95b0a173966757526525c6f912e` |
-| `DSC_0167.webp` | `ecccbd75db17ad4ffd42d3ad75686fa775097bb8efdeeb11019137a4a71d70a6` |
-| `DSC_0165.webp` | `400a7e2890118d2b60ca83caf3bcd6dce89af812a39564592db5a6caf1f27bb1` |
-| `833135303_1893980718650582_7245257760060958267_n.webp` | `abdbddc69ac46e578ec637230ce2eba1aa8936aed8073cd9f312b83b9b9fa115` |
-| `DSC_0132.webp` | `5a72bf5c5642d9bb8ef99ddc4f8657f37e535c1e19bbb0e7623d669ddd4319fa` |
-| `830324349_4550763371904964_7100813407432157579_n.webp` | `ce0d341a89a895ad9a709a006fa0218eb3c503d12f21be095a9b09a432fdc2af` |
-
-## 17. formal-productionの履歴統合
-
-- リモートの既存3commitは履歴・追加資料を保持してmerge。競合したHTML / CSS / JavaScriptは、v1.5と最新の写真ルール・フォーム仕様に基づく検証済み実装を採用した。
-- `docs/`、`design-qa.md` はリモートにあった過去の資料・検証記録として保持。v1.3資料や旧実装の画面は現在の受入基準ではなく、指定のv1.5資料と最新ユーザー指示を優先する。
-- リモート履歴に含まれる `images/source/ai-placeholder/` は正式版の採用素材ではない。現在のページ・CSS・JavaScriptから参照せず、静的配信対象にも含めない。履歴を保つため削除や書き換えは行っていない。
+現時点を公開準備完了とは扱いません。正式ドメイン・権限・最終承認・サービス利用条件を推測して設定しないでください。
