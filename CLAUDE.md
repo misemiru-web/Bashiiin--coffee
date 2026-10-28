@@ -17,7 +17,7 @@
 - 既存の機能、レスポンシブ、アクセシビリティ、SEO、リンク、フォームを壊さない。
 - 未コミット変更を破棄・上書き・stashしない。
 - force push、reset、rebase、履歴書き換え、remote変更を行わない。
-- commit、pull、fetch、push、デプロイはユーザーの明示許可がある場合だけ行う。
+- commit、pull、fetch、push、merge、デプロイはユーザーの明示許可がある場合だけ指定範囲で行う。ステージングも許可されたファイルを個別確認し、`git add .` / `git add -A` による無差別追加や、未追跡の原本・旧画像・作業用資料の無断追加をしない。
 - 変更に関係する既存のbuild、lint、typecheck、testだけを実行し、未実行の検証を実行済みと報告しない。
 - 技術、起動方法、公開方法、外部サービス、更新箇所を変えた場合はREADMEも確認する。
 - 作業後は変更、検証、未確認事項、Git操作と公開操作の有無を報告する。
@@ -25,7 +25,12 @@
 ## 案件固有ルール
 
 - build工程のない静的HTML / CSS / JavaScriptとして扱う。
-- `main` へのpushは `.github/workflows/deploy-pages.yml` によりGitHub Pagesのデプロイを起動するため、許可なしにpushしない。
-- `noindex, nofollow, noarchive` と `Concept Preview` を確認なしに変更しない。
-- 主な情報は `index.html`、動作は `script.js`、公開画像は主に `images/web/` にある。
+- 現行基準は `docs/requirements/requirements_v1.6_2026-10-13.md`、`docs/design/design-system_v1.6_2026-10-13.md` と最新の明示指示。STEP 07.5の現在のデザインを旧LP構成・旧資料の数値へ戻さない。
+- `main` は営業サンプル用、`formal-production` は正式5ページ版制作用。指示なく相互に変更を反映しない。`main` へのpush等で `.github/workflows/deploy-pages.yml` がGitHub Pages配信を起動するため、影響を確認し、正式5ページ版へ流用しない。正式版と営業サンプルの公開環境を分離する。
+- 正式公開承認と公開工程の明示指示が揃うまで、全ページの `noindex, nofollow, noarchive` を維持する。旧営業サンプルの `Concept Preview` 等のプレビュー表記は正式5ページ版へ引き継がない。
+- 店舗情報・コンテンツは5ページで分担する。TOP `index.html` は写真トラック・最新情報のInstagram案内・各ページへの入口、ABOUT `about/index.html` はSPACE / SWEETS / CULTURE、COFFEE `coffee/index.html` はコーヒー紹介・CURRENT BEANS、CONTACT `contact/index.html` は3項目フォーム、ACCESS `access/index.html` は住所・Google Maps・最新営業情報へのInstagram導線・看板写真を管理する。共通HEADER / FOOTERの重複情報も整合させる。共通動作は `script.js`、見た目は `styles.css` で管理する。
+- 写真は原本が `images/formal ver/` に存在する店舗提供写真由来の、確認済み配信用WebPを使う。現在の配信写真は `images/web/` 配下の各用途フォルダにあり、原本・派生サイズ・実際の使用箇所・掲載許可の確認状態は `docs/asset-map.md` に従う。ロゴ・ブランドマーク・faviconのみ原本フォルダ制限の例外とする。
+- 写真原本を削除・移動・rename・上書きせず、AI生成・AIによる内容改変をしない。派生生成は事前に必要性を報告し、保存先変更時は既存構成と参照関係を確認する。原本・未使用画像・旧AI仮素材・作業用入力資料は本番配信に含めず、未追跡素材を無断でGitへ追加しない。
+- Cloudflare Workers Static Assetsと配信対象限定は未実装。CONTACTはフロントエンドの静的初稿で、`POST /api/contact` の接続契約はあるが、API・Turnstileのサーバー側Siteverify・本番認証・メール通知・実送受信テストは未実装・未完了。送信無効状態を維持し、未接続のまま偽成功を表示しない。秘密情報をフロントエンドへ記載しない。
+- 正式URLを用いたSEO最終設定・GA4接続・公開前最終QA・店舗の全ページ最終公開承認は未完了として扱い、既存のtitle / description / TOPのJSON-LD等と混同しない。
 - `script.js` の独自イベント・dataLayer処理だけでGA4導入済みとは判断しない。

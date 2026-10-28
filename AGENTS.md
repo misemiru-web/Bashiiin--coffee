@@ -38,7 +38,8 @@
 - 対象外ファイルを変更せず、無関係な整形やリファクタリングを混ぜない。
 - 未コミット変更を勝手に破棄、上書き、stashしない。
 - force push、reset、rebase、履歴書き換え、remote変更、重要branch削除を明示依頼なしに行わない。
-- commit、pull、fetch、push、公開は、ユーザーが許可した場合だけ指定範囲で行う。
+- commit、pull、fetch、push、merge、deploy・公開は、ユーザーが許可した場合だけ指定範囲で行う。
+- ステージングは許可されたファイルを個別確認して行い、`git add .` / `git add -A` による無差別追加を避ける。未追跡の原本・旧画像・作業用入力資料を無断で追加しない。
 
 ## 検証・文書
 
@@ -52,13 +53,17 @@
 ## 案件固有ルール
 
 - 現在はbuild工程のない静的HTML / CSS / JavaScript構成を維持する。
-- `.github/workflows/deploy-pages.yml` は `main` へのpushでGitHub Pagesへデプロイするため、workflowとpushの影響を事前確認する。
-- `noindex, nofollow, noarchive` と `Concept Preview` 表記を、公開方針の確認なしに外さない。
-- 店舗情報は主に `index.html`、画像は主に `images/web/` で管理する。
+- 現行基準は `docs/requirements/requirements_v1.6_2026-10-13.md`、`docs/design/design-system_v1.6_2026-10-13.md` と最新の明示指示。STEP 07.5で調整した現在のデザインを、旧資料の数値・旧LP構成へ戻さない。
+- `main` は営業サンプル、`formal-production` は正式5ページ版の制作branchとして扱い、指示なく相互に変更を反映しない。`.github/workflows/deploy-pages.yml` は `main` へのpush等でGitHub Pagesへデプロイする既存設定のため、影響を事前確認し、正式5ページ版へ流用しない。正式配信環境と営業サンプルの公開環境を分離する。
+- 正式公開承認と公開工程の明示指示が揃うまで、全ページの `noindex, nofollow, noarchive` を維持する。旧営業サンプルの `Concept Preview` 等のプレビュー表記は正式5ページ版へ引き継がない。
+- 店舗情報・コンテンツは5ページで分担する。TOP `index.html` は写真トラック・最新情報のInstagram案内・各ページへの入口、ABOUT `about/index.html` はSPACE / SWEETS / CULTURE、COFFEE `coffee/index.html` はコーヒー紹介・CURRENT BEANS、CONTACT `contact/index.html` は3項目フォーム、ACCESS `access/index.html` は住所・Google Maps・最新営業情報へのInstagram導線・看板写真を管理する。共通HEADER / FOOTERの住所・リンク等を変更する場合は5ページ間の整合性も確認する。
 - `script.js` の独自イベントとdataLayer連携を、GA4導入済みの証拠として扱わない。
 - `images/source/` はGit管理状況を確認してから扱い、追跡対象外素材を誤ってcommitしない。
 - 正式版の写真はサイト全体（HERO・各セクション・OGP・JSON-LDのimageを含む）で 原本が `images/formal ver/` に存在する店舗提供写真だけを使用する。そこから作成したリサイズ・圧縮・適切なトリミング等のWeb最適化版は `images/web/` 等への保存も可能。参照パスではなく原本との対応を確認する。旧資料の営業サンプル素材継続使用よりこのルールを優先する。
 - ロゴ・ワードマーク・シンボル・favicon等のブランド素材だけはフォルダ制限の例外。ロゴ以外の例外を作らない。
 - 写真は実内容を確認して選定・altを設定する。AI生成・AIによる内容改変、無関係な素材による穴埋め、未確認の商品名・活動の断定をしない。
 - 写真配分は正式原本由来の別写真、必要最小限の重複、枚数削減の順に判断する。重複が発生した場合は対象ファイルと使用箇所を報告する。正式原本のない旧写真で枚数を補わない。HEROのループ複製は同一ギャラリー内の実装であり、読み上げを重複させない。
-- 元写真の削除・上書き・rename・移動は行わない。表示サイズ別画像が必要なら実行前に必要性を報告し、元を残して `images/formal ver/web/` 内に生成する。元ファイルとの対応はREADMEへ記録する。
+- 元写真の削除・上書き・rename・移動は行わない。正式サイトの写真には原本との対応を確認した配信用WebPを使用する。現在の参照先は `images/web/hero/`、`coffee/`、`sweets/`、`space/`、`culture/`、`journal/`（いずれも `images/web/` 配下）。`journal/` の写真は現在TOP、`hero/entrance-sign-*` は現在ACCESSで使用しているため、フォルダ名だけで用途を判断しない。共通ブランド素材は `images/web/logo-header.png` と `images/web/favicon.png`。
+- 原本・配信用素材・派生サイズ・使用箇所・掲載許可の確認状態は `docs/asset-map.md` で管理する。派生画像の生成が必要なら実行前に必要性を報告し、原本を保持する。生成先を変更する場合は既存構成・HTMLの参照関係を確認し、旧保存先 `images/formal ver/web/` を一律に指定しない。原本・未使用画像・旧AI仮素材・作業用入力資料は本番配信へ含めない。
+- 現在、Cloudflare Workers Static Assets・配信対象限定・CONTACT API・Turnstileのサーバー側Siteverify・メール通知／実送受信テストは未実装・未完了。CONTACTはフロントエンドの静的初稿で、`POST /api/contact` の接続契約を用意しているが送信無効状態を維持する。秘密情報をフロントエンドへ記載せず、未接続のまま偽成功を表示しない。
+- 正式URLによるSEO最終設定・GA4接続・公開前最終QA・店舗の全ページ最終公開承認は未完了として扱い、実装済みのtitle / description / TOPのJSON-LDや計測用イベントと混同しない。
