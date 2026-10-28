@@ -31,15 +31,32 @@ const forbidden = [
   '/AGENTS.md', '/CLAUDE.md', '/README.md', '/.git/config', '/.github/workflows/deploy-pages.yml',
   '/bashiiin_coffee_jsonld.html', '/images/formal%20ver/DSC_0052.webp', '/images/web/coffee-cup.jpg',
   '/images/source/ai-placeholder/05_caramel_pudding.jpg', '/package.json', '/package-lock.json',
-  '/wrangler.jsonc', '/scripts/build-static.mjs', '/scripts/public-files.json', '/.env', '/api/contact',
+  '/wrangler.jsonc', '/scripts/build-static.mjs', '/scripts/public-files.json', '/.env',
+  '/worker/index.mjs', '/worker/contact/api.mjs', '/worker/contact/turnstile.mjs',
 ];
 for (const url of forbidden) {
   const r = await request(url, { headers: { 'Sec-Fetch-Mode': 'navigate' } });
   assert.equal(r.status, 404, `${url}: must not expose a file or SPA fallback`); checks++;
 }
-for (const url of ['/api/contact', '/api/contact/', '/contact/']) {
+for (const [url, expected] of [['/api/contact', 503], ['/api/contact/', 404], ['/contact/', 405]]) {
   // Empty JSON only: no user input, tokens, external services, or real message submission.
   const r = await request(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
-  assert.ok([404, 405].includes(r.status), `${url}: POST must not be accepted (got ${r.status})`); checks++;
+  assert.equal(r.status, expected, `${url}: unexpected POST status`);
+  if (url.startsWith('/api/')) {
+    const body = await r.json();
+    assert.deepEqual(body, { ok: false, code: expected === 503 ? 'SERVICE_UNAVAILABLE' : 'NOT_FOUND' });
+    assert.equal(r.headers.get('Cache-Control'), 'no-store');
+    assert.equal(r.headers.get('Access-Control-Allow-Origin'), null);
+  }
+  checks++;
 }
-console.log(`PASS: ${checks} local Wrangler HTTP checks; ${inventory.files.length} assets match source bytes and MIME; unknown/private paths 404; POST rejected.`);
+for (const [url, expected, code] of [['/api/contact', 405, 'METHOD_NOT_ALLOWED'], ['/api/unknown', 404, 'NOT_FOUND']]) {
+  const r = await request(url);
+  assert.equal(r.status, expected);
+  assert.deepEqual(await r.json(), { ok: false, code }); checks++;
+}
+const guarded = await request('/api/contact?CONTACT_API_ENABLED=true', {
+  method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Test-Mode': 'true' }, body: '{}',
+});
+assert.equal(guarded.status, 503); checks++;
+console.log(`PASS: ${checks} local Wrangler HTTP checks; ${inventory.files.length} assets match source bytes and MIME; private paths 404; CONTACT API disabled (503).`);

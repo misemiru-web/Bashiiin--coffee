@@ -8,7 +8,7 @@
   "scripts": {
     "build": "node scripts/build-static.mjs",
     "verify:dist": "node scripts/build-static.mjs --verify",
-    "test": "node --test scripts/build-static.test.mjs",
+    "test": "node --test scripts/build-static.test.mjs worker/contact/*.test.mjs",
     "dev": "npm run build && node scripts/dev-local.mjs",
     "verify:local": "node scripts/verify-local.mjs"
   },
