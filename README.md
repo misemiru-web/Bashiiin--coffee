@@ -2,7 +2,7 @@
 
 京都・河原町のスペシャルティコーヒー店、Bashiiin! coffeeの正式Webサイト制作リポジトリです。写真主体・短い文章・白／生成りを基調とするシンプルなデザインを、Mobile Firstの静的HTML / CSS / JavaScriptで実装しています。
 
-最終更新：2026-10-28（STEP 08-A）
+最終更新：2026-10-29（STEP 09-C2-A）
 
 ## 現在の状態と基準資料
 
@@ -10,6 +10,8 @@
 - **正式公開前です。公開準備完了・本番稼働中を意味しません。** 全ページの `noindex, nofollow, noarchive` とCONTACT送信無効状態を維持します。
 - 基準：[要件定義書v1.6](docs/requirements/requirements_v1.6_2026-10-13.md)、[デザイン定義書v1.6](docs/design/design-system_v1.6_2026-10-13.md)、その後のユーザー明示指示とSTEP 07.5の現行実装。
 - 画像の実参照・原本・派生サイズ・許可確認状態は [画像管理表](docs/asset-map.md) を参照してください。
+- Cloudflareの環境準備・承認・設定確認は [導入チェックリスト](docs/operations/cloudflare-launch-checklist.md) を使用します。未確認の実値やSecretは文書に記録しません。
+- Static Assetsの限定ビルドとCONTACTバックエンドはローカル実装済みです。Cloudflare実環境は未構築・未デプロイで、実Siteverifyと実メール到達は未検証です。
 - `docs/requirements/requirements.md`、`docs/design/design-system.md`、`docs/references/`、`design-qa.md`、既存の `docs/qa/` は過去の資料・検証記録です。旧LPの仕様やQA結果を現行5ページ版の受入完了の根拠にはしません。
 - 契約・支払・保守・公開承認の状態を実装完了から推測しません。店舗の全ページ最終承認は公開前に必要です。
 
@@ -20,14 +22,14 @@
 | TOP | `/` | `index.html` | スペシャルティコーヒーの第一印象、連続写真トラック、営業情報のInstagram案内、各ページへの入口 |
 | ABOUT | `/about/` | `about/index.html` | SPACE / SWEETS / CULTUREを実写と短文で紹介 |
 | COFFEE | `/coffee/` | `coffee/index.html` | コーヒー準備の写真、短い紹介、CURRENT BEANSの案内 |
-| CONTACT | `/contact/` | `contact/index.html` | 3項目の問い合わせフォームの静的初稿。現在は送信不可 |
+| CONTACT | `/contact/` | `contact/index.html` | 3項目の問い合わせフォーム。バックエンドは実装済み、現在は送信不可 |
 | ACCESS | `/access/` | `access/index.html` | 正式住所、Google Maps、最新営業情報へのInstagram導線、入口看板写真 |
 
 独立したメニューページ・オンラインショップ・JOURNALページはありません。旧JOURNAL用フォルダの写真3点は現在TOPの写真トラックで使用しています。
 
 ## 技術・ディレクトリ構成
 
-build工程、`package.json`、lockfile、npm依存、フレームワークはありません。HTMLを静的配信し、共通CSSとJavaScriptを直接読み込みます。
+フロントエンドは静的HTML / CSS / JavaScriptを維持しています。Node.js 22以上、固定依存のWrangler 4.154.0・parse5 8.0.1と `package-lock.json` を使用し、配信用ファイルだけを `dist/` に複製します。フレームワークやバンドル処理は追加していません。
 
 ```text
 index.html
@@ -39,8 +41,16 @@ styles.css
 script.js
 README.md
 AGENTS.md / CLAUDE.md
+package.json / package-lock.json
+wrangler.jsonc
+worker/
+  index.mjs       # APIルーティング
+  contact/        # API・入力検証・Siteverify・メール通知・モックテスト
+scripts/          # 許可リスト・build・出力検証・ローカル起動／HTTP検証
+dist/             # 生成物。Git対象外、Static Assetsの配信元
 docs/
   asset-map.md
+  operations/cloudflare-launch-checklist.md
   requirements/   # v1.6と過去資料
   design/         # v1.6と過去資料
   references/     # 過去のデザイン参考
@@ -61,7 +71,7 @@ images/
 bashiiin_coffee_jsonld.html  # 作業用入力資料。配信対象外
 ```
 
-`images/web/`直下等には未使用の旧素材も残っています。フォルダ全体を本番配信・一括追加しないでください。Workers設定・CONTACTバックエンドは未作成です。
+`images/web/`直下等には未使用の旧素材も残っています。フォルダ全体を本番配信・一括追加しないでください。Workers設定・CONTACTバックエンドは実装済みですが、アカウント・本番ドメイン・Secrets・メール／レート制限bindingsは未設定です。
 
 ## デザイン・フロントエンド仕様
 
@@ -103,17 +113,20 @@ bashiiin_coffee_jsonld.html  # 作業用入力資料。配信対象外
 
 原本の削除・移動・rename・上書き、AI生成・内容改変は行いません。派生生成は必要性と保存先を確認したうえで原本を残して行い、画像管理表に対応関係を記録します。制作使用の許可回答と、個別写真の撮影元・被写体の掲載許可・店舗の最終公開承認は区別します。
 
-## CONTACTの現状と後続API契約
+## CONTACTの現状とAPI契約
 
-`contact/index.html` の `#contact-form` はフロントエンドの静的初稿です。**現在、問い合わせは送信できません。**
+`contact/index.html` の `#contact-form` と対応するWorker APIを実装しています。**現在、APIとフォームは無効で、問い合わせは送信できません。**
 
 - 表示項目はお名前 `name` / メールアドレス `email` / お問い合わせ内容 `message` の3つ。常時表示label、required、autocomplete、メール形式、空白のみの拒否、上限100 / 254 / 5,000文字を実装。文字数はUTF-16コード単位です。
 - `data-endpoint-ready="false"`、Turnstile公開sitekeyは空、送信ボタンはdisabled。JavaScript無効時も送信不可。未設定状態ではAPI・Turnstileへ通信せず、偽成功を表示しません。
-- 初期／入力エラー／送信中／成功／失敗の状態、項目別エラー、ARIA通知・focus、二重送信防止、失敗時の入力保持を用意しています。サーバーがない現状で実送信の成功を保証しません。
+- 初期／入力エラー／送信中／成功／失敗の状態、項目別エラー、ARIA通知・focus、二重送信防止、失敗時の入力保持を用意しています。本番接続前であり、実送信・受信箱への到達は未検証です。
 - 接続契約は同一オリジン `POST /api/contact`、JSONキー `name`, `email`, `message`, `turnstileToken`。HTTP 200かつJSONの `ok === true` だけ成功。HTML fallback・通信失敗・20秒タイムアウト等は成功扱いにしません。
-- Worker/API、サーバー側再検証、Turnstile Siteverify、本番認証、メール通知は未実装・未接続です。Worker側で入力・サイズ制限、不正リクエスト対策、hostname/action=`contact`、期限切れ・再利用token拒否を実装し、メール通知完了後だけ成功応答を返す必要があります。
+- `worker/contact/` にAPI・入力再検証・Turnstile Siteverify・メール通知モジュールを実装済み。JSONの4フィールド以外を拒否し、HTTP本文はストリーム読み取り時から48KiBに制限します。Siteverifyのsuccess・hostname・action=`contact`を照合し、単回使用・期限切れ判定はCloudflareへ委ねます。実認証は未検証です。
+- `CONTACT_API_ENABLED` と `EMAIL_SENDING_ENABLED` は厳密に文字列 `"true"` の場合のみ許可。現在はいずれも `"false"`。Secret・正規HTTPS origin・hostname・送信元／宛先・`EMAIL` と `CONTACT_RATE_LIMITER` の両bindingも必須で、未設定時は本文読み取り・外部通信より前に503を返します。フラグだけでは送信できません。
+- メールは固定のサーバー側送信元／宛先と検証済みReply-Toを使うプレーンテキスト通知です。自動返信なし。`EMAIL.send()` の受付結果 `messageId` を確認してから成功応答を返します。サービス受付と受信箱への到達は別で、実メール到達は未検証です。
+- レート制限bindingは個人情報を含まない共通キーを使う設計です。未設定・障害時は503、制限超過は429。利用者間の共有枠・地域単位の概算制限・環境別namespace・未確定の閾値は導入チェックリストで管理します。
 - 公開sitekey、許可hostname、Siteverify secret、正式な送信元／検証済み送信先、Email Service `send_email` binding等は後工程で設定・確認します。secretをフロントやGitに保存しません。
-- 入力値・tokenをconsole、URL、Analytics、Workerログへ出しません。フォーム値をlocalStorage等へ保存しません。タイムアウト時の再送による重複通知対策はWorker側で検討します。
+- 入力値・tokenをconsole、URL、Analytics、Workerログへ出しません。フォーム値をlocalStorage等へ保存しません。自動再送はありません。メール受付後の通信断・タイムアウト後に新トークンで再送すると重複通知し得ます。現在、冪等性キーやDBはなく、許容方針・必要な追加対策は本番有効化前に決めます。
 - `form_start`、`form_submit`、成功応答時だけ1回の `generate_lead` の経路を用意しています。`bashiiin:analytics` と任意のdataLayer連携はGA4導入済みの証拠ではありません。現在の開発用console出力もイベント情報のみで、入力値・tokenを含みません。GA4接続時はフォーム拡張計測との重複・個人情報非送信を確認します。
 
 ## SEO・JSON-LD
@@ -126,23 +139,50 @@ bashiiin_coffee_jsonld.html  # 作業用入力資料。配信対象外
 - JSON-LD image候補は `images/web/space/DSC_0167-1450.webp` または `images/web/hero/DSC_0052-1450.webp`、logo候補は `images/web/logo-header.png`。OGP写真候補は後者ですが、最終選定・比率・本番URLは未確定です。
 - 提供原稿 `bashiiin_coffee_jsonld.html` は未確認値・仮URLを含む入力資料です。公開用HTMLとして配信・一括Git追加しません。
 
-## ローカルプレビュー
+## ビルド・テスト・ローカル配信
 
-ルート相対パスを使用するため、`file://`でHTMLを開かず、**リポジトリルートをHTTPサーバーのルート**にしてください。Python 3が使える環境で、リポジトリルートから起動します。
+ルート相対パスを使用するため、`file://`ではなくローカルHTTPで確認します。Node.js 22以上とlockfileに対応する依存が導入済みの環境で、リポジトリルートから既存npm scriptsを使用します。
 
 ```sh
-python3 -m http.server 8875 --bind 127.0.0.1
+npm run build
+npm run verify:dist
+npm test
 ```
 
-この環境では利用可能なPython 3実行ファイルによる同じ起動引数のサーバーと、`http://127.0.0.1:8875/contact/` のHTTP 200を確認しました。Pythonのインストール先・PATHは環境に合わせて確認してください。既に8875で起動中なら二重起動せず既存サーバーを使用します。
+- `build`：`scripts/public-files.json` の明示的な許可リストを検査し、39ファイルだけを `dist/` に複製します。5 HTML＋CSS/JS 2件＋WebP 30件＋ロゴ/favicon 2件です。
+- 参照切れ・許可リスト外参照・未使用の許可ファイル・パス逸脱・シンボリックリンク・原本の対応／ハッシュ不一致を拒否します。固定の生成先を置き換え、旧出力の残存を防ぎます。
+- `verify:dist`：出力一覧が許可リストと完全一致し、内容もソースと一致するか検証します。
+- `test`：静的ビルド12テストとCONTACT API関連テストを実行します。Siteverify・メール・レート制限はメモリー内モックで、実認証・実メール送信は行いません。
 
-- TOP: `http://127.0.0.1:8875/`
-- ABOUT: `http://127.0.0.1:8875/about/`
-- COFFEE: `http://127.0.0.1:8875/coffee/`
-- CONTACT: `http://127.0.0.1:8875/contact/`
-- ACCESS: `http://127.0.0.1:8875/access/`
+ローカル配信は別のターミナルで起動します。
 
-このサーバーは確認用で、API・メール送信・本番の配信対象制限は実装しません。原本・管理資料にも到達し得るため外部公開しないでください。専用build / lint / testコマンドはありません。
+```sh
+npm run dev
+```
+
+これはbuild後に `scripts/dev-local.mjs` からWranglerの `dev --local` を起動し、`http://127.0.0.1:8787` で配信します。リモートbinding・公開トンネル・デプロイを使用せず、認証用環境変数も子プロセスから除外します。終了はCtrl+Cです。同じポートの既存サーバーがある場合は二重起動しません。
+
+- ページ：`/`、`/about/`、`/coffee/`、`/contact/`、`/access/`
+- サーバー起動中、別ターミナルで次を実行します。
+
+```sh
+npm run verify:local
+```
+
+`verify:local` はloopbackのみを対象とし、配信ファイルの内容・Content-Type、末尾スラッシュへの転送、未知URL・非公開資料の404、無効APIのPOST 503等を確認します。ブラウザー表示や実メールのテストではありません。
+
+STEP 09-A／09-Bのローカル検証では、build・出力検証、計109自動テスト、72項目のWrangler HTTP検証が通過済みです。STEP 09-C2-Aでは `npm run verify:dist` を再実行し、39ファイルの一致を確認しました。build・自動テスト・HTTP検証は再実行していません。実Siteverify・メール到達・Cloudflare実環境・全6幅の最終ブラウザーQAは未検証です。
+
+現在のビルドは全5ページのnoindexとCONTACT無効・Site Key未設定を必須条件にしています。将来のフォーム有効化や検索公開では、これらの検証条件の変更も別途承認・レビューが必要です。検証を迂回して公開しません。
+
+## Cloudflare Workersの現在の構成
+
+- `wrangler.jsonc` のStatic Assets配信元は `./dist`、bindingは `ASSETS`。
+- Worker `worker/index.mjs` が `/api/*` を優先処理。`/api/contact` はCONTACT API、未知APIはJSON 404です。
+- `html_handling: force-trailing-slash`、`not_found_handling: none`。未知URLをTOPの200へ置き換えるSPA fallbackはありません。
+- `workers_dev: false`、`preview_urls: false`、アカウント・正式ドメイン・routeは未設定。設定上のWorker名はローカル識別子で、実在するCloudflareプロジェクトを意味しません。
+- `dist/`、`node_modules/`、`.wrangler/`、ローカルSecretファイルはGit保存対象外。Workerソース・設定・docs・原本・未使用画像・入力資料はStatic Assetsへ含めません。
+- Cloudflare実環境は未構築・未デプロイです。今後の準備は [導入チェックリスト](docs/operations/cloudflare-launch-checklist.md) に従い、ログイン・設定・検証環境への配置・実送信はそれぞれ許可された工程だけで行います。
 
 ## Git運用と正式配信方針
 
@@ -150,7 +190,7 @@ python3 -m http.server 8875 --bind 127.0.0.1
 - `main`：既存の営業サンプル用。`formal-production`：正式5ページ版の制作branch。正式版を不用意にmainへ反映しません。
 - 営業サンプルと正式版の公開環境は分離します。commit / push / merge / deployはそれぞれ明示許可のある工程だけで行います。
 - `.github/workflows/deploy-pages.yml` はmain pushおよび手動起動でGitHub Pagesへ配信する既存設定です。**正式5ページ版へ流用しません。** 現在の収集処理はルートの3ファイル中心で、サブページを含まず、先頭 `/` の画像パスも収集しないため現行構成に対応していません。workflowは今回変更しません。
-- 正式版は今後Cloudflare Workers Static Assetsで配信する予定です。実装・本番設定は未完了。5 HTML・共通CSS/JS・実参照素材だけを許可する配信対象の限定が必要です。
+- 正式版のCloudflare Workers Static Assets向け限定ビルド・Workerはローカル実装済みです。本番アカウント・ドメイン・DNS・HTTPS・アクセス制御・自動連携設定は未確認で、デプロイは未実施です。
 - 原本、未使用素材、旧AI仮素材、入力資料、docs、ローカル設定、認証情報を本番配信へ含めません。Gitで保存するかどうかと配信対象かどうかは別の判断です。
 - 保存前は差分・既存変更・未追跡・画像参照・secretを個別確認し、`git add .`や`git add -A`による一括追加を避けます。原本を理由なく追加しません。既存追跡済みの旧素材も無断で削除しません。
 
@@ -158,8 +198,8 @@ python3 -m http.server 8875 --bind 127.0.0.1
 
 以下は未実装・未完了です。
 
-1. Cloudflare Workers Static Assets、5ページ対応の配信対象限定、本番ドメイン・HTTPSと営業サンプルとの分離。
-2. CONTACT API、サーバー側再検証・Siteverify、メール通知・実送信／到達確認。正式な送信元・送信先と必要なbinding/secretの安全な設定。
+1. 実装済みのCloudflare Workers配信基盤を、承認されたアカウント・検証環境へ接続。本番ドメイン・HTTPS・アクセス制御と営業サンプルとの分離。
+2. 実装済みCONTACT APIの実Siteverify・メール受付／到達確認。送信元・送信先、binding/Secret、レート制限・重複通知方針の確定。API・フォーム有効化は後続の承認工程で判断。
 3. 正式URLを使用するcanonical / OGP / JSON-LD / sitemap / robots.txt等のSEO最終設定、GA4・Search Consoleの接続と実環境検証。
 4. 最新の豆情報・必要な新作情報、住所とGoogle Mapsの正しい店舗ピン、写真掲載許可・撮影元・人物等の権利、5ページの掲載内容の最終確認。
 5. 360 / 390 / 430 / 768 / 1024 / 1440pxの**全6幅・全ページの実ブラウザー最終QA**。制作中の個別確認と最終受入QAは区別し、iOS Safari / Android Chrome、keyboard / focus、カルーセル、画像品質、性能、実送受信・GA4受信等を確認します。

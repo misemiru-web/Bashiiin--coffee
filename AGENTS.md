@@ -52,7 +52,7 @@
 
 ## 案件固有ルール
 
-- 現在はbuild工程のない静的HTML / CSS / JavaScript構成を維持する。
+- フロントエンドは静的HTML / CSS / JavaScriptを維持する。Node.jsによる許可リスト式buildとCloudflare Workerを実装済み。既存の `package.json` scripts・lockfile・Wrangler設定を確認して作業し、フレームワークへ移行しない。
 - 現行基準は `docs/requirements/requirements_v1.6_2026-10-13.md`、`docs/design/design-system_v1.6_2026-10-13.md` と最新の明示指示。STEP 07.5で調整した現在のデザインを、旧資料の数値・旧LP構成へ戻さない。
 - `main` は営業サンプル、`formal-production` は正式5ページ版の制作branchとして扱い、指示なく相互に変更を反映しない。`.github/workflows/deploy-pages.yml` は `main` へのpush等でGitHub Pagesへデプロイする既存設定のため、影響を事前確認し、正式5ページ版へ流用しない。正式配信環境と営業サンプルの公開環境を分離する。
 - 正式公開承認と公開工程の明示指示が揃うまで、全ページの `noindex, nofollow, noarchive` を維持する。旧営業サンプルの `Concept Preview` 等のプレビュー表記は正式5ページ版へ引き継がない。
@@ -65,5 +65,7 @@
 - 写真配分は正式原本由来の別写真、必要最小限の重複、枚数削減の順に判断する。重複が発生した場合は対象ファイルと使用箇所を報告する。正式原本のない旧写真で枚数を補わない。HEROのループ複製は同一ギャラリー内の実装であり、読み上げを重複させない。
 - 元写真の削除・上書き・rename・移動は行わない。正式サイトの写真には原本との対応を確認した配信用WebPを使用する。現在の参照先は `images/web/hero/`、`coffee/`、`sweets/`、`space/`、`culture/`、`journal/`（いずれも `images/web/` 配下）。`journal/` の写真は現在TOP、`hero/entrance-sign-*` は現在ACCESSで使用しているため、フォルダ名だけで用途を判断しない。共通ブランド素材は `images/web/logo-header.png` と `images/web/favicon.png`。
 - 原本・配信用素材・派生サイズ・使用箇所・掲載許可の確認状態は `docs/asset-map.md` で管理する。派生画像の生成が必要なら実行前に必要性を報告し、原本を保持する。生成先を変更する場合は既存構成・HTMLの参照関係を確認し、旧保存先 `images/formal ver/web/` を一律に指定しない。原本・未使用画像・旧AI仮素材・作業用入力資料は本番配信へ含めない。
-- 現在、Cloudflare Workers Static Assets・配信対象限定・CONTACT API・Turnstileのサーバー側Siteverify・メール通知／実送受信テストは未実装・未完了。CONTACTはフロントエンドの静的初稿で、`POST /api/contact` の接続契約を用意しているが送信無効状態を維持する。秘密情報をフロントエンドへ記載せず、未接続のまま偽成功を表示しない。
+- Cloudflare Workers Static Assets向け限定ビルドとCONTACTバックエンド（入力再検証・Turnstile Siteverify・メール通知）はローカル実装・テスト済み。公開許可リスト `scripts/public-files.json` の39ファイルだけを `dist/` へ出力し、Workerは `/api/*` を処理する。Workerソース・管理資料・原本・未使用素材・SecretをStatic Assetsへ追加しない。
+- Cloudflare本番環境は未構築・未デプロイ。実Siteverify・実メール到達は未検証。`CONTACT_API_ENABLED` / `EMAIL_SENDING_ENABLED` は文字列 `"false"`、フォームはdisabled・`data-endpoint-ready="false"`・Site Key空のまま維持する。必要なSecret・送信元／宛先・origin・メール／レート制限bindingsが欠ければAPIは503で拒否する。フラグだけの変更で有効化済みと扱わない。秘密情報をフロントエンドへ記載せず、未接続のまま偽成功を表示しない。
+- Cloudflare導入・実認証・実メールテストは `docs/operations/cloudflare-launch-checklist.md` で承認・環境分離・アクセス制御を確認してから、明示許可された工程だけで行う。現在のbuildはnoindexとフォーム無効を必須にするため、有効化時は検証条件も別途レビューする。レート制限の閾値・重複通知方針は未確定で、実装済みと混同しない。
 - 正式URLによるSEO最終設定・GA4接続・公開前最終QA・店舗の全ページ最終公開承認は未完了として扱い、実装済みのtitle / description / TOPのJSON-LDや計測用イベントと混同しない。
