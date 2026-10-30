@@ -187,6 +187,19 @@ STEP 09-A／09-Bのローカル検証では、build・出力検証、計109自�
 - キーをコマンド引数や履歴に直書きせず、承認後に対話入力した一時環境変数を利用します。両コマンドを同じ環境変数で実行後、unsetします。実キー入力・デプロイ・Secret登録は別の明示許可が必要です。
 - 自動テストは公式ダミーSite Keyとモックだけを使用します。`scripts/contact-form.browser.mjs` は既存Playwrightとローカルサーバーを使い、Staging生成HTMLのloopback拒否も確認します。実際のStaging接続・実Siteverifyとは区別します。
 
+### Siteverify単独のローカルCLI
+
+`npm run verify:turnstile:local` はデフォルトで10ケースのモック検証だけを実行し、外部通信・TTY入力・メール送信を行いません。既存の `verifyTurnstile()` を直接利用し、CLIとテストは配信対象39ファイルに含めません。
+
+将来、別途実通信の許可を得た場合だけ `npm run verify:turnstile:local -- --live` を使います。Secret・トークンはローカルTTYの非表示入力のみで受け取り、引数・環境変数・ファイルには設定しません。TTYまたはTTY出力を使用できない場合は停止し、エコーする入力へ切り替えません。画面共有・端末録画・入力記録を停止し、Codexチャットやツールへキーを渡さず、ユーザー自身のターミナルで操作してください。
+
+- hostnameはStagingに固定、actionはcontact、接続先は公式Siteverifyだけです。CONTACT API・メールモジュール・Wranglerは起動しません。API／メール無効・フォームdisabledを維持します。
+- 通常は1回だけ検証します。`--live --replay` は成功した同一トークンを意図的に再検証する専用試験です。失敗・タイムアウト後の自動再送はありません。期限切れ試験では別の未使用トークンを安全に取得・保持して有効期間経過後に入力し、再利用試験と区別します。
+- 出力はPASS／FAIL、hostname／actionの一致判定、安全なエラー種別のみです。再利用と期限切れはSiteverifyの `timeout-or-duplicate` にまとめられるため、応答だけで両者を区別しません。
+- Ctrl+C・通常の終了シグナル・入力例外時はraw TTYを復元します。SIGKILL・端末やOSの異常終了は捕捉できません。メモリー内の参照は終了時に破棄しますが、JavaScript文字列の物理的なゼロ消去、OSのswapや外部の端末記録まで保証するものではありません。
+- 現在のページはresponse-fieldなし、tokenとwidget IDは関数内です。実トークンの非表示取得・転送手順は未確定です。SDKによる対象widget指定を確認し、クリップボード履歴・同期・管理アプリを停止できる場合だけ非表示転送案を検討します。確認できなければ実検証を行いません。公開APIや認証回避ルートは追加しません。
+- ローカル検証はWorker上のSecret binding・外向き通信・レート制限・メール到達を証明しません。本CLIの実Secret・実トークン・実Siteverifyは未検証です。
+
 ## Cloudflare Workersの現在の構成
 
 - `wrangler.jsonc` のStatic Assets配信元は `./dist`、bindingは `ASSETS`。
