@@ -13,7 +13,7 @@ const browser = await chromium.launch({ channel: 'chrome', headless: true });
 // These are public dummy sitekeys from Cloudflare's official testing documentation, not credentials.
 const PASS = '1x00000000000000000000AA', FAIL = '2x00000000000000000000AB';
 const checks = [];
-async function visit({ mode = false, key = '', mock = false, width = 390 } = {}) {
+async function visit({ mode = false, key = '', mock = false, width = 390, stagingHtml } = {}) {
   const context = await browser.newContext({ viewport: { width, height: 900 } });
   let posts = 0, scriptLoads = 0, siteverifyCalls = 0;
   const errors = [], networkFailures = [], consoleErrors = [], scriptResponses = [];
@@ -30,7 +30,7 @@ async function visit({ mode = false, key = '', mock = false, width = 390 } = {})
     }
     if (u.origin === origin && u.pathname === '/contact/' && request.isNavigationRequest()) {
       const response = await route.fetch();
-      let html = await response.text();
+      let html = stagingHtml ?? await response.text();
       if (mode) html = html.replace('data-endpoint-ready="false"', 'data-endpoint-ready="false" data-turnstile-mode="verify-only"');
       if (key) html = html.replace('data-sitekey=""', `data-sitekey="${key}"`);
       return route.fulfill({ response, body: html }); // Browser-only fixture; dist/source remain untouched.
@@ -70,6 +70,16 @@ try {
     assert.equal(await f.widget.locator('iframe').count(), 0); await f.assertSafe();
     await f.page.screenshot({ path: `${output}/${width}-normal.png`, fullPage: true });
     await f.context.close(); checks.push(`normal disabled ${width}px`);
+  }
+  const stagingPath = new URL('../dist-staging/contact/index.html', import.meta.url);
+  if (fs.existsSync(stagingPath)) {
+    const html = fs.readFileSync(stagingPath, 'utf8');
+    assert.match(html, /data-turnstile-mode="staging-verify-only"/);
+    assert.match(html, /data-sitekey="1x00000000000000000000AA"/); // Only run this fixture with the official dummy key.
+    const f = await visit({ stagingHtml: html });
+    await f.page.waitForTimeout(300);
+    assert.equal(f.scriptLoads, 0); await f.assertSafe();
+    await f.context.close(); checks.push('generated staging HTML rejects loopback origin (not an actual staging connection)');
   }
   const mock = await visit({ mode: true, key: PASS, mock: true });
   await mock.page.waitForFunction(() => Boolean(window.__widgetCallbacks));

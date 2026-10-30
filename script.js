@@ -246,12 +246,18 @@
       // A partial form must keep the HTML-disabled button and never affect navigation.
       if (!submit || !status || !widget || fields.some((field) => !field)) return;
       const hasSiteKey = Boolean(widget.dataset.sitekey?.trim());
-      // Verification-only mode is opt-in and loopback-only; it never grants submission permission.
-      // Local test fixtures supply this attribute and a public dummy sitekey, never production HTML.
-      const verificationOnly = contactForm.dataset.turnstileMode === "verify-only";
-      const localVerification = verificationOnly && ["localhost", "127.0.0.1", "[::1]"].includes(window.location.hostname);
+      // Display-only modes never grant submission permission, even on a mismatched host.
+      const mode = contactForm.dataset.turnstileMode;
+      const verificationOnly = mode === "verify-only" || mode === "staging-verify-only";
+      const localVerification = mode === "verify-only" && ["localhost", "127.0.0.1", "[::1]"].includes(window.location.hostname);
+      const stagingHostname = "bashiiin-coffee-staging.misemiruweb.workers.dev";
+      const stagingVerification = mode === "staging-verify-only"
+        && contactForm.dataset.turnstileHostname === stagingHostname
+        && window.location.origin === `https://${stagingHostname}`;
+      const verificationEnabled = localVerification || stagingVerification;
+      const verificationLabel = stagingVerification ? "Staging" : "ローカル";
       const submissionReady = !verificationOnly && contactForm.dataset.endpointReady === "true" && hasSiteKey;
-      const widgetEnabled = hasSiteKey && (submissionReady || localVerification);
+      const widgetEnabled = hasSiteKey && (submissionReady || verificationEnabled);
       let token = "";
       let widgetId = null;
       let pending = false;
@@ -305,18 +311,18 @@
         token = "";
         widget.dataset.verificationState = state;
         updateSubmit();
-        if (!pending) notify("error", localVerification
-          ? "認証のみのローカル検証：認証が無効になりました。認証をリセットしてください。送信はできません。"
+        if (!pending) notify("error", verificationEnabled
+          ? `認証のみの${verificationLabel}検証：認証が無効になりました。認証をリセットしてください。送信はできません。`
           : "送信前の確認が完了していません。確認をやり直すか、ページを再読み込みしてください。");
       };
       widget.dataset.verificationState = "idle";
       if (widgetEnabled) {
         widget.classList.add("is-configured");
         widget.dataset.verificationState = "loading";
-        notify("initial", localVerification
-          ? "認証のみのローカル検証です。お問い合わせの送信はできません。"
+        notify("initial", verificationEnabled
+          ? `認証のみの${verificationLabel}検証です。お問い合わせの送信はできません。`
           : "送信前の確認を完了してください。");
-        if (localVerification) {
+        if (verificationEnabled) {
           const reset = document.createElement("button");
           reset.type = "button";
           reset.className = "text-link";
@@ -325,7 +331,7 @@
           reset.textContent = "認証をリセット";
           reset.addEventListener("click", () => {
             resetToken();
-            notify("initial", "認証のみのローカル検証：認証をリセットしました。送信はできません。");
+            notify("initial", `認証のみの${verificationLabel}検証：認証をリセットしました。送信はできません。`);
           });
           widget.after(reset);
         }
@@ -351,8 +357,8 @@
                 widget.dataset.verificationState = "success";
                 updateSubmit();
                 if (contactForm.dataset.state === "initial" || contactForm.dataset.state === "error") {
-                  notify("initial", localVerification
-                    ? "認証のみのローカル検証：トークン取得を確認しました。サーバー検証・送信は行っていません。"
+                  notify("initial", verificationEnabled
+                    ? `認証のみの${verificationLabel}検証：トークン取得を確認しました。サーバー検証・送信は行っていません。`
                     : "内容をご確認のうえ、送信してください。");
                 }
               },

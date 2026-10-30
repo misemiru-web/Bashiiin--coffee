@@ -16,13 +16,14 @@ class Element {
   focus() {}
   after(element) { this.next = element; }
 }
-function fixture({ hostname = '127.0.0.1', mode, ready = false, key = '' , outcome = 'success' } = {}) {
+function fixture({ hostname = '127.0.0.1', mode, stagingHost, search = '', origin = `https://${hostname}`, ready = false, key = '' , outcome = 'success' } = {}) {
   const fields = ['name', 'email', 'message'].map((name, i) => Object.assign(new Element(), {
     id: `contact-${name}`, value: ['テスト担当', 'visitor@unit.test', 'テスト本文'][i],
     maxLength: [100, 254, 5000][i], type: i === 1 ? 'email' : 'text', validity: { typeMismatch: false },
   }));
   const form = new Element(); form.dataset.endpointReady = String(ready);
   if (mode) form.dataset.turnstileMode = mode;
+  if (stagingHost) form.dataset.turnstileHostname = stagingHost;
   form.elements = { namedItem: name => fields[['name','email','message'].indexOf(name)] };
   const submit = new Element(); submit.disabled = true;
   const status = new Element(), widget = new Element(); widget.dataset.sitekey = key;
@@ -37,7 +38,7 @@ function fixture({ hostname = '127.0.0.1', mode, ready = false, key = '' , outco
     createElement: () => new Element(), head: { append: node => scripts.push(node) },
   };
   const window = {
-    location: { hostname }, matchMedia: () => ({ matches: true }),
+    location: { hostname, origin, search }, matchMedia: () => ({ matches: true }),
     dispatchEvent: event => events.push(event.detail), setTimeout, clearTimeout,
   };
   const sandbox = { window, document, console: { info: (...args) => logs.push(args) }, AbortController,
@@ -137,3 +138,46 @@ for (const outcome of ['server', 'network']) {
     assert.equal(f.fields[0].value, 'テスト担当'); assert.equal(f.submit.disabled, true);
   });
 }
+
+const STAGING_HOST = 'bashiiin-coffee-staging.misemiruweb.workers.dev';
+const stagingOptions = { hostname: STAGING_HOST, stagingHost: STAGING_HOST, mode: 'staging-verify-only', key: DUMMY_SITEKEY };
+test('staging exact HTTPS origin can render but cannot submit even with ready=true', async () => {
+  const f = fixture({ ...stagingOptions, ready: true });
+  const options = await f.load(); options.callback('opaque-staging-token');
+  assert.equal(f.submit.disabled, true); f.submit.disabled = false;
+  await f.form.fire('submit'); assert.equal(f.requests.length, 0); assert.equal(f.events.length, 0); assert.equal(f.logs.length, 0);
+  await f.widget.next.fire('click'); assert.equal(f.resets, 1); assert.equal(f.submit.disabled, true);
+});
+for (const override of [
+  { hostname: 'localhost' }, { hostname: STAGING_HOST + '.evil.test' },
+  { hostname: 'public.unit.test' }, { origin: 'http://' + STAGING_HOST },
+  { origin: 'https://' + STAGING_HOST + ':8443' }, { stagingHost: 'other.unit.test' },
+  { stagingHost: undefined }, { key: '' },
+]) {
+  test(`staging rejects mismatched context ${JSON.stringify(Object.keys(override))} ${JSON.stringify(Object.values(override))}`, async () => {
+    const values = { ...stagingOptions, ...override, ready: true };
+    if (override.hostname) values.origin = 'https://' + override.hostname;
+    const f = fixture(values); assert.equal(f.scripts.length, 0); assert.equal(f.submit.disabled, true);
+    await f.form.fire('submit'); assert.equal(f.requests.length, 0); assert.equal(f.events.length, 0);
+  });
+}
+for (const callback of ['error-callback', 'expired-callback', 'timeout-callback']) {
+  test(`staging ${callback} clears token and never posts`, async () => {
+    const f = fixture(stagingOptions); const options = await f.load();
+    options.callback('opaque-staging-token'); options[callback]();
+    assert.equal(f.submit.disabled, true); await f.form.fire('submit');
+    assert.equal(f.requests.length, 0); assert.equal(f.events.length, 0);
+  });
+}
+test('staging malformed success token is rejected', async () => {
+  const f = fixture(stagingOptions); (await f.load()).callback(null);
+  assert.equal(f.widget.dataset.verificationState, 'error'); assert.equal(f.submit.disabled, true);
+  await f.form.fire('submit'); assert.equal(f.requests.length, 0);
+});
+
+test('URL parameters cannot enable staging verification on an ordinary disabled form', async () => {
+  const f = fixture({ hostname: STAGING_HOST, key: DUMMY_SITEKEY,
+    search: '?turnstileMode=staging-verify-only&endpointReady=true&verify-only=true' });
+  assert.equal(f.scripts.length, 0); assert.equal(f.submit.disabled, true);
+  await f.form.fire('submit'); assert.equal(f.requests.length, 0); assert.equal(f.events.length, 0);
+});

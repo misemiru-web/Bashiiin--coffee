@@ -175,6 +175,18 @@ STEP 09-A／09-Bのローカル検証では、build・出力検証、計109自�
 
 現在のビルドは全5ページのnoindexとCONTACT無効・Site Key未設定を必須条件にしています。将来のフォーム有効化や検索公開では、これらの検証条件の変更も別途承認・レビューが必要です。検証を迂回して公開しません。
 
+### Staging専用のTurnstile表示検証ビルド
+
+通常の `npm run build` / `verify:dist` は変更せず、Site Key空・フォーム無効の `dist/` を生成・検査します。追加した `npm run build:staging` / `verify:staging` は、環境変数 `STAGING_TURNSTILE_SITE_KEY` から公開用Site Keyだけを読み、独立した `dist-staging/` の39ファイルを生成・検査します。Secretを渡したり、キーをソースや設定ファイルへ保存したりしません。
+
+- Staging出力はCONTACTのSite Key・表示専用mode・許可hostname属性だけが通常出力と異なります。他の38ファイルは同一です。ソースHTMLは変更しません。
+- 表示には `staging-verify-only` と固定HTTPS origin `https://bashiiin-coffee-staging.misemiruweb.workers.dev` の一致が必要です。URLパラメータで有効化しません。既存のloopback限定 `verify-only` は維持します。
+- 表示専用モードでは、認証成功後も送信disabled・submit拒否・POSTなし・generate_leadなし。API／メールの無効設定も維持します。
+- Site Key未設定・形式不正、Worker名・配信先・無効フラグ等の不一致ではビルド／検証が失敗します。形式検査はキーの有効性やwidget所属の実認証を保証しません。
+- `wrangler.staging.jsonc` の配信元は `./dist-staging` です。通常の `dist/` を使い回しません。生成物はいずれもGit対象外です。失敗時は以前の出力を配信せず、成功したbuildとverifyの両方を確認します。
+- キーをコマンド引数や履歴に直書きせず、承認後に対話入力した一時環境変数を利用します。両コマンドを同じ環境変数で実行後、unsetします。実キー入力・デプロイ・Secret登録は別の明示許可が必要です。
+- 自動テストは公式ダミーSite Keyとモックだけを使用します。`scripts/contact-form.browser.mjs` は既存Playwrightとローカルサーバーを使い、Staging生成HTMLのloopback拒否も確認します。実際のStaging接続・実Siteverifyとは区別します。
+
 ## Cloudflare Workersの現在の構成
 
 - `wrangler.jsonc` のStatic Assets配信元は `./dist`、bindingは `ASSETS`。

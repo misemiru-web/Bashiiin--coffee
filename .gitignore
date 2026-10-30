@@ -11,3 +11,6 @@ node_modules
 /.wrangler/
 /.static-build-*/
 /.dev.vars*
+
+# Isolated staging-only assets (public Site Key is injected at build time)
+/dist-staging/
