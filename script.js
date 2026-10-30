@@ -245,7 +245,13 @@
       const widget = contactForm.querySelector("#contact-turnstile");
       // A partial form must keep the HTML-disabled button and never affect navigation.
       if (!submit || !status || !widget || fields.some((field) => !field)) return;
-      const configured = contactForm.dataset.endpointReady === "true" && Boolean(widget.dataset.sitekey?.trim());
+      const hasSiteKey = Boolean(widget.dataset.sitekey?.trim());
+      // Verification-only mode is opt-in and loopback-only; it never grants submission permission.
+      // Local test fixtures supply this attribute and a public dummy sitekey, never production HTML.
+      const verificationOnly = contactForm.dataset.turnstileMode === "verify-only";
+      const localVerification = verificationOnly && ["localhost", "127.0.0.1", "[::1]"].includes(window.location.hostname);
+      const submissionReady = !verificationOnly && contactForm.dataset.endpointReady === "true" && hasSiteKey;
+      const widgetEnabled = hasSiteKey && (submissionReady || localVerification);
       let token = "";
       let widgetId = null;
       let pending = false;
@@ -257,7 +263,7 @@
         status.textContent = message;
         if (focus) status.focus();
       };
-      const updateSubmit = () => { submit.disabled = !configured || !token || pending; };
+      const updateSubmit = () => { submit.disabled = !submissionReady || !token || pending; };
       const validate = (field) => {
         const error = document.getElementById(`${field.id}-error`);
         let message = "";
@@ -289,45 +295,70 @@
 
       const resetToken = () => {
         token = "";
+        widget.dataset.verificationState = "reset";
         updateSubmit();
         if (widgetId !== null && window.turnstile) {
           try { window.turnstile.reset(widgetId); } catch { /* Keep sending disabled; never log tokens or form values. */ }
         }
       };
-      const verificationFailed = () => {
+      const verificationFailed = (state = "error") => {
         token = "";
+        widget.dataset.verificationState = state;
         updateSubmit();
-        if (!pending) notify("error", "送信前の確認が完了していません。確認をやり直すか、ページを再読み込みしてください。");
+        if (!pending) notify("error", localVerification
+          ? "認証のみのローカル検証：認証が無効になりました。認証をリセットしてください。送信はできません。"
+          : "送信前の確認が完了していません。確認をやり直すか、ページを再読み込みしてください。");
       };
-      if (configured) {
+      widget.dataset.verificationState = "idle";
+      if (widgetEnabled) {
         widget.classList.add("is-configured");
-        notify("initial", "送信前の確認を完了してください。");
+        widget.dataset.verificationState = "loading";
+        notify("initial", localVerification
+          ? "認証のみのローカル検証です。お問い合わせの送信はできません。"
+          : "送信前の確認を完了してください。");
+        if (localVerification) {
+          const reset = document.createElement("button");
+          reset.type = "button";
+          reset.className = "text-link";
+          reset.style.minHeight = "44px";
+          reset.id = "contact-verification-reset";
+          reset.textContent = "認証をリセット";
+          reset.addEventListener("click", () => {
+            resetToken();
+            notify("initial", "認証のみのローカル検証：認証をリセットしました。送信はできません。");
+          });
+          widget.after(reset);
+        }
         const api = document.createElement("script");
         api.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
         api.async = true;
-        api.addEventListener("error", verificationFailed);
+        api.addEventListener("error", () => verificationFailed());
         api.addEventListener("load", () => {
           try {
-            window.turnstile.ready(() => {
-              try {
-                widgetId = window.turnstile.render(widget, {
-                  sitekey: widget.dataset.sitekey,
-                  action: "contact",
-                  theme: "light",
-                  size: "flexible",
-                  "response-field": false,
-                  callback: (responseToken) => {
-                    token = responseToken;
-                    updateSubmit();
-                    if (contactForm.dataset.state === "initial" || contactForm.dataset.state === "error") {
-                      notify("initial", "内容をご確認のうえ、送信してください。");
-                    }
-                  },
-                  "expired-callback": verificationFailed,
-                  "timeout-callback": verificationFailed,
-                  "error-callback": verificationFailed,
-                });
-              } catch { verificationFailed(); }
+            // The async SDK is already loaded here; ready() rejects async/defer script tags.
+            widgetId = window.turnstile.render(widget, {
+              sitekey: widget.dataset.sitekey,
+              action: "contact",
+              theme: "light",
+              size: "flexible",
+              "response-field": false,
+              callback: (responseToken) => {
+                if (typeof responseToken !== "string" || !responseToken.trim() || responseToken.length > 2048) {
+                  verificationFailed();
+                  return;
+                }
+                token = responseToken;
+                widget.dataset.verificationState = "success";
+                updateSubmit();
+                if (contactForm.dataset.state === "initial" || contactForm.dataset.state === "error") {
+                  notify("initial", localVerification
+                    ? "認証のみのローカル検証：トークン取得を確認しました。サーバー検証・送信は行っていません。"
+                    : "内容をご確認のうえ、送信してください。");
+                }
+              },
+              "expired-callback": () => verificationFailed("expired"),
+              "timeout-callback": () => verificationFailed("timeout"),
+              "error-callback": () => verificationFailed(),
             });
           } catch { verificationFailed(); }
         });
@@ -336,6 +367,10 @@
 
       contactForm.addEventListener("submit", async (event) => {
         event.preventDefault();
+        if (verificationOnly) {
+          notify("initial", "認証の検証専用状態です。お問い合わせの送信はできません。", true);
+          return;
+        }
         if (pending) return;
         const invalid = fields.filter((field) => !validate(field));
         if (invalid.length) {
@@ -343,7 +378,7 @@
           invalid[0].focus();
           return;
         }
-        if (!configured) {
+        if (!submissionReady) {
           notify("error", "現在、このフォームからは送信できません。", true);
           return;
         }
