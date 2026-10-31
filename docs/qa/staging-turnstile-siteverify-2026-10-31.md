@@ -175,3 +175,59 @@ Turnstile関連CSPエラーは継続している。既存のCSP調査結果は�
 次工程では別途承認のもと、上記の未検証事項と重複通知リスクを確認する。API・メール・フォームの有効化や実送信を、この文書保存の許可に含めない。
 
 本更新はQA文書とGitHub保存だけを対象とする。Secret値・実トークン・Cookie・認証ヘッダー・生レスポンス・個人情報は収集せず、ユーザーが明示したStaging用の通知設定だけを記録する。Worker・フロントエンド・Wrangler設定・Access・全ページnoindexは変更しない。
+
+## STEP 09-C3⑨-AC⑧：Email Service単独の実送信・到達確認
+
+2026年10月31日にユーザーが実施した試験結果を記録する。実施結果・ロック・対象プロセスの状態はユーザー報告に基づき、Codexは記録工程で再送・remote接続・ロック確認を再実行していない。上記の未実施・未検証という記述は、各記録時点の履歴として保持する。
+
+### 対象・実施条件
+
+| 項目 | 内容 |
+|---|---|
+| 検証対象 | 独立したローカルEmail Service検証ハーネス。Staging CONTACT APIの試験ではない |
+| 使用方式 | Cloudflare Email remote binding |
+| 実送信日時 | 2026年10月31日20時53分頃（日本時間）。秒単位の時刻は未提供 |
+| 使用CLI | [`scripts/email-service-local.mjs`](../../scripts/email-service-local.mjs) |
+| 実行コマンド | `node scripts/email-service-local.mjs --live`（ユーザー実行済み。記録工程では実行しない） |
+| 送信元 | `bashiiin-staging@misemiruweb.com`（検証専用） |
+| 送信先 | `misemiruweb@gmail.com`（固定1件） |
+| 送信先認証 | Verified確認済み |
+| Cloudflareアカウント | WranglerとDashboardの一致をユーザーが確認済み。Account ID・認証情報は記録しない |
+| 記録作業開始時のソースHEAD | `59bfedb20aeceb59d613531ac7f26672d988f5ea` / `formal-production` |
+
+### 受付と到達の確認結果
+
+| 検証項目 | ユーザー確認結果 |
+|---|---|
+| CLI表示 | `LIVE ACCEPTED (inbox delivery unverified)` |
+| Cloudflare Email Service側の受付 | 成功。CLIの受付成功判定として記録する |
+| Gmailへの到達 | ユーザーがGmailの受信トレイで確認 |
+| 自動再送 | 実施していない |
+
+サービスの受付成功と受信トレイへの到達は別の確認項目である。CLI表示自体は到達を保証しないが、本試験ではユーザーによる受信トレイ確認が追加で完了した。この固定送信元・Verified宛先・単独ハーネスという条件での結果であり、一般宛先への送信やCONTACT全体の成功へ拡張しない。
+
+### ロック・対象プロセス・Stagingの状態
+
+| 項目 | ユーザー確認結果 |
+|---|---|
+| 実送信前の永続ロック | `LOCK_ABSENT` |
+| 実送信後の永続ロック | `LOCK_PRESENT` |
+| 検証終了後の対象プロセス | `TEST_PROCESS_ABSENT`。指定した検証プロセスの確認であり、全workerd関連プロセスの終了保証ではない |
+| 実送信用ロックの削除・解除 | 行っていない。次回の実送信を防ぐため保持する |
+| Staging Worker | 変更していない |
+| CONTACT API・メール送信フラグ | どちらも無効を維持 |
+| CONTACTフォームからのE2E送信 | 未実施 |
+
+既存ロックを古さだけで解除しない。次回の試験が必要な場合も、受付・受信結果、残存プロセス、重複リスクを人間が確認し、別途承認するまでは保持する。今回のQA記録・Git保存は、ロック解除や再送の許可ではない。
+
+### 未検証事項・確認範囲の限界
+
+- Staging Worker本体のCONTACT E2Eと、Worker本体での実Turnstile Siteverify。
+- CONTACTのRate Limiterの実際の超過拒否動作。
+- 不特定の一般宛先への送信。
+- 別端末間の重複防止、分散環境での厳密なexactly-once配送保証。
+- 全workerd関連プロセスの終了保証。
+
+今回確認されたのは独立したEmail bindingによる単独の受付・到達であり、Staging Workerに登録済みのbindingそのものやCONTACT有効化の受入完了とは扱わない。既存のCSP調査・その他の未検証事項は前節を参照し、本試験によって解消済みとしない。
+
+本追記はQA文書とGitHub保存のみを対象とする。Account ID・Secret・認証情報・Cookie・メールヘッダー・個人情報は収集せず、ユーザーが指定した検証用の送信元・送信先と安全な判定結果だけを記録する。実送信・remote接続・固定ロックの作成／削除／変更、WorkerやCONTACT設定の変更は行わない。
