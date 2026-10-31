@@ -123,6 +123,37 @@ for (const [label, binding] of [
   }));
 }
 
+for (const field of ['CONTACT_FROM', 'CONTACT_TO', 'CONTACT_ORIGIN', 'TURNSTILE_HOSTNAME']) {
+  for (const [label, value] of [['missing', undefined], ['empty', ''], ['different', 'unapproved.fixture.test'], ['non-string', false]]) {
+    test(`staging rejects ${field} ${label}`, () => fixture(root => {
+      const file = path.join(root, 'wrangler.staging.jsonc');
+      const config = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\s*\/\/.*$/gm, ''));
+      if (value === undefined) delete config.vars[field]; else config.vars[field] = value;
+      fs.writeFileSync(file, JSON.stringify(config));
+      assert.throws(() => buildStaging(root, env), /approved fixed variables/);
+      assert.equal(fs.existsSync(path.join(root, 'dist-staging')), false);
+    }));
+  }
+}
+for (const [field, value] of [
+  ['CONTACT_FROM', 'other@fixture.test'], ['CONTACT_TO', 'other@fixture.test'],
+  ['CONTACT_FROM', 'bashiiin-staging@misemiruweb.com\r\nBcc: other@fixture.test'],
+  ['CONTACT_ORIGIN', `http://${STAGING_HOSTNAME}`],
+  ['CONTACT_ORIGIN', `https://${STAGING_HOSTNAME}/`],
+  ['TURNSTILE_HOSTNAME', `https://${STAGING_HOSTNAME}`],
+  ['CONTACT_API_ENABLED', false], ['EMAIL_SENDING_ENABLED', false],
+  ['TURNSTILE_SECRET_KEY', 'synthetic-marker-not-a-secret'],
+]) {
+  test(`staging rejects non-approved variable ${field} (${typeof value}, length ${value.length ?? 0})`, () => fixture(root => {
+    const file = path.join(root, 'wrangler.staging.jsonc');
+    const config = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\s*\/\/.*$/gm, ''));
+    config.vars[field] = value;
+    fs.writeFileSync(file, JSON.stringify(config));
+    assert.throws(() => buildStaging(root, env), /approved fixed variables/);
+    assert.equal(fs.existsSync(path.join(root, 'dist-staging')), false);
+  }));
+}
+
 const approvedRateLimiter = { name: 'CONTACT_RATE_LIMITER', namespace_id: '31001', simple: { limit: 5, period: 60 } };
 for (const [label, mutate] of [
   ['missing', config => { delete config.ratelimits; }],

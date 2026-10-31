@@ -18,7 +18,11 @@ export function stagingInventory(root = ROOT, env = process.env) {
     && config.main === 'worker/index.mjs' && config.compatibility_date === normal.compatibility_date,
   'Unexpected staging worker configuration');
   ensure(JSON.stringify(config.assets) === JSON.stringify({ ...normal.assets, directory: './dist-staging' }), 'Unexpected staging assets configuration');
-  ensure(JSON.stringify(config.vars) === JSON.stringify({ CONTACT_API_ENABLED: 'false', EMAIL_SENDING_ENABLED: 'false' }), 'Staging must keep API and email disabled');
+  ensure(JSON.stringify(config.vars) === JSON.stringify({
+    CONTACT_API_ENABLED: 'false', EMAIL_SENDING_ENABLED: 'false',
+    CONTACT_FROM: 'bashiiin-staging@misemiruweb.com', CONTACT_TO: 'misemiruweb@gmail.com',
+    CONTACT_ORIGIN: `https://${STAGING_HOSTNAME}`, TURNSTILE_HOSTNAME: STAGING_HOSTNAME,
+  }), 'Staging must keep API and email disabled with exactly the approved fixed variables');
   const allowed = ['$schema', 'name', 'main', 'compatibility_date', 'send_metrics', 'workers_dev', 'preview_urls', 'assets', 'vars', 'observability', 'dev', 'send_email', 'ratelimits'];
   ensure(Object.keys(config).every(k => allowed.includes(k)), 'Unapproved staging setting or binding');
   ensure(config.assets.binding === 'ASSETS' && config.assets.html_handling === 'force-trailing-slash'

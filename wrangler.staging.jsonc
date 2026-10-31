@@ -16,7 +16,11 @@
   },
   "vars": {
     "CONTACT_API_ENABLED": "false",
-    "EMAIL_SENDING_ENABLED": "false"
+    "EMAIL_SENDING_ENABLED": "false",
+    "CONTACT_FROM": "bashiiin-staging@misemiruweb.com",
+    "CONTACT_TO": "misemiruweb@gmail.com",
+    "CONTACT_ORIGIN": "https://bashiiin-coffee-staging.misemiruweb.workers.dev",
+    "TURNSTILE_HOSTNAME": "bashiiin-coffee-staging.misemiruweb.workers.dev"
   },
   "send_email": [
     {
