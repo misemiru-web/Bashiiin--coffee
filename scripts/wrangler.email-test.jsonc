@@ -1,0 +1,11 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "bashiiin-email-local-harness",
+  "compatibility_date": "2026-10-28",
+  "send_metrics": false,
+  "workers_dev": false,
+  "preview_urls": false,
+  "send_email": [
+    { "name": "EMAIL", "destination_address": "misemiruweb@gmail.com", "remote": false }
+  ]
+}
