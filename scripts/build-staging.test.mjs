@@ -122,3 +122,33 @@ for (const [label, binding] of [
     assert.equal(fs.existsSync(path.join(root, 'dist-staging')), false);
   }));
 }
+
+const approvedRateLimiter = { name: 'CONTACT_RATE_LIMITER', namespace_id: '31001', simple: { limit: 5, period: 60 } };
+for (const [label, mutate] of [
+  ['missing', config => { delete config.ratelimits; }],
+  ['empty', config => { config.ratelimits = []; }],
+  ['wrong name', config => { config.ratelimits[0].name = 'OTHER'; }],
+  ['wrong namespace', config => { config.ratelimits[0].namespace_id = '31002'; }],
+  ['numeric namespace', config => { config.ratelimits[0].namespace_id = 31001; }],
+  ['namespace with leading zero', config => { config.ratelimits[0].namespace_id = '031001'; }],
+  ['zero limit', config => { config.ratelimits[0].simple.limit = 0; }],
+  ['different limit', config => { config.ratelimits[0].simple.limit = 6; }],
+  ['string limit', config => { config.ratelimits[0].simple.limit = '5'; }],
+  ['different period', config => { config.ratelimits[0].simple.period = 10; }],
+  ['invalid period', config => { config.ratelimits[0].simple.period = 0; }],
+  ['string period', config => { config.ratelimits[0].simple.period = '60'; }],
+  ['additional binding', config => { config.ratelimits.push({ ...approvedRateLimiter, name: 'EXTRA' }); }],
+  ['remote binding', config => { config.ratelimits[0].remote = true; }],
+  ['remote proxy', config => { config.ratelimits[0].remoteProxyConnectionString = 'synthetic-test-only'; }],
+  ['additional settings', config => { config.ratelimits[0].simple.extra = true; }],
+]) {
+  test(`staging rejects rate limiter ${label}`, () => fixture(root => {
+    const file = path.join(root, 'wrangler.staging.jsonc');
+    const config = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\s*\/\/.*$/gm, ''));
+    config.ratelimits = [structuredClone(approvedRateLimiter)];
+    mutate(config);
+    fs.writeFileSync(file, JSON.stringify(config));
+    assert.throws(() => buildStaging(root, env), /approved fixed settings/);
+    assert.equal(fs.existsSync(path.join(root, 'dist-staging')), false);
+  }));
+}
