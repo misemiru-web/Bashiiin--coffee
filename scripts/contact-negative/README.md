@@ -113,11 +113,46 @@ mockInventoryは公式テスト用Site Key入りのHTMLをメモリ内で返す�
 ローカルworkerdでは、合成Secret/トークン・モックRate Limiter・モックSiteverifyだけを使い、
 外向き通信を既定拒否する。実メール・DO・既存Stagingへの呼び出し先は設けない。
 
+### Site Key連携のメモリ内プレビュー
+
+`preview.mjs`はbuild.mjsに依存しない独立モジュールで、import・再importでは処理を開始しない。
+`previewInventory({ siteKey, origin })`を明示的に呼ぶと、39ファイル分の名前とBufferをメモリ内で返す。
+CLI・サーバー・書き出し機能を持たず、negative配信用出力や既存生成物は作成・更新しない。
+
+- Site Keyは`PREVIEW_TEST_SITE_KEYS.success`と`.failure`に隔離したCloudflare公式テストキーだけを許可する。
+  未指定・不正値・実キー形式の値も拒否する。実Site Key・Secretは使用しない。
+- 将来の公開Site Key供給名は`NEGATIVE_TURNSTILE_SITE_KEY`とするが、今回その環境変数は読まない。
+  実キー反映とSecret登録はそれぞれ別承認。SecretをHTML・JS・ログへ渡さない。
+- origin引数は`https://bashiiin-coffee-contact-negative.misemiruweb.workers.dev`との完全一致が必要。
+  生成版JSでも`window.location.origin`、`data-contact-negative-only="true"`、専用hostname属性を照合する。
+  localhost、別Worker、類似サブドメイン、別ポート、HTTPではwidget・POSTを許可しない。
+  URLパラメータ・hash・localStorageを有効化条件にしない。
+- 差分はCONTACT HTMLと生成版`script.js`の2件だけ。残り37件、全5ページのnoindex、HTML初期disabledを維持する。
+  safeの出力・共通HTML/JSは変更しない。Site Keyを入れるのはCONTACTフォームのdata-sitekeyだけ。
+- 既存JSの送信・エラー処理・ナビゲーション等を再利用し、既知の箇所だけを単一一致で置換する。
+  元JSの構造が変わり置換条件が一致しなければ生成を拒否する。actionはcontactを維持する。
+- 専用origin上のテストフォームは模擬トークン取得後だけ操作可能となるが、APIはモック503で拒否する。
+  誤ってモック200が返っても成功表示・generate_leadへ進ませず、既存の失敗表示・トークン破棄へ進む。
+  safeは常に送信無効。実Email・DO・Service能力や既存DeliveryGuardへの経路は追加しない。
+
+フロント側origin検査は補助策であり、サーバー側のOrigin・hostname・Siteverify検査を代替しない。
+ブラウザーのSDKコールバック・API応答はテスト側の合成fixtureで、Cloudflareによる実認証ではない。
+実Siteverifyは呼ばず、既存workerdテストによる模擬Siteverify成功後の503確認と、
+ブラウザーのモックAPI確認を別々の検証として扱う。
+このメモリ内プレビューをCloudflareや実Worker URLへ送信せず、公式テストキーをsafeアセットに混入させない。
+
+将来は、実キー反映の設計・個別承認、ローカル検証、独立安全監査、Git保存、
+実環境変更の個別承認を順に行う。配置禁止の解除は別途コード変更・再監査が必要であり、
+プレビュー実装やSite Key準備によって解除されたとは扱わない。
+
 既存Playwrightが利用可能なら `node scripts/contact-negative/browser.mjs`。
 PLAYWRIGHT_MODULEで既存モジュールのパスを指定できる。新規インストールはしない。
 全リクエストをメモリ内で応答または拒否し、実SDK・Siteverify・APIへ接続しない。
+HTTP要求イベント数とroute処理数を照合し、Service Workerを禁止、WebSocketも拒否する。
+ブラウザーにはループバックの失敗用proxyも指定し、通信を外部へ続行するrouteは実装しない。
 390pxの5ページとsafe/negativeのフォームを確認する。503時は失敗表示・入力保持・トークン破棄、
 generate_leadなしを期待する。実メール成功の画面にはしない。
+既存12シナリオに、誤origin・マーカー欠落・URL/storage指定・SDK障害・誤200等の12シナリオを追加する。
 importだけではPlaywright・Chrome・通信・書き込みを開始しない。
 明示実行時もfinallyでブラウザーを解放し、CLI中断で終了する。SIGKILL/OS強制終了は保証外。
 

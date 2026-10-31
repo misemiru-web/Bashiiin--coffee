@@ -13,6 +13,8 @@ import { build as bundle } from 'esbuild';
 import { ROOT, PAGES, sourceInventory, verifyOutput } from '../build-static.mjs';
 import { readConfig, validateConfig, requireNegativeReady, inventory, mockInventory, build as buildNegative } from './build.mjs';
 import { NAME, HOST, ORIGIN, FROM, TO } from './policy.mjs';
+import { previewInventory, PREVIEW_TEST_SITE_KEYS, FUTURE_SITE_KEY_INPUT } from './preview.mjs';
+import { Script } from 'node:vm';
 
 // Import is passive. Fixture reads and test registration require an explicit invocation.
 export function registerTests() {
@@ -237,6 +239,56 @@ test('negative-only CONTACT: local workerd with deny-by-default egress and no ma
   } finally { setGlobalDispatcher(previous); await block.close(); }
 });
 
+test('memory-only official-test-key preview', async t => {
+  for (const key of Object.values(PREVIEW_TEST_SITE_KEYS)) await t.test('accepts official test key in memory', () => {
+    const result = previewInventory({ siteKey: key, origin: ORIGIN });
+    assert.equal(result.files.length, 39); assert(result.buffers.get('contact/index.html').toString().includes(`data-sitekey="${key}"`));
+  });
+  for (const key of [undefined, '', 'invalid', '0x' + 'A'.repeat(22), PREVIEW_TEST_SITE_KEYS.success + ' ']) {
+    await t.test('missing, malformed and real-looking keys are rejected', () => {
+      assert.throws(() => previewInventory({ siteKey: key, origin: ORIGIN }), /NEGATIVE_PREVIEW_REJECTED/);
+    });
+  }
+  for (const origin of [undefined, 'http://' + HOST, 'https://localhost',
+    'https://bashiiin-coffee-staging.misemiruweb.workers.dev', 'https://' + HOST + '.other.test',
+    'https://other.' + HOST, ORIGIN + ':444', ORIGIN + '/?mode=negative', ORIGIN + '#negative']) {
+    await t.test('only exact dedicated HTTPS origin is accepted', () => {
+      assert.throws(() => previewInventory({ siteKey: PREVIEW_TEST_SITE_KEYS.success, origin }), /NEGATIVE_PREVIEW_REJECTED/);
+    });
+  }
+  await t.test('only CONTACT HTML and generated JS differ; original37 and source buffers stay intact', () => {
+    const safe = inventory(), result = previewInventory({ siteKey: PREVIEW_TEST_SITE_KEYS.success, origin: ORIGIN });
+    assert.deepEqual(safe.files.filter(f => !safe.buffers.get(f).equals(result.buffers.get(f))), ['contact/index.html', 'script.js']);
+    assert.equal(safe.files.length - 2, 37);
+    for (const page of PAGES) assert(result.buffers.get(page).toString().includes('noindex, nofollow, noarchive'));
+    for (const page of PAGES.filter(f => f !== 'contact/index.html')) {
+      assert(!result.buffers.get(page).toString().includes(PREVIEW_TEST_SITE_KEYS.success));
+    }
+    const html = result.buffers.get('contact/index.html').toString();
+    assert.match(html, /data-contact-negative-only="true"/); assert.match(html, /id="contact-submit"[^>]*disabled/);
+    assert.match(safe.buffers.get('contact/index.html').toString(), /data-endpoint-ready="false"/);
+    assert.deepEqual(sourceInventory().buffers, safe.buffers);
+  });
+  await t.test('generated JS parses, keeps action contact and blocks acceptance without removing shared functions', () => {
+    const js = previewInventory({ siteKey: PREVIEW_TEST_SITE_KEYS.success, origin: ORIGIN }).buffers.get('script.js').toString();
+    assert.doesNotThrow(() => new Script(js)); assert(js.includes('action: "contact"'));
+    assert(js.includes('if (previewOriginAllowed || response.status !== 200'));
+    for (const feature of ['initNavigation', 'initHeroGallery', 'initContactForm']) assert(js.includes(feature));
+    assert(js.includes('window.location.origin === ' + JSON.stringify(ORIGIN)));
+    assert(!js.includes(PREVIEW_TEST_SITE_KEYS.success));
+    assert.equal(FUTURE_SITE_KEY_INPUT, 'NEGATIVE_TURNSTILE_SITE_KEY');
+  });
+  await t.test('preview has no build hook, writer, environment key reader or Worker capability', () => {
+    const code = fs.readFileSync(path.join(ROOT, 'scripts/contact-negative/preview.mjs'), 'utf8');
+    assert(!code.includes("from './build.mjs'"));
+    for (const marker of ['process.env', 'writeFile', 'mkdir', 'RAW_EMAIL', 'DeliveryGuard', 'sendOnce', 'fetch(']) assert(!code.includes(marker));
+    const result = previewInventory({ siteKey: PREVIEW_TEST_SITE_KEYS.success, origin: ORIGIN });
+    assert.equal(result.files.length, 39);
+    assert.throws(() => requireNegativeReady(readConfig('negative')), /NEGATIVE_DEPLOYMENT_DISABLED/);
+    assert(!fs.existsSync(path.join(ROOT, 'scripts/contact-negative/.generated/negative')));
+  });
+});
+
 test('config/build/bundle capability isolation', async t => {
   await t.test('safe and incomplete negative configs validate structurally; negative readiness is blocked', () => {
     validateConfig(readConfig('safe'), 'safe'); validateConfig(readConfig('negative'), 'negative');
@@ -451,6 +503,10 @@ test('config/build/bundle capability isolation', async t => {
         await import('./worker.mjs?import-audit=one');
         await import('./policy.mjs?import-audit=one');
         await import('./build.mjs?import-audit=one');
+        const preview = await import('./preview.mjs?import-audit=one');
+        assert.equal(await import('./preview.mjs?import-audit=one'), preview);
+        await import('./preview.mjs?import-audit=two');
+        assert.equal(typeof preview.previewInventory, 'function');
         const one = await import('./browser.mjs?import-audit=one');
         assert.equal(await import('./browser.mjs?import-audit=one'), one);
         await import('./browser.mjs?import-audit=two');
