@@ -13,7 +13,7 @@ export function readConfig(mode) {
 }
 export function validateConfig(config, mode) {
   ensure(['safe', 'negative'].includes(mode));
-  ensure(config.name === NAME && config.main === 'worker.mjs' && config.compatibility_date === '2026-10-28'
+  ensure(config.name === NAME && config.main === (mode === 'safe' ? 'worker.mjs' : '__NEGATIVE_DEPLOYMENT_DISABLED__.mjs') && config.compatibility_date === '2026-10-28'
     && config.workers_dev === false && config.preview_urls === false && config.send_metrics === false);
   ensure(Object.keys(config).every(k => [...baseKeys, ...(mode === 'negative' ? ['build', 'secrets', 'ratelimits'] : [])].includes(k)));
   ensure(equal(config.assets, { directory: `./.generated/${mode}`, binding: 'ASSETS', run_worker_first: ['/api/*'],
@@ -25,25 +25,18 @@ export function validateConfig(config, mode) {
   if (mode === 'negative') {
     ensure(equal(config.build, { command: 'node scripts/contact-negative/build.mjs --require-negative-ready', cwd: '.' }));
     ensure(equal(config.secrets, { required: ['TURNSTILE_SECRET_KEY'] }));
-    if (config.ratelimits !== undefined) {
-      const entry = config.ratelimits?.[0];
-      ensure(Array.isArray(config.ratelimits) && config.ratelimits.length === 1
-        && entry.name === 'CONTACT_RATE_LIMITER' && /^[1-9]\d*$/.test(entry.namespace_id)
-        && typeof entry.namespace_id === 'string' && entry.namespace_id !== '31001'
-        && equal(entry, { name: 'CONTACT_RATE_LIMITER', namespace_id: entry.namespace_id, simple: { limit: 5, period: 60 } }));
-    }
+    const entry = config.ratelimits?.[0];
+    ensure(Array.isArray(config.ratelimits) && config.ratelimits.length === 1
+      && entry.name === 'CONTACT_RATE_LIMITER' && /^[1-9]\d*$/.test(entry.namespace_id)
+      && typeof entry.namespace_id === 'string' && entry.namespace_id === '31002'
+      && equal(entry, { name: 'CONTACT_RATE_LIMITER', namespace_id: entry.namespace_id, simple: { limit: 5, period: 60 } }));
   }
   return config;
 }
-export function requireNegativeReady(config, env = {}) {
+export function requireNegativeReady(config) {
   validateConfig(config, 'negative');
-  // Draft has NO namespace. No fabricated ID or secret is used to bypass this blocker.
-  ensure(config.ratelimits?.length === 1
-    && env.NEGATIVE_NAMESPACE_CONFIRMED === config.ratelimits[0].namespace_id
-    && env.NEGATIVE_ACCESS_CONFIRMED_HOSTNAME === HOST
-    && env.NEGATIVE_DEPLOYMENT_APPROVED === 'APPROVED_NEGATIVE_ONLY');
-  ensure(typeof env.NEGATIVE_TURNSTILE_SITE_KEY === 'string' && /^0x[A-Za-z0-9_-]{20,30}$/.test(env.NEGATIVE_TURNSTILE_SITE_KEY));
-  // Actual account uniqueness, Access and registered Secret still require management-side verification.
+  // Deliberately no environment/CLI/key-based unlock. Reopening requires a separately reviewed code change.
+  throw Error('NEGATIVE_DEPLOYMENT_DISABLED');
 }
 function makeInventory(mode, key) {
   const source = sourceInventory(); ensure(source.files.length === 39);
@@ -57,20 +50,17 @@ function makeInventory(mode, key) {
   }
   return { files: source.files, buffers };
 }
-export function inventory(mode = 'safe', env = {}) {
+export function inventory(mode = 'safe') {
   ensure(['safe', 'negative'].includes(mode));
-  if (mode === 'negative') {
-    ensure(env.NEGATIVE_FORM_APPROVED === 'APPROVED_NEGATIVE_FORM' && env.NEGATIVE_HOSTNAME === HOST
-      && typeof env.NEGATIVE_TURNSTILE_SITE_KEY === 'string' && /^0x[A-Za-z0-9_-]{20,30}$/.test(env.NEGATIVE_TURNSTILE_SITE_KEY));
-  }
-  return makeInventory(mode, env.NEGATIVE_TURNSTILE_SITE_KEY);
+  if (mode === 'negative') requireNegativeReady(readConfig('negative'));
+  return makeInventory(mode);
 }
 // Test-only in-memory HTML. No writer, configurable key, Worker capability or network is exposed.
 export function mockInventory() { return makeInventory('negative', '1x00000000000000000000AA'); }
-export function build(mode = 'safe', env = {}) {
+export function build(mode = 'safe') {
   validateConfig(readConfig(mode), mode);
-  if (mode === 'negative') requireNegativeReady(readConfig(mode), env);
-  const input = inventory(mode, env);
+  if (mode === 'negative') requireNegativeReady(readConfig(mode));
+  const input = inventory(mode);
   const parent = checkedPath(ROOT, 'scripts/contact-negative');
   const generated = path.join(parent, '.generated');
   if (!fs.existsSync(generated)) fs.mkdirSync(generated);
@@ -99,10 +89,14 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   try {
     const args = process.argv.slice(2);
     if (args.length === 1 && args[0] === '--require-negative-ready') {
-      requireNegativeReady(readConfig('negative'), process.env);
-      console.log(`Prepared negative files: ${build('negative', process.env).length}`);
+      requireNegativeReady(readConfig('negative'));
     } else {
       ensure(args.length === 0); console.log(`Safe files: ${build().length}; sending disabled`);
     }
-  } catch { console.error('NEGATIVE_PREPARATION_REJECTED: approval/configuration incomplete; values not logged'); process.exitCode = 1; }
+  } catch (error) {
+    console.error(error.message === 'NEGATIVE_DEPLOYMENT_DISABLED'
+      ? 'NEGATIVE_DEPLOYMENT_DISABLED: intentionally blocked; no environment or CLI unlock'
+      : 'NEGATIVE_PREPARATION_REJECTED: configuration invalid; values not logged');
+    process.exitCode = 1;
+  }
 }

@@ -11,7 +11,7 @@ import { Miniflare, convertV4MiniflareOptions } from 'miniflare';
 import { MockAgent, getGlobalDispatcher, setGlobalDispatcher, Response } from 'undici';
 import { build as bundle } from 'esbuild';
 import { ROOT, PAGES, sourceInventory, verifyOutput } from '../build-static.mjs';
-import { readConfig, validateConfig, requireNegativeReady, inventory, mockInventory } from './build.mjs';
+import { readConfig, validateConfig, requireNegativeReady, inventory, mockInventory, build as buildNegative } from './build.mjs';
 import { NAME, HOST, ORIGIN, FROM, TO } from './policy.mjs';
 
 // Import is passive. Fixture reads and test registration require an explicit invocation.
@@ -222,6 +222,18 @@ test('negative-only CONTACT: local workerd with deny-by-default egress and no ma
     await t.test('single-use token rejected after a successful mock Siteverify', () => scenario({}, async r => {
       assert.equal((await r.post()).code, 'MAIL_UNAVAILABLE'); assert.equal((await r.post()).code, 'VERIFICATION_FAILED');
     }));
+    await t.test('malformed JSON reaches fixed-key limiter but never Siteverify or mail', () => scenario({}, async r => {
+      assert.equal((await r.post({}, '{')).code, 'INVALID_JSON');
+      assert.equal(r.counts.rate, 1); assert.equal(r.counts.verify, 0); assert.equal(r.counts.forbidden, 0);
+    }));
+    await t.test('limiter rejects malformed JSON before parsing and verification', () => scenario({ rateDenied: true }, async r => {
+      const response = await r.post({}, '{'); assert.equal(response.status, 429);
+      assert.equal(response.code, 'RATE_LIMITED'); assert.equal(r.counts.rate, 1); assert.equal(r.counts.verify, 0);
+    }));
+    await t.test('limiter failure rejects malformed JSON before parsing and verification', () => scenario({ rateFailure: true }, async r => {
+      assert.equal((await r.post({}, '{')).status, 503);
+      assert.equal(r.counts.rate, 1); assert.equal(r.counts.verify, 0);
+    }));
   } finally { setGlobalDispatcher(previous); await block.close(); }
 });
 
@@ -249,15 +261,135 @@ test('config/build/bundle capability isolation', async t => {
     const c = readConfig('negative'); mutate(c); assert.throws(() => validateConfig(c, 'negative'));
   });
   for (const rate of [
-    { name: 'OTHER', namespace_id: '99999', simple: { limit: 5, period: 60 } },
+    { name: 'OTHER', namespace_id: '31002', simple: { limit: 5, period: 60 } },
     { name: 'CONTACT_RATE_LIMITER', namespace_id: '31001', simple: { limit: 5, period: 60 } },
-    { name: 'CONTACT_RATE_LIMITER', namespace_id: 99999, simple: { limit: 5, period: 60 } },
-    { name: 'CONTACT_RATE_LIMITER', namespace_id: '99999', simple: { limit: 50, period: 60 } },
-    { name: 'CONTACT_RATE_LIMITER', namespace_id: '99999', simple: { limit: 5, period: 10 } },
-    { name: 'CONTACT_RATE_LIMITER', namespace_id: '99999', simple: { limit: 5, period: 60 }, remote: true },
+    { name: 'CONTACT_RATE_LIMITER', namespace_id: 31002, simple: { limit: 5, period: 60 } },
+    { name: 'CONTACT_RATE_LIMITER', namespace_id: '31002', simple: { limit: 50, period: 60 } },
+    { name: 'CONTACT_RATE_LIMITER', namespace_id: '31002', simple: { limit: 5, period: 10 } },
+    { name: 'CONTACT_RATE_LIMITER', namespace_id: '31002', simple: { limit: 5, period: 60 }, remote: true },
   ]) await t.test('invalid rate configuration rejected (isolated synthetic IDs only)', () => {
     const c = readConfig('negative'); c.ratelimits = [rate]; assert.throws(() => validateConfig(c, 'negative'));
   });
+  await t.test('provisional31002 is an exact structural configuration, not deployment approval', () => {
+    const config = readConfig('negative'); validateConfig(config, 'negative');
+    assert.deepEqual(config.ratelimits, [{ name: 'CONTACT_RATE_LIMITER', namespace_id: '31002', simple: { limit: 5, period: 60 } }]);
+    assert.throws(() => requireNegativeReady(config));
+    assert(!Object.hasOwn(readConfig('safe'), 'ratelimits'));
+  });
+  for (const id of [undefined, '', '0', '031002', '-31002', '31002x', '31003', false]) {
+    await t.test(`missing/invalid/unapproved namespace rejected: ${String(id)}`, () => {
+      const c = readConfig('negative'); c.ratelimits[0].namespace_id = id;
+      assert.throws(() => validateConfig(c, 'negative'));
+    });
+  }
+  for (const value of [undefined, [], null]) {
+    await t.test('missing or empty namespace binding rejected', () => {
+      const c = readConfig('negative'); c.ratelimits = value;
+      assert.throws(() => validateConfig(c, 'negative'));
+    });
+  }
+  const syntheticPreparation = {
+    NEGATIVE_NAMESPACE_FINAL_APPROVAL: 'APPROVED_31002', NEGATIVE_NAMESPACE_CONFIRMED: '31002',
+    NEGATIVE_ACCESS_CONFIRMED_HOSTNAME: HOST, NEGATIVE_DEPLOYMENT_APPROVED: 'APPROVED_NEGATIVE_ONLY',
+    NEGATIVE_TURNSTILE_SITE_KEY: '0x' + 'A'.repeat(22), // Synthetic format fixture; never written or used with a real service.
+  };
+  await t.test('even synthetic complete preparation is unconditionally blocked; no build or deployment', () => {
+    assert.throws(() => requireNegativeReady(readConfig('negative'), syntheticPreparation), /NEGATIVE_DEPLOYMENT_DISABLED/);
+    assert(!fs.existsSync(path.join(ROOT, 'scripts/contact-negative/.generated/negative')));
+  });
+  for (const key of Object.keys(syntheticPreparation)) {
+    await t.test(`preparation rejects missing ${key} even with namespace present`, () => {
+      const fixture = { ...syntheticPreparation }; delete fixture[key];
+      assert.throws(() => requireNegativeReady(readConfig('negative'), fixture));
+    });
+  }
+  await t.test('mismatched namespace confirmation and absent final approval reject preparation', () => {
+    assert.throws(() => requireNegativeReady(readConfig('negative'), { ...syntheticPreparation, NEGATIVE_NAMESPACE_CONFIRMED: '31001' }));
+    assert.throws(() => requireNegativeReady(readConfig('negative'), { ...syntheticPreparation, NEGATIVE_NAMESPACE_FINAL_APPROVAL: 'PROVISIONAL' }));
+  });
+  await t.test('all negative export paths reject self-declared approval without writes', () => {
+    const before = sourceInventory();
+    assert.throws(() => inventory('negative', syntheticPreparation), /NEGATIVE_DEPLOYMENT_DISABLED/);
+    assert.throws(() => buildNegative('negative', syntheticPreparation), /NEGATIVE_DEPLOYMENT_DISABLED/);
+    assert.equal(mockInventory().files.length, 39);
+    assert.deepEqual(sourceInventory().files, before.files);
+    assert(!fs.existsSync(path.join(ROOT, 'scripts/contact-negative/.generated/negative')));
+  });
+  // Real Wrangler CLI, but isolated files/auth home and a deny-all network preload. No remote session.
+  const cliTemp = fs.mkdtempSync(path.join(os.tmpdir(), 'contact-negative-cli-'));
+  try {
+    const project = path.join(cliTemp, 'project'); fs.mkdirSync(project);
+    const copy = file => {
+      const target = path.join(project, file); fs.mkdirSync(path.dirname(target), { recursive: true });
+      fs.copyFileSync(path.join(ROOT, file), target);
+    };
+    for (const file of [...productionFiles, 'scripts/build-static.mjs', 'scripts/contact-negative/build.mjs',
+      'scripts/contact-negative/wrangler.safe.jsonc', 'scripts/contact-negative/wrangler.negative.jsonc']) copy(file);
+    fs.symlinkSync(path.join(ROOT, 'node_modules'), path.join(project, 'node_modules'), 'dir');
+    const safeAssets = sourceInventory();
+    const seedAssets = mode => {
+      for (const file of safeAssets.files) {
+        const target = path.join(project, 'scripts/contact-negative/.generated', mode, file);
+        fs.mkdirSync(path.dirname(target), { recursive: true }); fs.writeFileSync(target, safeAssets.buffers.get(file));
+      }
+    };
+    seedAssets('safe');
+    const guard = path.join(cliTemp, 'deny-network.mjs');
+    fs.writeFileSync(guard, `import os from 'node:os';import {syncBuiltinESMExports,createRequire} from 'node:module';
+      import http from 'node:http';import https from 'node:https';import net from 'node:net';import tls from 'node:tls';
+      os.homedir=()=>${JSON.stringify(path.join(cliTemp, 'auth-home'))};let attempts=0;
+      const deny=()=>{attempts++;throw Error('AUDIT_NETWORK_DENIED');};globalThis.fetch=deny;
+      http.request=http.get=https.request=https.get=net.connect=net.createConnection=net.Socket.prototype.connect=tls.connect=deny;
+      syncBuiltinESMExports();const require=createRequire(${JSON.stringify(path.join(ROOT, 'package.json'))});
+      const {MockAgent,setGlobalDispatcher}=require('undici');const agent=new MockAgent();agent.disableNetConnect();setGlobalDispatcher(agent);
+      process.on('exit',()=>{process.stderr.write('AUDIT_NETWORK_ATTEMPTS='+attempts+'\\n');if(attempts)process.exitCode=2;});`);
+    const env = { PATH: process.env.PATH, TMPDIR: cliTemp, CI: 'true', BROWSER: 'false', NO_COLOR: '1',
+      WRANGLER_WRITE_LOGS: 'false', WRANGLER_SEND_METRICS: 'false', XDG_CONFIG_HOME: path.join(cliTemp, 'config'),
+      XDG_CACHE_HOME: path.join(cliTemp, 'cache'), NODE_OPTIONS: '--import ' + guard };
+    const oldApproval = { ...syntheticPreparation, NEGATIVE_FORM_APPROVED: 'APPROVED_NEGATIVE_FORM', NEGATIVE_HOSTNAME: HOST };
+    let index = 0;
+    const run = (args = [], extraEnv = {}, config = 'wrangler.negative.jsonc') => new Promise((resolve, reject) => {
+      childProcess.execFile(process.execPath, [path.join(ROOT, 'node_modules/wrangler/bin/wrangler.js'), 'deploy',
+        '--config', path.join(project, 'scripts/contact-negative', config), '--dry-run',
+        '--outdir', path.join(cliTemp, 'out-' + index++), '--env-file', '/dev/null', ...args],
+      { cwd: project, env: { ...env, ...extraEnv }, timeout: 30000, maxBuffer: 1024 * 1024 }, (error, stdout, stderr) => {
+        if (error?.killed) return reject(Error('OFFLINE_CLI_TIMEOUT'));
+        const output = stdout + stderr;
+        try { assert(output.includes('AUDIT_NETWORK_ATTEMPTS=0')); assert(!output.includes('AUDIT_NETWORK_DENIED')); }
+        catch (e) { reject(e); return; }
+        resolve({ code: error?.code ?? 0, output });
+      });
+    });
+    await t.test('safe explicit-config offline dry-run still succeeds with39 assets', async () => {
+      const result = await run([], {}, 'wrangler.safe.jsonc'); assert.equal(result.code, 0);
+      assert(result.output.includes('--dry-run: exiting now.'));
+    });
+    for (const [label, args, fixture] of [
+      ['ordinary negative', [], {}],
+      ['self-declared approvals', [], oldApproval],
+      ['synthetic Site Key', [], { NEGATIVE_TURNSTILE_SITE_KEY: syntheticPreparation.NEGATIVE_TURNSTILE_SITE_KEY }],
+      ['CLI var override', ['--var', 'TURNSTILE_SECRET_KEY:SYNTHETIC_NOT_A_REAL_SECRET'], oldApproval],
+      ['no-bundle', ['--no-bundle'], {}],
+      ['no-bundle plus var and approvals', ['--no-bundle', '--var', 'E2E_MODE:negative'], oldApproval],
+      ['positional real entrypoint', [path.join(project, 'scripts/contact-negative/worker.mjs')], oldApproval],
+      ['assets override', ['--assets', path.join(project, 'scripts/contact-negative/.generated/safe')], oldApproval],
+      ['unsupported no-build flag', ['--no-build'], oldApproval],
+    ]) await t.test(`offline CLI rejects ${label}`, async () => {
+      const result = await run(args, fixture); assert.notEqual(result.code, 0);
+      assert.match(result.output, /NEGATIVE_DEPLOYMENT_DISABLED|Unknown argument/);
+      assert(!fs.existsSync(path.join(project, 'scripts/contact-negative/.generated/negative')));
+    });
+    await t.test('fixture without build hook still fails at intentionally missing entrypoint', async () => {
+      const config = readConfig('negative'); delete config.build;
+      // Assets exist in this isolated fixture so they cannot mask the missing-entrypoint failure.
+      seedAssets('negative');
+      fs.writeFileSync(path.join(project, 'scripts/contact-negative/wrangler.no-hook.jsonc'), JSON.stringify(config));
+      assert(!fs.existsSync(path.join(project, 'scripts/contact-negative', config.main)));
+      const result = await run(['--no-bundle'], oldApproval, 'wrangler.no-hook.jsonc');
+      assert.notEqual(result.code, 0); assert(result.output.includes('__NEGATIVE_DEPLOYMENT_DISABLED__.mjs'));
+      assert(!result.output.includes('NEGATIVE_DEPLOYMENT_DISABLED: intentionally blocked'));
+    });
+  } finally { fs.rmSync(cliTemp, { recursive: true, force: true }); }
   await t.test('output stays39; only CONTACT attributes differ in in-memory mock HTML', () => {
     const source = sourceInventory(), safe = inventory(), mock = mockInventory(); assert.equal(safe.files.length, 39);
     verifyOutput(); assert.deepEqual(source.files.filter(f => !source.buffers.get(f).equals(mock.buffers.get(f))), ['contact/index.html']);
