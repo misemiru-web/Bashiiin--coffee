@@ -1,0 +1,29 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "bashiiin-coffee-contact-negative",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-28",
+  "send_metrics": false,
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./.generated/negative",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
+    "html_handling": "force-trailing-slash",
+    "not_found_handling": "none"
+  },
+  "vars": {
+    "E2E_MODE": "negative",
+    "CONTACT_API_ENABLED": "true",
+    "EMAIL_SENDING_ENABLED": "true",
+    "CONTACT_FROM": "bashiiin-staging@misemiruweb.com",
+    "CONTACT_TO": "misemiruweb@gmail.com",
+    "CONTACT_ORIGIN": "https://bashiiin-coffee-contact-negative.misemiruweb.workers.dev",
+    "TURNSTILE_HOSTNAME": "bashiiin-coffee-contact-negative.misemiruweb.workers.dev"
+  },
+  "secrets": { "required": ["TURNSTILE_SECRET_KEY"] },
+  "build": { "command": "node scripts/contact-negative/build.mjs --require-negative-ready", "cwd": "." },
+  "observability": { "enabled": false },
+  "dev": { "ip": "127.0.0.1", "port": 8792 }
+}
