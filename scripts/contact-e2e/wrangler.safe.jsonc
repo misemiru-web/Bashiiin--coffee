@@ -1,0 +1,27 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "bashiiin-coffee-contact-e2e",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-28",
+  "send_metrics": false,
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./.generated/safe",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
+    "html_handling": "force-trailing-slash",
+    "not_found_handling": "none"
+  },
+  "vars": {
+    "E2E_MODE": "safe",
+    "CONTACT_API_ENABLED": "false",
+    "EMAIL_SENDING_ENABLED": "false"
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "DELIVERY_GUARD", "class_name": "DeliveryGuard" }]
+  },
+  "migrations": [{ "tag": "e2e-sqlite-v1", "new_sqlite_classes": ["DeliveryGuard"] }],
+  "observability": { "enabled": false },
+  "dev": { "ip": "127.0.0.1", "port": 8791 }
+}
