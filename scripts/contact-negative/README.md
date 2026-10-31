@@ -217,3 +217,52 @@ negativeモード、Secret・Rate Limiterの設定、実Siteverifyへ進まず�
 今回の実装はCONTACT実送信・Cloudflare実環境の認証・Rate Limiter試験の成功を意味しない。
 実装済みは隔離コード、未完成のnegative設定、専用buildとローカルモック検証。
 safe初期導入・Accessの過去の確認と、未実施のnegative配置・実認証を区別する。
+
+## 公開Site Key候補のローカル検査（配置処理ではない）
+
+`site-key-candidate.mjs`は、呼び出し元が明示的に渡した公開Site Key・固定Origin・safeの39ファイルを
+メモリ内で検査・複製する。ファイル読み書き、環境変数参照、ログ、通信、子プロセス、Wrangler依存はない。
+変更はCONTACT HTMLと生成版JSだけで、残り37件を維持する。キー値はCONTACTのdata-sitekeyだけに入り、
+JSには埋め込まない。専用HTTPS Origin・hostname・専用属性が一致した場合だけwidgetを初期化する。
+生成版JSは誤200でも成功表示・generate_leadへ進まず、503等の失敗時にも入力とトークンの既存処理を維持する。
+フロントのOrigin検査は補助策であり、サーバーのOrigin・Siteverify検査の代替ではない。
+
+公式テストキー限定のpreview.mjsは変更しない。候補検査側は公式テストキーを拒否する。
+候補キーの形式は既存プロジェクトに合わせた保守的な`0x`＋英数字・underscore・hyphen20〜30文字とし、
+空白・改行・引用符・不正型等を拒否する。将来形式が変われば、黙って許可せず再レビューする。
+Site Keyは公開用でありSecretではない。将来配信するHTMLから閲覧可能になる。
+実Secretを受け取る設定や処理は実装しない。ただし、文字列の形式だけではwidget所属・発行済みであることや、
+同じ形式の値がSecretではないことを証明できない。本人がDashboardでSite Key欄、widget名、専用hostname、
+Managed・Pre-clearance OFFを照合する工程が別途必要で、形式合格を実認証成功とは扱わない。
+
+`verify-site-key-local.mjs`は直接CLI実行した場合だけ`NEGATIVE_TURNSTILE_SITE_KEY`を読む。
+引数によるキー入力は禁止。元の配信ファイルを読み、候補39件をメモリ内だけで検査して破棄する。
+値・HTML・スタックを表示せず、成功分類／失敗分類と終了コードだけを返す。
+import・再importでは環境変数を読まず、検査・通信・書き込みを開始しない。
+候補を書き出すAPI・CLIオプション、サーバー、実SDK接続、配置用hookとの接続は設けない。
+ただしBufferを扱える操作者が別コードで保存する行為までは防止できない。候補を配信アセットへ転用しない。
+
+実Site Keyは今回使用していない。テストは未発行の形式検査用合成値とモックSDK・モックAPIだけを使う。
+合成値を実SDK・実Siteverifyへ渡してはいけない。実SDK・実Siteverify・実Rate Limiterは未検証。
+実Email・DO・Service能力を追加せず、DeliveryGuardや独立メール検証の固定ロックへアクセスしない。
+negativeの無条件停止hook・無効entrypointはそのまま。キー検査成功は配置許可にならない。
+Cloudflare上のsafe配置は変更しない。
+
+### 将来、本人が別承認後に入力する場合
+
+本人のローカルzshで、端末録画・入力記録・shell traceを停止したうえで、値をコマンドへ直書きせず入力する。
+以下は将来用手順であり、今回実キーでは実行しない。
+
+```sh
+read -rs 'NEGATIVE_TURNSTILE_SITE_KEY?公開Site Keyを入力: '
+export NEGATIVE_TURNSTILE_SITE_KEY
+node scripts/contact-negative/verify-site-key-local.mjs
+unset NEGATIVE_TURNSTILE_SITE_KEY
+```
+
+成功・失敗にかかわらずunsetし、Ctrl+C等の中断時にも残存を確認する。Secretは入力しない。
+キー値をログ・ファイル・チャット・テスト結果へ保存しない。環境変数は子プロセスに継承されるため、
+設定中は他のコマンドを実行しない。このCLI自身は子プロセスを起動しない。
+環境変数でも同一権限プロセス、OS診断、端末・クリップボード記録から完全に秘匿できるとは保証しない。
+実キー入力・検査、Git保存、Secret登録、配置禁止解除・配置反映はそれぞれ別承認とする。
+まず合成値のローカル検証、独立安全監査を完了する。今回それらの実環境操作は行わない。

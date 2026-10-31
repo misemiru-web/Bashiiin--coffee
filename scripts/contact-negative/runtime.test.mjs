@@ -15,6 +15,8 @@ import { readConfig, validateConfig, requireNegativeReady, inventory, mockInvent
 import { NAME, HOST, ORIGIN, FROM, TO } from './policy.mjs';
 import { previewInventory, PREVIEW_TEST_SITE_KEYS, FUTURE_SITE_KEY_INPUT } from './preview.mjs';
 import { Script } from 'node:vm';
+import { candidateInventory, validateCandidateKey } from './site-key-candidate.mjs';
+import { inspectCandidateInput } from './verify-site-key-local.mjs';
 
 // Import is passive. Fixture reads and test registration require an explicit invocation.
 export function registerTests() {
@@ -289,6 +291,94 @@ test('memory-only official-test-key preview', async t => {
   });
 });
 
+
+test('isolated public Site Key candidate: synthetic data only', async t => {
+  const key = '0xSYNTHETIC_CANDIDATE_12345'; // Not an issued widget key. Never sent to a real SDK.
+  await t.test('explicit valid-format synthetic key; no issuance claim', () => {
+    assert.equal(validateCandidateKey(key), key);
+    assert.match(inspectCandidateInput({ siteKey: key, safe: inventory() }), /WIDGET_UNVERIFIED; DEPLOYMENT_BLOCKED/);
+  });
+  for (const value of [undefined, '', null, false, 123, {}, [], 'invalid', key + ' ', '\n' + key,
+    key + '"', key + "'", 'secret-value', '0x' + 'S'.repeat(40),
+    '1x00000000000000000000AA', '2x00000000000000000000AB', '1x00000000000000000000BB',
+    '2x00000000000000000000BB', '3x00000000000000000000FF']) {
+    await t.test('missing, malformed, secret-like and official test values reject without echo', () => {
+      assert.throws(() => validateCandidateKey(value), e => /^SITE_KEY_/.test(e.message)
+        && !e.message.includes(key) && !e.message.includes('secret-value'));
+    });
+  }
+  for (const origin of [undefined, 'http://' + HOST, 'https://localhost', ORIGIN + '.evil.test',
+    'https://other.' + HOST, ORIGIN + ':444', ORIGIN + '?negative', ORIGIN + '#negative',
+    'https://bashiiin-coffee-staging.misemiruweb.workers.dev', 'https://bashiiin-coffee-contact-e2e.misemiruweb.workers.dev']) {
+    await t.test('candidate origin is exact dedicated HTTPS only', () => {
+      assert.throws(() => candidateInventory({ siteKey: key, origin, safe: inventory() }), /CANDIDATE_ORIGIN_REJECTED/);
+    });
+  }
+  await t.test('39 cloned buffers, two changes,37 equal; safe immutable; no key in JS', () => {
+    const safe = inventory(), before = new Map([...safe.buffers].map(([p,b]) => [p, Buffer.from(b)]));
+    const candidate = candidateInventory({ siteKey: key, origin: ORIGIN, safe });
+    assert.equal(candidate.files.length, 39);
+    assert.deepEqual(candidate.files.filter(p => !candidate.buffers.get(p).equals(safe.buffers.get(p))), ['contact/index.html', 'script.js']);
+    for (const p of PAGES) assert(candidate.buffers.get(p).toString().includes('noindex, nofollow, noarchive'));
+    for (const p of candidate.files) {
+      assert.notEqual(candidate.buffers.get(p), safe.buffers.get(p));
+      assert.equal(candidate.buffers.get(p).includes(key), p === 'contact/index.html');
+    }
+    const js = candidate.buffers.get('script.js').toString(); new Script(js);
+    assert(js.includes('action: "contact"')); assert(js.includes('if (candidateOriginAllowed || response.status !== 200'));
+    assert.match(candidate.buffers.get('contact/index.html').toString(), /id="contact-submit"[^>]*disabled/);
+    assert.deepEqual(safe.buffers, before);
+    assert.throws(() => previewInventory({ siteKey: key, origin: ORIGIN }));
+    assert.throws(() => requireNegativeReady(readConfig('negative')), /NEGATIVE_DEPLOYMENT_DISABLED/);
+  });
+  await t.test('candidate transformation performs no filesystem, process, transport or logging calls', () => {
+    const safe = inventory(), restore = [], beforeEnv = JSON.stringify(process.env), originalFetch = globalThis.fetch;
+    let calls = 0;
+    const patch = (o,k) => { restore.push([o,k,o[k]]); o[k] = () => { calls++; throw Error('CANDIDATE_IO_DENIED'); }; };
+    for (const k of ['readFileSync','writeFileSync','openSync','mkdirSync','rmSync','unlinkSync']) patch(fs,k);
+    for (const k of ['spawn','exec','execFile','fork']) patch(childProcess,k);
+    patch(console,'log'); patch(console,'error'); globalThis.fetch = () => {calls++;throw Error('CANDIDATE_IO_DENIED');};
+    syncBuiltinESMExports();
+    try { assert.equal(candidateInventory({siteKey:key,origin:ORIGIN,safe}).files.length,39); assert.equal(calls,0); }
+    finally { for (const [o,k,v] of restore) o[k]=v; globalThis.fetch=originalFetch; syncBuiltinESMExports(); }
+    assert.equal(JSON.stringify(process.env),beforeEnv);
+  });
+  for (const mutate of [s => { s.files.pop(); }, s => { s.buffers.delete('script.js'); },
+    s => { s.buffers.set('contact/index.html', Buffer.from('unexpected')); },
+    s => { s.buffers.set('script.js', Buffer.from('unexpected')); }]) {
+    await t.test('incomplete or changed source fails closed without key in error', () => {
+      const safe = inventory(); mutate(safe);
+      assert.throws(() => candidateInventory({ siteKey: key, origin: ORIGIN, safe }), /CANDIDATE_SOURCE_REJECTED/);
+    });
+  }
+  for (const fixture of [{value:key, code:0}, {value:'',code:1}, {value:'DO_NOT_ECHO_SECRET_123',code:1},
+    {value:'1x00000000000000000000AA',code:1}, {value:key, args:[key],code:1}]) {
+    await t.test('direct CLI reads only synthetic env input; output and errors never echo', async () => {
+      const result = await new Promise(resolve => childProcess.execFile(process.execPath,
+        ['scripts/contact-negative/verify-site-key-local.mjs', ...(fixture.args || [])],
+        {cwd:ROOT,env:{PATH:process.env.PATH,NEGATIVE_TURNSTILE_SITE_KEY:fixture.value}},
+        (error, stdout, stderr) => resolve({code:error?.code || 0, output:stdout+stderr})));
+      assert.equal(result.code, fixture.code);
+      assert(!result.output.includes(key)); assert(!result.output.includes('DO_NOT_ECHO_SECRET_123'));
+      assert.match(result.output, /^SITE_KEY_/); assert(!result.output.includes(' at '));
+    });
+  }
+  await t.test('fresh imports never read candidate environment or log; env and fetch preserved', async () => {
+    const target = pathToFileURL(path.join(ROOT,'scripts/contact-negative/')).href;
+    const source = `import assert from 'node:assert/strict';
+      const env=process.env, fetchBefore=globalThis.fetch;let reads=0,logs=0;
+      process.env=new Proxy(env,{get(t,k){if(k==='NEGATIVE_TURNSTILE_SITE_KEY'){reads++;throw Error('ENV_READ');}return Reflect.get(t,k);}});
+      const saved=console.log;console.log=()=>{logs++;};
+      try{for(const name of ['site-key-candidate.mjs','verify-site-key-local.mjs']){
+        const url=${JSON.stringify(target)}+name+'?import=first';const one=await import(url);assert.equal(await import(url),one);
+        await import(${JSON.stringify(target)}+name+'?import=fresh');}
+        assert.equal(reads,0);assert.equal(logs,0);assert.equal(globalThis.fetch,fetchBefore);
+      }finally{process.env=env;console.log=saved;}process.stdout.write('PASSIVE_CANDIDATES');`;
+    const result = await childProcessRun(source); assert.equal(result.code,0,result.stderr);
+    assert.equal(result.stdout,'PASSIVE_CANDIDATES');
+  });
+});
+
 test('config/build/bundle capability isolation', async t => {
   await t.test('safe and incomplete negative configs validate structurally; negative readiness is blocked', () => {
     validateConfig(readConfig('safe'), 'safe'); validateConfig(readConfig('negative'), 'negative');
@@ -503,6 +593,11 @@ test('config/build/bundle capability isolation', async t => {
         await import('./worker.mjs?import-audit=one');
         await import('./policy.mjs?import-audit=one');
         await import('./build.mjs?import-audit=one');
+        for (const name of ['site-key-candidate.mjs', 'verify-site-key-local.mjs']) {
+          const one = await import('./' + name + '?audit=one');
+          assert.equal(await import('./' + name + '?audit=one'), one);
+          await import('./' + name + '?audit=two');
+        }
         const preview = await import('./preview.mjs?import-audit=one');
         assert.equal(await import('./preview.mjs?import-audit=one'), preview);
         await import('./preview.mjs?import-audit=two');

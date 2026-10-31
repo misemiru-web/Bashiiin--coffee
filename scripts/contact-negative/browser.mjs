@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { inventory } from './build.mjs';
 import { previewInventory, PREVIEW_TEST_SITE_KEYS } from './preview.mjs';
+import { candidateInventory } from './site-key-candidate.mjs';
 import { HOST, ORIGIN } from './policy.mjs';
 // Module loading is passive: Playwright and Chrome are resolved only by an explicit call.
 export async function runBrowserChecks({ signal, loadChromium = async () => {
@@ -115,10 +116,16 @@ export async function runBrowserChecks({ signal, loadChromium = async () => {
       { name: 'mock200 must never claim acceptance', status: 200 },
       { name: 'official failure-key fixture', failureKey: true },
     ];
-    for (const fixture of cases) {
+    // Candidate values are format fixtures only, not issued keys. SDK and API stay mocked.
+    const candidateCases = [...cases.filter(f => !f.safe && !f.failureKey),
+      { name: '503 after mock authentication' },
+      { name: 'E2E hostname', origin: 'https://bashiiin-coffee-contact-e2e.misemiruweb.workers.dev', blocked: true }
+    ].map(f => ({ ...f, name: 'candidate ' + f.name, candidate: true }));
+    for (const fixture of [...cases, ...candidateCases]) {
       signal?.throwIfAborted();
       const origin = fixture.origin || ORIGIN;
-      const assets = fixture.safe ? inventory() : previewInventory({
+      const assets = fixture.candidate ? candidateInventory({ siteKey: '0xSYNTHETIC_CANDIDATE_12345', origin: ORIGIN, safe: inventory() })
+        : fixture.safe ? inventory() : previewInventory({
         siteKey: fixture.failureKey ? PREVIEW_TEST_SITE_KEYS.failure : PREVIEW_TEST_SITE_KEYS.success, origin: ORIGIN });
       const context = await browser.newContext({ viewport: { width: 390, height: 844 }, serviceWorkers: 'block' });
       const requests = new Set(), intercepted = new Set(), errors = [];
@@ -170,6 +177,15 @@ export async function runBrowserChecks({ signal, loadChromium = async () => {
         assert(await page.locator('#contact-submit').isDisabled()); assert.equal(posts, 0);
       } else {
         await page.waitForFunction(() => Boolean(window.__callbacks));
+        assert.equal(await page.evaluate(() => window.__renderAction), 'contact');
+        if (fixture.candidate) {
+          for (const token of ['', null, 'x'.repeat(2049)]) {
+            await page.evaluate(value => window.__callbacks.callback(value), token);
+            assert(await page.locator('#contact-submit').isDisabled());
+          }
+          await page.locator('#contact-form').evaluate(form => form.requestSubmit());
+          assert.equal(posts, 0);
+        }
         await page.evaluate(() => window.__callbacks.callback('synthetic-preview-token'));
         await page.locator('#contact-submit').click();
         await page.waitForFunction(() => document.querySelector('#contact-form').dataset.state === 'failure');
