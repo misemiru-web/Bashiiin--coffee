@@ -128,3 +128,50 @@ CSPを緩和する修正やセキュリティヘッダーの削除は実施し�
 ## 記録工程の制約
 
 STEP 09-C3⑥-Fの作成工程および⑧-Bの更新工程は、このQA文書1件とGit保存だけを対象とする。実キー・実トークンの取得／入力、実Siteverify再実行、Cloudflare設定変更、Secret登録、デプロイ、実メール送信、CONTACT有効化は実施しない。既存ソース・main・元の未追跡47件を変更せず、機密情報を文書・ログ・Git履歴へ追加しない。
+
+## STEP 09-C3⑨-X：Stagingメール設定・Secret登録後の安全確認
+
+記録日：2026年10月31日。ユーザーがCloudflare Dashboard・Chrome・ターミナルで確認した結果を追記する。実操作の正確な日時・Chromeバージョンは未提供。対象ソースは `formal-production` / `d2f6ea2a55c9dd63be0709d5389b173eafbf5d8d`。
+
+上記の「Worker Secret未登録」などは各検証時点の履歴として保持する。本節は、その後にユーザーが実施した設定・安全確認の記録であり、CodexがCloudflareへ再照会・設定変更・実通信テストを行った結果ではない。
+
+### ユーザー確認済みの設定・稼働状態
+
+| 項目 | 確認結果 |
+|---|---|
+| Worker | `bashiiin-coffee-staging` |
+| Secret追加後の稼働バージョン | `774d5b24`（ユーザー提供の短縮ID。完全なIDは未提供） |
+| Rollout history | 新バージョン100% |
+| Cloudflare Access | All traffic、only me |
+| Email Routing | `misemiruweb.com`でEnabled |
+| Email binding | `EMAIL`。送信先は`misemiruweb@gmail.com`の1件に固定 |
+| Rate Limiter | `CONTACT_RATE_LIMITER`、namespace ID `31001`、5回／60秒 |
+| `CONTACT_FROM` | `bashiiin-staging@misemiruweb.com`（Staging検証専用） |
+| `CONTACT_TO` | `misemiruweb@gmail.com`（Staging検証専用） |
+| `CONTACT_ORIGIN` | `https://bashiiin-coffee-staging.misemiruweb.workers.dev` |
+| `TURNSTILE_HOSTNAME` | `bashiiin-coffee-staging.misemiruweb.workers.dev` |
+| `CONTACT_API_ENABLED` / `EMAIL_SENDING_ENABLED` | どちらも文字列`"false"` |
+| `TURNSTILE_SECRET_KEY` | WorkerのSecretとして登録済み。Dashboard上では値が暗号化・非表示であることをユーザーが確認。値は収集・記録しない |
+
+### ユーザー確認済みのアクセス・拒否動作
+
+- 未認証の`GET /contact/`はHTTP 302。
+- Access認証済みブラウザーからの`POST /api/contact`はHTTP 503。安全な判定項目として`ok: false`、Fetch Responseの`type: basic`を確認。生レスポンス・Cookie・認証ヘッダーは記録しない。
+- CONTACTフォームは送信不可を維持。実メール送信は未実施。
+
+この503は無効設定による拒否の確認であり、Worker上でSiteverifyやメール処理が実行された証拠ではない。`type: basic`も認証成功・メール受付を示すものではない。先に記録したローカルCLIの実Siteverify成功・同一トークン再利用拒否は、Worker実環境の検証とは区別する。
+
+### 今回も未検証の事項・次工程への引き継ぎ
+
+- Worker上での実Siteverify成功、および登録したWorker Secretの値が正しいこと。
+- Rate Limiterの実際の超過拒否動作。binding・設定の存在確認だけで動作確認済みと扱わない。
+- Cloudflare Email Serviceによる実メール受付と、Gmail受信箱への実際の到達。
+- 検証専用送信元アドレスの実送信可否。Email RoutingのEnabledだけでは利用可能と断定しない。
+- namespace ID `31001`のCloudflareアカウント全体での未使用・別用途との非重複。実環境に登録された事実から未使用を証明したとは扱わず、追加の利用・変更前に再確認する。
+- 未使用トークンの期限切れ拒否の独立した実検証は、引き続き未実施。
+
+Turnstile関連CSPエラーは継続している。既存のCSP調査結果は上記の節を参照し、重複転記しない。内部iframe由来の可能性はあるが、**機能動作に現時点で支障なし・原因未確定・継続監視**とする。フォーム送信・メール到達など未検証の機能を保証せず、CSP緩和やヘッダー削除は行わない。
+
+次工程では別途承認のもと、上記の未検証事項と重複通知リスクを確認する。API・メール・フォームの有効化や実送信を、この文書保存の許可に含めない。
+
+本更新はQA文書とGitHub保存だけを対象とする。Secret値・実トークン・Cookie・認証ヘッダー・生レスポンス・個人情報は収集せず、ユーザーが明示したStaging用の通知設定だけを記録する。Worker・フロントエンド・Wrangler設定・Access・全ページnoindexは変更しない。
