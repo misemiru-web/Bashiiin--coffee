@@ -104,3 +104,21 @@ test('missing key never verifies or replaces previous staging output', () => fix
   assert.throws(() => buildStaging(root, {})); assert.throws(() => verifyStaging(root, {}));
   assert.deepEqual(fs.readFileSync(path.join(root, 'dist-staging/contact/index.html')), before);
 }));
+
+for (const [label, binding] of [
+  ['missing', undefined], ['empty', []], ['unrestricted', [{ name: 'EMAIL' }]],
+  ['different destination', [{ name: 'EMAIL', destination_address: 'other@fixture.test' }]],
+  ['different name', [{ name: 'OTHER', destination_address: 'misemiruweb@gmail.com' }]],
+  ['extra binding', [{ name: 'EMAIL', destination_address: 'misemiruweb@gmail.com' }, { name: 'UNRESTRICTED' }]],
+  ['remote development', [{ name: 'EMAIL', destination_address: 'misemiruweb@gmail.com', remote: true }]],
+  ['recipient allowlist instead of fixed destination', [{ name: 'EMAIL', allowed_destination_addresses: ['misemiruweb@gmail.com'] }]],
+]) {
+  test(`staging rejects email binding ${label}`, () => fixture(root => {
+    const file = path.join(root, 'wrangler.staging.jsonc');
+    const config = JSON.parse(fs.readFileSync(file, 'utf8').replace(/^\s*\/\/.*$/gm, ''));
+    if (binding === undefined) delete config.send_email; else config.send_email = binding;
+    fs.writeFileSync(file, JSON.stringify(config));
+    assert.throws(() => buildStaging(root, env), /approved fixed destination/);
+    assert.equal(fs.existsSync(path.join(root, 'dist-staging')), false);
+  }));
+}

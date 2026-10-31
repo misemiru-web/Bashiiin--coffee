@@ -18,6 +18,12 @@
     "CONTACT_API_ENABLED": "false",
     "EMAIL_SENDING_ENABLED": "false"
   },
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "destination_address": "misemiruweb@gmail.com"
+    }
+  ],
   "observability": { "enabled": false },
   "dev": {
     "ip": "127.0.0.1",

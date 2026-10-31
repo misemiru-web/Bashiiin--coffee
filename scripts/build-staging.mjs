@@ -19,10 +19,12 @@ export function stagingInventory(root = ROOT, env = process.env) {
   'Unexpected staging worker configuration');
   ensure(JSON.stringify(config.assets) === JSON.stringify({ ...normal.assets, directory: './dist-staging' }), 'Unexpected staging assets configuration');
   ensure(JSON.stringify(config.vars) === JSON.stringify({ CONTACT_API_ENABLED: 'false', EMAIL_SENDING_ENABLED: 'false' }), 'Staging must keep API and email disabled');
-  const allowed = ['$schema', 'name', 'main', 'compatibility_date', 'send_metrics', 'workers_dev', 'preview_urls', 'assets', 'vars', 'observability', 'dev'];
+  const allowed = ['$schema', 'name', 'main', 'compatibility_date', 'send_metrics', 'workers_dev', 'preview_urls', 'assets', 'vars', 'observability', 'dev', 'send_email'];
   ensure(Object.keys(config).every(k => allowed.includes(k)), 'Unapproved staging setting or binding');
   ensure(config.assets.binding === 'ASSETS' && config.assets.html_handling === 'force-trailing-slash'
     && config.assets.not_found_handling === 'none' && JSON.stringify(config.assets.run_worker_first) === '["/api/*"]', 'Unsafe staging routing');
+  ensure(JSON.stringify(config.send_email) === JSON.stringify([{ name: 'EMAIL', destination_address: 'misemiruweb@gmail.com' }]),
+    'Staging email binding must have exactly the approved fixed destination');
   const inventory = sourceInventory(root);
   ensure(inventory.files.length === 39, 'Expected exactly 39 public files');
   const buffers = new Map(inventory.buffers);
