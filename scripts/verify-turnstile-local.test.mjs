@@ -20,7 +20,7 @@ for (const [kind, type] of [['success','VERIFIED'], ['invalid','INVALID_TOKEN'],
     let calls = 0;
     const transport = mockFetch(kind);
     const result = await checkToken(token, secret, async (url, init) => {
-      calls++; assert.equal(url, SITEVERIFY); assert.equal(init.method, 'POST'); assert.equal(init.redirect, 'error');
+      calls++; assert.equal(url, SITEVERIFY); assert.equal(init.method, 'POST'); assert.equal(init.redirect, 'manual');
       assert.equal(init.body.get('secret'), secret); assert.equal(init.body.get('response'), token);
       return transport(url, init);
     }, 10);

@@ -23,7 +23,7 @@ export async function checkToken(token, secret, fetchImpl = offline, timeout = 5
   let remoteType;
   try {
     await verifyTurnstile(token, secret, HOSTNAME, async (url, init) => {
-      if (url !== SITEVERIFY || init.method !== 'POST' || init.redirect !== 'error') throw safeError('DESTINATION_REJECTED');
+      if (url !== SITEVERIFY || init.method !== 'POST' || init.redirect !== 'manual') throw safeError('DESTINATION_REJECTED');
       const response = await fetchImpl(url, init); // Exactly one call; diagnostics reuse this response.
       return { ok: response.ok, json: async () => {
         const data = await response.json();

@@ -6,10 +6,12 @@ export async function verifyTurnstile(token, secret, hostname, fetchImpl = fetch
   try {
     result = await deadline(async signal => {
       const response = await fetchImpl(SITEVERIFY, {
-        method: 'POST', redirect: 'error', signal,
+        method: 'POST', redirect: 'manual', signal,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({ secret, response: token }),
       });
+      // workerd supports manual, not error: reject redirects before reading any JSON.
+      if (response.status >= 300 && response.status < 400) throw new Error('unavailable');
       if (!response.ok) throw new Error('unavailable');
       return await response.json();
     }, timeout);

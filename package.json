@@ -13,7 +13,8 @@
     "verify:local": "node scripts/verify-local.mjs",
     "build:staging": "node scripts/build-staging.mjs",
     "verify:staging": "node scripts/build-staging.mjs --verify",
-    "verify:turnstile:local": "node scripts/verify-turnstile-local.mjs"
+    "verify:turnstile:local": "node scripts/verify-turnstile-local.mjs",
+    "test:worker:integration": "node --test scripts/worker-contact.integration.test.mjs"
   },
   "devDependencies": {
     "parse5": "8.0.1",

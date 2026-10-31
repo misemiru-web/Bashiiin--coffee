@@ -155,7 +155,7 @@ test('invalid UTF-8 rejected', async () => {
 });
 test('successful notification uses fixed destination and safe replyTo after Siteverify', async () => {
   const { env, calls, handler } = setup(); await expectStatus(await handler(request(), env), 200);
-  assert.equal(calls.verify[0].url, SITEVERIFY); assert.equal(calls.verify[0].init.redirect, 'error');
+  assert.equal(calls.verify[0].url, SITEVERIFY); assert.equal(calls.verify[0].init.redirect, 'manual');
   assert.equal(calls.verify[0].init.body.get('response'), valid().turnstileToken);
   assert.deepEqual(calls.mail[0], { from: env.CONTACT_FROM, to: env.CONTACT_TO, replyTo: valid().email,
     subject: 'Bashiiin! coffee お問い合わせ', text: `お名前：${valid().name}\nメールアドレス：${valid().email}\n\nお問い合わせ内容：\n${valid().message}` });
@@ -236,3 +236,16 @@ test('blank secret and malformed binding results fail closed',async()=>{
     const {env,handler,calls}=setup();Object.assign(env,patch);await expectStatus(await handler(request(),env),503);assert.equal(calls.mail.length+calls.verify.length,0);
   }
 });
+
+for (const status of [300, 301, 302, 303, 304, 307, 308, 399]) {
+  test(`Siteverify redirect ${status} rejects success-shaped JSON without reading or following`, async () => {
+    const { env, calls } = setup(); let requests = 0, jsonReads = 0;
+    const handler = createContactHandler({ fetchImpl: async (url, init) => {
+      requests++; assert.equal(url, SITEVERIFY); assert.equal(init.redirect, 'manual');
+      return { status, ok: true, headers: new Headers({ Location: 'https://redirect-target.invalid/' }),
+        json: async () => { jsonReads++; return { success: true, hostname: 'unit.test', action: 'contact' }; } };
+    } });
+    await expectStatus(await handler(request(), env), 503, 'VERIFICATION_UNAVAILABLE');
+    assert.equal(requests, 1); assert.equal(jsonReads, 0); assert.equal(calls.mail.length, 0);
+  });
+}
