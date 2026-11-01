@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import worker from '../index.mjs';
 import { createContactHandler } from './api.mjs';
 import { readJson, validatePayload, MAX_BODY_BYTES, validEmail } from './validation.mjs';
@@ -8,6 +9,7 @@ import { notification, sendNotification } from './mail.mjs';
 
 // Reserved .test addresses, opaque non-credential strings, and in-memory mocks only.
 const ORIGIN = 'https://unit.test';
+const productionCandidate = JSON.parse(fs.readFileSync(new URL('../../scripts/contact-production-candidate.json', import.meta.url), 'utf8'));
 const valid = () => ({ name: 'テスト担当', email: 'visitor@unit.test', message: 'テスト本文\n2行目', turnstileToken: 'opaque-unit-token' });
 const request = (payload = valid(), options = {}) => new Request(ORIGIN + '/api/contact', {
   method: 'POST', headers: { 'Content-Type': 'application/json', Origin: ORIGIN }, body: JSON.stringify(payload), ...options,
@@ -249,3 +251,97 @@ for (const status of [300, 301, 302, 303, 304, 307, 308, 399]) {
     assert.equal(requests, 1); assert.equal(jsonReads, 0); assert.equal(calls.mail.length, 0);
   });
 }
+
+
+// Candidate syntax/configuration tests only. Mail/verification bindings remain synthetic.
+function candidateSetup() {
+  const f = setup();
+  Object.assign(f.env, productionCandidate.vars, {
+    // Test-only overrides exercise the API; the saved candidate stays disabled; its destination is not verified.
+    CONTACT_API_ENABLED: 'true', EMAIL_SENDING_ENABLED: 'true', CONTACT_TO: 'store@candidate.fixture.test',
+  });
+  f.handler = createContactHandler({ fetchImpl: async (url, init) => {
+    f.calls.verify.push({ url, init });
+    return Response.json({ success: true, hostname: productionCandidate.vars.TURNSTILE_HOSTNAME, action: 'contact' });
+  } });
+  return f;
+}
+function candidateRequest(origin = productionCandidate.vars.CONTACT_ORIGIN) {
+  return new Request(productionCandidate.vars.CONTACT_ORIGIN + '/api/contact', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', Origin: origin }, body: JSON.stringify(valid()),
+  });
+}
+test('production candidate data is separate, disabled, and contains no Secret value', async () => {
+  const vars = productionCandidate.vars;
+  assert.deepEqual(Object.keys(vars).sort(), ['CONTACT_ORIGIN', 'TURNSTILE_HOSTNAME', 'CONTACT_FROM', 'CONTACT_TO', 'CONTACT_API_ENABLED', 'EMAIL_SENDING_ENABLED'].sort());
+  assert.equal(vars.CONTACT_ORIGIN, 'https://bashiiin-coffee.com');
+  assert.equal(vars.TURNSTILE_HOSTNAME, 'bashiiin-coffee.com');
+  assert.equal(vars.CONTACT_FROM, 'noreply@bashiiin-coffee.com');
+  assert.equal(validEmail(vars.CONTACT_TO), true, 'candidate destination syntax only, not verification');
+  assert.equal(Object.hasOwn(vars, 'TURNSTILE_SECRET_KEY'), false);
+  assert.equal(vars.CONTACT_API_ENABLED, 'false'); assert.equal(vars.EMAIL_SENDING_ENABLED, 'false');
+  const { handler, calls } = candidateSetup();
+  await expectStatus(await handler(candidateRequest(), vars), 503, 'SERVICE_UNAVAILABLE');
+  assert.deepEqual(calls, { rate: [], verify: [], mail: [] });
+});
+test('production candidate exact Origin and sender pass syntax checks with synthetic dependencies only', async () => {
+  const { handler, env, calls } = candidateSetup();
+  await expectStatus(await handler(candidateRequest(), env), 200);
+  assert.equal(calls.mail.length, 1);
+  assert.equal(calls.mail[0].from, productionCandidate.vars.CONTACT_FROM);
+  assert.equal(calls.mail[0].to, 'store@candidate.fixture.test');
+  assert.equal(calls.mail[0].replyTo, valid().email);
+  assert.deepEqual(calls.rate, [{ key: 'contact:submission' }]);
+});
+for (const origin of ['http://bashiiin-coffee.com', 'https://www.bashiiin-coffee.com', 'https://bashiiin-coffee.com.evil.test', 'https://unrelated.fixture.test']) {
+  test('production candidate rejects an unapproved Origin before upstreams: ' + origin, async () => {
+    const { handler, env, calls } = candidateSetup();
+    await expectStatus(await handler(candidateRequest(origin), env), 403, 'ORIGIN_REJECTED');
+    assert.deepEqual(calls, { rate: [], verify: [], mail: [] });
+  });
+}
+for (const [label, patch] of [
+  ['destination absent', e => { delete e.CONTACT_TO; }],
+  ['destination blank', e => { e.CONTACT_TO = ''; }],
+  ['Email binding absent', e => { delete e.EMAIL; }],
+  ['Secret absent', e => { delete e.TURNSTILE_SECRET_KEY; }],
+  ['Secret blank', e => { e.TURNSTILE_SECRET_KEY = ''; }],
+  ['Rate Limiter absent', e => { delete e.CONTACT_RATE_LIMITER; }],
+  ['API disabled', e => { e.CONTACT_API_ENABLED = 'false'; }],
+  ['mail disabled', e => { e.EMAIL_SENDING_ENABLED = 'false'; }],
+]) {
+  test('production candidate fails closed even with other mock settings ready: ' + label, async () => {
+    const { handler, env, calls } = candidateSetup(); patch(env);
+    await expectStatus(await handler(candidateRequest(), env), 503, 'SERVICE_UNAVAILABLE');
+    assert.deepEqual(calls, { rate: [], verify: [], mail: [] });
+  });
+}
+test('production candidate replies do not expose synthetic private values or upstream errors', async t => {
+  const { env, calls } = candidateSetup();
+  const handler = createContactHandler({ fetchImpl: async () => { throw Error('SYNTHETIC_PRIVATE_UPSTREAM'); } });
+  const logs = [];
+  for (const key of ['log', 'info', 'warn', 'error', 'debug']) t.mock.method(console, key, () => { logs.push('unexpected'); });
+  const response = await handler(candidateRequest(), env), body = await response.text();
+  assert.equal(response.status, 503);
+  for (const value of [valid().name, valid().email, valid().message, valid().turnstileToken, env.TURNSTILE_SECRET_KEY, 'SYNTHETIC_PRIVATE_UPSTREAM']) {
+    assert.equal(body.includes(value), false, 'private values must remain outside public replies');
+  }
+  assert.deepEqual(logs, []); assert.equal(calls.mail.length, 0);
+});
+
+
+test('candidate destination is server-fixed in an in-memory mock, not verified or sent externally', async () => {
+  const { handler, env, calls } = candidateSetup();
+  env.CONTACT_TO = productionCandidate.vars.CONTACT_TO;
+  await expectStatus(await handler(candidateRequest(), env), 200);
+  assert.equal(calls.mail.length, 1);
+  assert.equal(calls.mail[0].to === productionCandidate.vars.CONTACT_TO, true, 'server-owned destination must match');
+  const tampered = new Request(productionCandidate.vars.CONTACT_ORIGIN + '/api/contact', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', Origin: productionCandidate.vars.CONTACT_ORIGIN },
+    body: JSON.stringify({ ...valid(), to: 'unapproved@candidate.fixture.test' }),
+  });
+  await expectStatus(await handler(tampered, env), 400, 'INVALID_STRUCTURE');
+  assert.equal(calls.mail.length, 1, 'request cannot add a second mail or change the recipient');
+  assert.equal(productionCandidate.vars.CONTACT_API_ENABLED, 'false');
+  assert.equal(productionCandidate.vars.EMAIL_SENDING_ENABLED, 'false');
+});

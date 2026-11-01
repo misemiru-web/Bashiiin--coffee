@@ -2,10 +2,12 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import { createContactHandler } from '../worker/contact/api.mjs';
 
 const source = fs.readFileSync(new URL('../script.js', import.meta.url), 'utf8');
 // Public Cloudflare dummy sitekey. No secret, network, mail or real user input.
 const DUMMY_SITEKEY = '1x00000000000000000000AA';
+const productionCandidate = JSON.parse(fs.readFileSync(new URL('./contact-production-candidate.json', import.meta.url), 'utf8'));
 class Element {
   constructor() { this.dataset = {}; this.style = {}; this.listeners = {}; this.attributes = {}; this.classList = { add() {} }; this.disabled = false; }
   addEventListener(name, fn) { (this.listeners[name] ||= []).push(fn); }
@@ -16,7 +18,7 @@ class Element {
   focus() {}
   after(element) { this.next = element; }
 }
-function fixture({ hostname = '127.0.0.1', mode, stagingHost, search = '', origin = `https://${hostname}`, ready = false, key = '' , outcome = 'success' } = {}) {
+function fixture({ hostname = '127.0.0.1', mode, stagingHost, search = '', origin = `https://${hostname}`, ready = false, key = '' , outcome = 'success', requestImpl } = {}) {
   const fields = ['name', 'email', 'message'].map((name, i) => Object.assign(new Element(), {
     id: `contact-${name}`, value: ['テスト担当', 'visitor@unit.test', 'テスト本文'][i],
     maxLength: [100, 254, 5000][i], type: i === 1 ? 'email' : 'text', validity: { typeMismatch: false },
@@ -45,6 +47,7 @@ function fixture({ hostname = '127.0.0.1', mode, stagingHost, search = '', origi
     CustomEvent: class { constructor(type, init) { this.detail = init.detail; } },
     fetch: async (...args) => {
       requests.push(args);
+      if (requestImpl) return requestImpl(...args);
       if (outcome === 'network') throw Error('mock network failure');
       return { status: outcome === 'success' ? 200 : 500,
         headers: { get: () => 'application/json' }, json: async () => ({ ok: outcome === 'success' }) };
@@ -181,3 +184,141 @@ test('URL parameters cannot enable staging verification on an ordinary disabled 
   assert.equal(f.scripts.length, 0); assert.equal(f.submit.disabled, true);
   await f.form.fire('submit'); assert.equal(f.requests.length, 0); assert.equal(f.events.length, 0);
 });
+
+// Production UI -> actual shared API -> synthetic Siteverify/Email only.
+// Request/Response objects stay in memory: no HTTP transport, credentials or real bindings.
+async function productionFlow({ verification = 'success', rate = 'allow', send, disabled = false,
+  hostname = 'production.fixture.test', ready = true, requestOrigin } = {}) {
+  const origin = `https://${hostname}`, stages = [], responses = [];
+  const env = {
+    CONTACT_API_ENABLED: disabled ? 'false' : 'true', EMAIL_SENDING_ENABLED: 'true',
+    CONTACT_ORIGIN: origin, TURNSTILE_HOSTNAME: hostname,
+    TURNSTILE_SECRET_KEY: 'synthetic-production-flow-secret',
+    CONTACT_FROM: 'sender@production.fixture.test', CONTACT_TO: 'store@production.fixture.test',
+    CONTACT_RATE_LIMITER: { async limit(value) {
+      stages.push('rate'); assert.equal(value.key, 'contact:submission');
+      if (rate === 'error') throw Error('SYNTHETIC_RATE_ERROR');
+      return { success: rate !== 'deny' };
+    } },
+    EMAIL: { async send(message) {
+      stages.push('mail');
+      assert.equal(message.from === env.CONTACT_FROM && message.to === env.CONTACT_TO, true, 'server fixes the notification addresses');
+      return send ? send(message) : { messageId: 'synthetic-flow-receipt' };
+    } },
+  };
+  const handler = createContactHandler({ fetchImpl: async (url, init) => {
+    stages.push('siteverify');
+    assert.equal(url, 'https://challenges.cloudflare.com/turnstile/v0/siteverify');
+    assert.equal(init.method, 'POST');
+    assert.equal(init.body.get('secret') === env.TURNSTILE_SECRET_KEY, true, 'only the synthetic server secret is used');
+    if (verification === 'error') throw Error('SYNTHETIC_VERIFICATION_ERROR');
+    return Response.json({ success: verification === 'success', hostname, action: 'contact' });
+  } });
+  const ui = fixture({ hostname, origin, ready, key: DUMMY_SITEKEY,
+    requestImpl: async (url, init) => {
+      assert.equal(url, '/api/contact'); assert.equal(init.method, 'POST');
+      const response = await handler(new Request(new URL(url, origin), {
+        ...init, headers: { ...init.headers, Origin: requestOrigin || origin, 'Sec-Fetch-Site': 'same-origin' },
+      }), env);
+      responses.push({ status: response.status, body: await response.clone().json() });
+      return response;
+    },
+  });
+  if (ready) (await ui.load()).callback('synthetic-production-flow-token');
+  return { ...ui, stages, responses };
+}
+function assertFlowFailure(f, status, code) {
+  assert.equal(f.form.dataset.state, 'failure');
+  assert.equal(f.responses.length, 1); assert.equal(f.responses[0].status, status);
+  assert.equal(f.responses[0].body.ok, false); assert.equal(f.responses[0].body.code, code);
+  assert.equal(f.events.some(e => e.name === 'generate_lead'), false);
+  assert.equal(f.fields[0].value.length > 0, true, 'failed submissions retain input');
+}
+
+test('production flow: validated UI -> Siteverify -> accepted synthetic mail -> one lead', async () => {
+  const f = await productionFlow(); await f.form.fire('submit');
+  assert.deepEqual(f.stages, ['rate', 'siteverify', 'mail']);
+  assert.equal(f.requests.length, 1); assert.equal(f.responses[0].status, 200);
+  assert.equal(f.responses[0].body.ok, true); assert.equal(f.form.dataset.state, 'success');
+  assert.equal(f.events.filter(e => e.name === 'generate_lead').length, 1);
+  assert.equal(f.submit.disabled, true);
+});
+for (const [label, index, value] of [['name', 0, ' '], ['email', 1, 'invalid-email'], ['message', 2, ' ']]) {
+  test(`production flow: invalid ${label} never reaches API or mail`, async () => {
+    const f = await productionFlow(); f.fields[index].value = value;
+    if (index === 1) f.fields[index].validity.typeMismatch = true;
+    await f.form.fire('submit');
+    assert.equal(f.requests.length, 0); assert.deepEqual(f.stages, []);
+    assert.equal(f.form.dataset.state, 'error');
+    assert.equal(f.events.some(e => e.name === 'generate_lead'), false);
+  });
+}
+for (const [verification, status, code] of [['deny', 400, 'VERIFICATION_FAILED'], ['error', 503, 'VERIFICATION_UNAVAILABLE']]) {
+  test(`production flow: Siteverify ${verification} prevents mail and success UI`, async () => {
+    const f = await productionFlow({ verification }); await f.form.fire('submit');
+    assertFlowFailure(f, status, code); assert.deepEqual(f.stages, ['rate', 'siteverify']);
+  });
+}
+for (const [rate, status, code] of [['deny', 429, 'RATE_LIMITED'], ['error', 503, 'SERVICE_UNAVAILABLE']]) {
+  test(`production flow: limiter ${rate} prevents verification and mail`, async () => {
+    const f = await productionFlow({ rate }); await f.form.fire('submit');
+    assertFlowFailure(f, status, code); assert.deepEqual(f.stages, ['rate']);
+  });
+}
+test('production flow: rejected mail never becomes HTTP/UI success', async () => {
+  const f = await productionFlow({ send: async () => { throw Error('SYNTHETIC_PROVIDER_ERROR'); } });
+  await f.form.fire('submit'); assertFlowFailure(f, 503, 'MAIL_UNAVAILABLE');
+  assert.deepEqual(f.stages, ['rate', 'siteverify', 'mail']);
+});
+test('production flow: in-flight double submit sends once and waits for the mail receipt', async () => {
+  let release, entered;
+  const receipt = new Promise(resolve => { release = resolve; });
+  const sending = new Promise(resolve => { entered = resolve; });
+  const f = await productionFlow({ send: async () => { entered(); await receipt; return { messageId: 'synthetic-delayed-receipt' }; } });
+  const first = f.form.fire('submit');
+  try {
+    await sending;
+    assert.equal(f.form.dataset.state, 'sending'); assert.equal(f.submit.disabled, true);
+    assert.equal(f.fields.every(field => field.readOnly), true);
+    assert.equal(f.responses.length, 0); assert.equal(f.events.some(e => e.name === 'generate_lead'), false);
+    await f.form.fire('submit'); assert.equal(f.requests.length, 1);
+    assert.equal(f.stages.filter(stage => stage === 'mail').length, 1);
+  } finally { release(); await first; }
+  assert.equal(f.form.dataset.state, 'success');
+  assert.equal(f.events.filter(e => e.name === 'generate_lead').length, 1);
+  assert.equal(f.responses.length, 1);
+});
+test('production flow: disabled server fails closed without upstreams', async () => {
+  const f = await productionFlow({ disabled: true }); await f.form.fire('submit');
+  assertFlowFailure(f, 503, 'SERVICE_UNAVAILABLE'); assert.deepEqual(f.stages, []);
+});
+test('production flow: GitHub Pages unconfigured preview cannot load SDK or submit', async () => {
+  const f = await productionFlow({ hostname: 'misemiru-web.github.io', ready: false });
+  assert.equal(f.scripts.length, 0); assert.equal(f.submit.disabled, true);
+  await f.form.fire('submit'); assert.equal(f.requests.length, 0); assert.deepEqual(f.stages, []);
+  assert.equal(f.events.some(e => e.name === 'generate_lead'), false);
+});
+test('production flow: wrong Origin fails before the rate limiter', async () => {
+  const f = await productionFlow({ requestOrigin: 'https://unrelated.fixture.test' });
+  await f.form.fire('submit'); assertFlowFailure(f, 403, 'ORIGIN_REJECTED'); assert.deepEqual(f.stages, []);
+});
+test('production flow: success/failure analytics, logs and replies contain no private input or secret', async () => {
+  for (const options of [{}, { verification: 'error' }, { send: async () => { throw Error('SYNTHETIC_PRIVATE_PROVIDER_DETAIL'); } }]) {
+    const f = await productionFlow(options);
+    const privateValues = [...f.fields.map(field => field.value), 'synthetic-production-flow-secret', 'synthetic-production-flow-token', 'SYNTHETIC_PRIVATE_PROVIDER_DETAIL'];
+    await f.form.fire('submit');
+    const output = JSON.stringify({ events: f.events, logs: f.logs, responses: f.responses, status: f.status.textContent });
+    for (const value of privateValues) assert.equal(output.includes(value), false, 'private values must not reach public output');
+  }
+});
+
+
+for (const ready of [false, true]) {
+  test('candidate production form with no Site Key cannot initialize or POST; ready=' + ready, async () => {
+    const f = fixture({ hostname: productionCandidate.vars.TURNSTILE_HOSTNAME,
+      origin: productionCandidate.vars.CONTACT_ORIGIN, ready, key: '' });
+    assert.equal(f.scripts.length, 0); assert.equal(f.submit.disabled, true);
+    await f.form.fire('submit'); assert.equal(f.requests.length, 0);
+    assert.equal(f.events.some(e => e.name === 'generate_lead'), false);
+  });
+}

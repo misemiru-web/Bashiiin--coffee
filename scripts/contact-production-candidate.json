@@ -1,0 +1,20 @@
+{
+  "purpose": "Local candidate data only. Not a Wrangler configuration; never auto-loaded by the Worker or build.",
+  "unverified": ["domain ownership", "DNS", "Cloudflare registration", "sender domain authentication", "Cloudflare verification of temporary test recipient"],
+  "vars": {
+    "CONTACT_ORIGIN": "https://bashiiin-coffee.com",
+    "TURNSTILE_HOSTNAME": "bashiiin-coffee.com",
+    "CONTACT_FROM": "noreply@bashiiin-coffee.com",
+    "CONTACT_TO": "misemiruweb@gmail.com",
+    "CONTACT_API_ENABLED": "false",
+    "EMAIL_SENDING_ENABLED": "false"
+  },
+  "required_before_enable": {
+    "CONTACT_TO": "User-designated temporary recipient for separately approved real-send testing, not a confirmed store production destination. Cloudflare destination verification is unconfirmed. Local tests substitute a synthetic address and send no mail.",
+    "EMAIL": "A restricted send_email binding whose destination_address equals CONTACT_TO; unrestricted sending is not approved.",
+    "TURNSTILE_SECRET_KEY": "Register the dedicated production Secret outside source control after approval.",
+    "data-sitekey": "Set the dedicated public Site Key on the production CONTACT form only after approval; currently blank.",
+    "CONTACT_RATE_LIMITER": "Approve a production-only namespace and threshold; do not reuse staging 31001 or negative 31002.",
+    "activation": "Separate explicit approval, production build review, and real verification are required. Candidate values do not enable sending."
+  }
+}
