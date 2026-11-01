@@ -121,7 +121,15 @@ export async function runBrowserChecks({ signal, loadChromium = async () => {
       { name: '503 after mock authentication' },
       { name: 'E2E hostname', origin: 'https://bashiiin-coffee-contact-e2e.misemiruweb.workers.dev', blocked: true }
     ].map(f => ({ ...f, name: 'candidate ' + f.name, candidate: true }));
-    for (const fixture of [...cases, ...candidateCases]) {
+    const stageCases = [
+      ['origin_rejected', 403, 'ORIGIN_REJECTED'], ['rate_rejected', 429, 'RATE_LIMITED'],
+      ['rate_unavailable', 503, 'SERVICE_UNAVAILABLE'], ['input_rejected', 400, 'INVALID_JSON'],
+      ['siteverify_rejected', 400, 'VERIFICATION_FAILED'], ['siteverify_unavailable', 503, 'VERIFICATION_UNAVAILABLE'],
+      ['siteverify_passed_synthetic_mail_rejected', 503, 'MAIL_UNAVAILABLE'], ['unknown', 503, 'SERVICE_UNAVAILABLE'],
+    ].map(([stage, status, code]) => ({ name: 'stage ' + stage, stage, status, code, candidate: true }));
+    stageCases.push({ name: 'in-flight double submit and retained input', stage: 'unknown', status: 503,
+      code: 'SERVICE_UNAVAILABLE', candidate: true, inflight: true });
+    for (const fixture of [...cases, ...candidateCases, ...stageCases]) {
       signal?.throwIfAborted();
       const origin = fixture.origin || ORIGIN;
       const assets = fixture.candidate ? candidateInventory({ siteKey: '0xSYNTHETIC_CANDIDATE_12345', origin: ORIGIN, safe: inventory() })
@@ -129,15 +137,22 @@ export async function runBrowserChecks({ signal, loadChromium = async () => {
         siteKey: fixture.failureKey ? PREVIEW_TEST_SITE_KEYS.failure : PREVIEW_TEST_SITE_KEYS.success, origin: ORIGIN });
       const context = await browser.newContext({ viewport: { width: 390, height: 844 }, serviceWorkers: 'block' });
       const requests = new Set(), intercepted = new Set(), errors = [];
-      let posts = 0, widgets = 0, sockets = 0;
+      let posts = 0, widgets = 0, sockets = 0, releaseResponse;
+      const responseGate = new Promise(resolve => { releaseResponse = resolve; });
       context.on('request', request => requests.add(request));
       await context.routeWebSocket('**/*', socket => { sockets++; socket.close(); });
       await context.addInitScript(() => {
         window.__leads = 0;
+        const originalFetch = window.fetch;
+        window.fetch = async (...args) => {
+          const response = await originalFetch(...args);
+          window.__lastStage = response.headers.get('X-Contact-Negative-Stage');
+          return response;
+        };
         for (const key of ['mode', 'endpointReady', 'contactNegativeOnly']) localStorage.setItem(key, 'negative');
         window.addEventListener('bashiiin:analytics', e => { if (e.detail.name === 'generate_lead') window.__leads++; });
       });
-      await context.route('**/*', route => {
+      await context.route('**/*', async route => {
         const req = route.request(), u = new URL(req.url()); intercepted.add(req);
         if (u.origin === 'https://challenges.cloudflare.com' && u.pathname === '/turnstile/v0/api.js') {
           widgets++;
@@ -151,8 +166,11 @@ export async function runBrowserChecks({ signal, loadChromium = async () => {
         }
         if (u.origin !== origin) return route.abort();
         if (u.pathname === '/api/contact' && req.method() === 'POST') {
-          posts++; return route.fulfill({ status: fixture.status || 503, contentType: 'application/json',
-            body: JSON.stringify(fixture.status === 200 ? { ok: true } : { ok: false, code: 'MAIL_UNAVAILABLE' }) });
+          posts++;
+          if (fixture.inflight) await responseGate;
+          return route.fulfill({ status: fixture.status || 503, contentType: 'application/json',
+            headers: fixture.stage ? { 'X-Contact-Negative-Stage': fixture.stage } : {},
+            body: JSON.stringify(fixture.status === 200 ? { ok: true } : { ok: false, code: fixture.code || 'MAIL_UNAVAILABLE' }) });
         }
         const key = u.pathname === '/' ? 'index.html' : u.pathname.slice(1) + (u.pathname.endsWith('/') ? 'index.html' : '');
         let buffer = assets.buffers.get(key);
@@ -188,7 +206,19 @@ export async function runBrowserChecks({ signal, loadChromium = async () => {
         }
         await page.evaluate(() => window.__callbacks.callback('synthetic-preview-token'));
         await page.locator('#contact-submit').click();
+        if (fixture.inflight) {
+          await page.waitForFunction(() => document.querySelector('#contact-form').dataset.state === 'sending');
+          assert(await page.locator('#contact-submit').isDisabled());
+          await page.locator('#contact-form').evaluate(form => { form.requestSubmit(); form.requestSubmit(); });
+          assert.equal(posts, 1);
+          releaseResponse();
+        }
         await page.waitForFunction(() => document.querySelector('#contact-form').dataset.state === 'failure');
+        assert.match(await page.locator('#contact-status').textContent(), /送信を確認できませんでした/);
+        for (const [name, value] of [['name', 'Synthetic preview'], ['email', 'visitor@fixture.test'], ['message', 'Synthetic only']]) {
+          assert.equal(await page.locator(`[name="${name}"]`).inputValue(), value);
+        }
+        if (fixture.stage) assert.equal(await page.evaluate(() => window.__lastStage), fixture.stage);
         assert.equal(posts, 1); assert(await page.locator('#contact-submit').isDisabled());
       }
       assert.equal(await page.evaluate(() => window.__leads), 0); assert.deepEqual(errors, []);

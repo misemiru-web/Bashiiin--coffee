@@ -11,7 +11,7 @@ Worker名は `bashiiin-coffee-contact-negative`。safeの初期導入・Access�
 worker.mjs → 既存handleContact → 設定・Origin・Rate Limiter・入力検証 →
 Siteverify → 既存sendNotification → 内部rejectMail.send → 例外 → 503 MAIL_UNAVAILABLE。
 
-- rejectMailは非公開・凍結済みの固定オブジェクト。外部のEMAILを渡さず、messageIdを生成しない。
+- rejectMailはリクエストごとに生成する非公開・凍結済みの拒否オブジェクト。外部のEMAILを渡さず、messageIdを生成しない。
 - 実Email、RAW_EMAIL、DO、Service binding、mail provider認証情報を設定しない。
 - エントリーポイントの依存は専用policyと既存CONTACT共通モジュールだけ。
   既存E2E worker・guardをimport/exportしない。live分岐はない。
@@ -32,7 +32,7 @@ Siteverify → 既存sendNotification → 内部rejectMail.send → 例外 → 5
 | 両APIフラグ | 文字列false | 専用設定でのみ文字列true |
 | フォーム | disabled・Site Key空 | 専用生成のみ。HTML初期ボタンはdisabled、認証後に既存JSが操作可能にする |
 | Secret | なし | 将来専用Secretが必要。値は保存しない |
-| Rate Limiter | なし | ローカル設定に暫定ID31002。未予約・最終確定前・実binding追加未承認 |
+| Rate Limiter | なし | ローカル設計では31002を採用済み。Cloudflare上は未登録・未予約・実binding追加未承認 |
 | メール・DO・Service | なし | なし |
 | 正しいトークンの最終結果 | 設定ガードで503 | 合成EMAILによる503、ok:false |
 
@@ -46,10 +46,11 @@ safe設定はworkers_dev=false、preview_urls=false、routes・Custom Domain・C
 ASSETS以外の実サービスbindingや実Secretはない。公開39ファイルは .generated/safe/ のみ。
 
 wrangler.negative.jsoncは**意図的に配置禁止**であり、デプロイ可能な完成設定ではない。
-ratelimitsには暫定の`namespace_id: "31002"`、binding名`CONTACT_RATE_LIMITER`、5回/60秒を設定している。
+ratelimitsには設計上採用済みの`namespace_id: "31002"`、binding名`CONTACT_RATE_LIMITER`、5回/60秒を設定している。
 keyは既存共通実装の`contact:submission`から変更しない。31001は既存Staging専用として保持する。
-31002は4 Worker・10 Versionの調査で使用が見つからなかった候補にすぎず、
-アカウント全体・別環境・古いVersion・他の未配置設定での未使用保証や予約を意味しない。
+STEP BJで31002のnegative専用としての設計上の正式採用が承認済み。
+Cloudflare上の予約・登録・binding追加は未実施であり、将来の重複がない保証ではない。
+利用開始直前には対象アカウントの利用状況を再確認する。今回Cloudflareの最新状態は再照会していない。
 実環境へのbinding追加は未承認で、実Rate Limiterの429も未検証。
 secrets.requiredには名前だけ宣言している。今回、専用Site Key・Secret値を取得・設定しない。
 custom buildはリポジトリrootから `node scripts/contact-negative/build.mjs --require-negative-ready` を呼ぶ。
@@ -72,7 +73,7 @@ custom buildの削除・差し替えやCLI上書きで停止を回避しない�
 
 将来の独立承認後に必要なもの：
 
-- 暫定31002のアカウント内重複・利用予定を再確認し、最終採用を独立承認する。31001は禁止。
+- 設計上採用済みの31002についてアカウント内重複・利用予定を直前再確認し、実binding追加を別途承認する。31001は禁止。
   binding名CONTACT_RATE_LIMITER、5回/60秒、keyは共通実装のcontact:submission。
   現在の静的検証はこの31002と制限値の完全一致だけを許可し、namespace欠落や別IDも拒否する。
   IDを再選定する場合は設定・検証・テストを別途更新してレビューする。
@@ -185,8 +186,8 @@ safeは生成バンドル・binding一覧を照合し、negativeは無条件停�
 
 ### 初回公開直後の必須安全確認（将来の承認済み工程）
 
-対象は `bashiiin-coffee-contact-negative` だけとする。以下は実環境では未実施の計画であり、
-今回のローカル検証でDashboard操作・HTTP通信を行うものではない。
+対象は `bashiiin-coffee-contact-negative` だけとする。以下は初回導入・再確認の手順であり、過去の初期safe検証結果は冒頭のQA記録を参照する。
+今回のローカル検証でDashboard操作・実環境HTTP通信を行うものではない。
 
 1. Production URLをONにする前に、対象WorkerのAccessがAll traffic・管理者1名の許可であることを再確認する。
 2. 別途承認後、当該WorkerのProduction URLだけを有効化する。
@@ -266,3 +267,71 @@ unset NEGATIVE_TURNSTILE_SITE_KEY
 環境変数でも同一権限プロセス、OS診断、端末・クリップボード記録から完全に秘匿できるとは保証しない。
 実キー入力・検査、Git保存、Secret登録、配置禁止解除・配置反映はそれぞれ別承認とする。
 まず合成値のローカル検証、独立安全監査を完了する。今回それらの実環境操作は行わない。
+
+
+## STEP BL：negative処理段階のローカル観測
+
+今回の編集範囲はworker.mjs、runtime.test.mjs、browser.mjs、本書のみ。
+共通APIの処理順序は、method → 必須設定 → Origin/Sec-Fetch-Site → Rate Limiter →
+Content-Type/JSON/入力 → Siteverifyのsuccess・hostname・action → notification → 合成EMAIL拒否。
+共通APIやフロントの正常系処理は変更しない。
+
+許可されたnegativeの `/api/contact` 応答だけに `X-Contact-Negative-Stage` を付ける。
+safe・無効モード・静的アセット・その他APIの応答は観測対象外で、既存の応答を維持する。
+値は次の固定列挙だけとし、HTTP入力から指定させず、ログにも送らない。
+
+| 値 | 判定根拠 |
+|---|---|
+| origin_rejected | 403 ORIGIN_REJECTED、Rate Limiter未呼び出し |
+| rate_rejected | 実binding呼び出しがsuccess=false、429 RATE_LIMITED |
+| rate_unavailable | 呼び出し中のdeadline、例外または不正応答と503 SERVICE_UNAVAILABLE |
+| input_rejected | Rate Limiter通過と、既知のContent-Type/JSON/入力/読取timeoutエラーのstatus・code一致 |
+| siteverify_rejected | Rate Limiter通過と400 VERIFICATION_FAILED（hostname/action不一致も含む） |
+| siteverify_unavailable | Rate Limiter通過と503 VERIFICATION_UNAVAILABLE。障害の細分類は推測しない |
+| siteverify_passed_synthetic_mail_rejected | Rate Limiter通過、当該リクエスト専用合成EMAILの実呼び出し記録、503 MAIL_UNAVAILABLEのすべて |
+| unknown | 上記を確定できない分岐、設定不足、未知応答、想定外の2xx |
+
+HTTP 503やMAIL_UNAVAILABLEだけではSiteverify成功とは判定しない。
+合成EMAILへの到達は、監査した共通APIの現在の順序に基づく証拠であり、配送成功を意味しない。
+状態はfetch呼び出しのローカル変数だけで保持し、並行POSTや前のリクエストから継承しない。
+Rate Limiterの戻り値・呼び出し引数・thisを維持し、共通APIのdeadlineや失敗処理を変えない。
+不明な状態やnotification段階の拒否はunknownとし、Siteverifyの成否を断定しない。
+ヘッダー自体は暗号学的な証明ではない。将来は稼働VersionとAccessを照合したうえで解釈する。
+
+想定外のAPI 2xxは503・ok=false・unknownへ置き換える。合成EMAILは常に例外を返し、
+実メール受付やmessageIdを生成しない。ブラウザーの候補生成版も誤200を成功扱いせず、
+入力を保持して失敗表示し、generate_leadを発火させない。観測ヘッダーを成功条件には使用しない。
+Token・Secret・Site Key実値・氏名・メール・本文・認証情報をヘッダーや診断ログへ入れない。
+
+### 今回の試験範囲と将来の復旧
+
+合成キーとメモリ内候補39件だけを用いる。実キー入力、実キー入り配信用出力、実SDK・Siteverify、
+Cloudflare接続、Git保存は行わない。buildの無条件停止と不存在entrypointは変更しない。
+Email/RAW_EMAIL/DO/Service能力、既存DeliveryGuard参照、配置用の代替設定・解除用入力を追加しない。
+Rate Limiterのkeyはcontact:submission、31002・5回/60秒。location単位の近似制限なので、
+実環境で必ず6回目に429になるという前提を置かない。
+
+ユーザー提供の既知状態では、b38bb83f-e959-4763-a444-072da5404f28がSecretなしsafeの100%稼働、
+e9ae9bdf-f207-4a2f-884c-82dd3959c3c7がSecret付きsafeの未配置Versionである。
+今回これらの最新状態をCloudflareで再取得したとは扱わない。どちらも自動で復旧先に指定しない。
+将来、必要なSecret状態とCode/Assets/Compatibility/bindingsを読み取り比較し、復旧先を別承認する。
+Access、Production ON、Preview/Version OFFを前後で照合し、初回safe設定を無条件に再デプロイしない。
+復旧後はactive配分、両フラグfalse、disabled、noindex、認証済み503と未認証Access保護を確認する。
+最新作成Versionと稼働Version、Secretの存在と値の正しさを混同しない。
+Version切替でRate Limiterカウンターがリセットされるとは仮定しない。
+実キー検査、Secret操作、binding追加、配置禁止解除、Version反映、実通信試験は各々別承認が必要。
+
+
+STEP BLの実測結果：negative Runtimeは198件（既存176件＋追加22件）成功・失敗0・skip0、
+Browserは45シナリオ（既存36＋追加9）成功・失敗0、既存npm testは269件成功・失敗0・skip0。
+Runtimeにはimport/再import、Rate Limiter障害・deadline、Siteverify障害・deadline、
+合成EMAIL未呼び出しのMAIL_UNAVAILABLEを成功段階としない試験、想定外200の503化、
+並行2/10件と逐次リクエストの状態分離、safe/アセット不変、キー候補検査を含む。
+Browserの段階ヘッダーは固定モック応答であり、サーバーの段階判定はworkerd試験で別検証した。
+Browserは入力保持・通信中の二重submit拒否・失敗表示・誤200拒否・generate_leadなしを確認した。
+既存Runtime内のWrangler検査は隔離コピー・deny-allネットワーク・必須--dry-runによる
+オフライン検査だけで、safe成功とnegative停止・CLI上書き拒否を確認した。実配置は行っていない。
+初回のサンドボックス実行はローカル待受・Chrome起動の制約で実行できず、必要な権限で再実行した。
+実Siteverify、実Rate Limiterの429、実widgetとの対応、Cloudflare上の最新状態は今回未検証。
+既存E2E52件・独立メールハーネス117件・既存E2Eブラウザー12件は今回は再実行していない。
+これらの既存ソース・生成物は変更していない。今回の成功は実環境導入承認ではなく、次工程の独立監査が必要。

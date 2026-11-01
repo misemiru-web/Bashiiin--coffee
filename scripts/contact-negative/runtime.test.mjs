@@ -129,6 +129,7 @@ async function scenario(fixture, run) {
     // No forwarding, DNS, actual bindings or account data. Unrecognized destinations are denied.
     if (request.method === 'POST' && request.url === 'https://rate.fixture.test/') {
       counts.rate++; assert.deepEqual(JSON.parse(await request.text()), { key: 'contact:submission' });
+      if (fixture.rateTimeout) await new Promise(resolve => setTimeout(resolve, 1200));
       if (fixture.rateFailure) return new Response('', { status: 503 });
       return Response.json(fixture.rateMalformed ? {} : { success: !fixture.rateDenied });
     }
@@ -157,7 +158,7 @@ async function scenario(fixture, run) {
     const text = await response.text();
     assert(!text.includes('synthetic-negative-token') && !text.includes('synthetic-negative-secret'));
     const result = JSON.parse(text); assert.equal(result.ok, false); assert.equal('messageId' in result, false);
-    return { status: response.status, ...result };
+    return { status: response.status, ...result, stage: response.headers.get('X-Contact-Negative-Stage') };
   };
   try { await run({ post, counts }); assert.equal(counts.forbidden, 0); }
   finally { await mf.dispose(); }
@@ -223,6 +224,46 @@ test('negative-only CONTACT: local workerd with deny-by-default egress and no ma
     for (const [name, f, options, body, status, code, verify] of cases) await t.test(name, () => scenario(f, async r => {
       const result = await r.post(options, body); assert.equal(result.status, status); assert.equal(result.code, code); assert.equal(r.counts.verify, verify);
     }));
+    const stages = [
+      ['origin', {}, { headers: { Origin: 'https://other.test' } }, payload(), 'origin_rejected'],
+      ['rate denial', { rateDenied: true }, {}, '{', 'rate_rejected'],
+      ['rate exception', { rateFailure: true }, {}, '{', 'rate_unavailable'],
+      ['rate malformed', { rateMalformed: true }, {}, '{', 'rate_unavailable'],
+      ['rate deadline', { rateTimeout: true }, {}, '{', 'rate_unavailable'],
+      ['JSON', {}, {}, '{', 'input_rejected'],
+      ['content type', {}, { headers: { 'Content-Type': 'text/plain' } }, payload(), 'input_rejected'],
+      ['input fields', {}, {}, { ...payload(), name: '' }, 'input_rejected'],
+      ['verification denial', {}, {}, payload('invalid'), 'siteverify_rejected'],
+      ['hostname denial', { badHostname: true }, {}, payload(), 'siteverify_rejected'],
+      ['action denial', { badAction: true }, {}, payload(), 'siteverify_rejected'],
+      ['verification exception', { networkError: true }, {}, payload(), 'siteverify_unavailable'],
+      ['verification deadline', { timeout: true }, {}, payload(), 'siteverify_unavailable'],
+      ['synthetic mail evidence', {}, {}, payload(), 'siteverify_passed_synthetic_mail_rejected'],
+      ['unknown method', {}, { method: 'GET' }, payload(), 'unknown'],
+      ['missing configuration', { omit: 'TURNSTILE_SECRET_KEY' }, {}, payload(), 'unknown'],
+      ['safe unchanged', { vars: { E2E_MODE: 'safe', CONTACT_API_ENABLED: 'false', EMAIL_SENDING_ENABLED: 'false' } }, {}, payload(), null],
+      ['other API unchanged', {}, { path: '/api/reset' }, payload(), null],
+    ];
+    for (const [name, fixture, options, body, stage] of stages) await t.test(`stage: ${name}`, () => scenario(fixture, async r => {
+      const result = await r.post(options, body); assert.equal(result.stage, stage);
+      const output = JSON.stringify(result);
+      for (const sensitive of ['synthetic-negative-token', 'synthetic-negative-secret', 'Synthetic visitor', 'visitor@fixture.test', 'Synthetic test only']) {
+        assert.equal(output.includes(sensitive), false, 'response must not contain fixture secrets or personal fields');
+      }
+      assert.equal(r.counts.forbidden, 0);
+    }));
+    for (const n of [2, 10]) await t.test(`stage: ${n} interleaved requests isolate private evidence`, () => scenario({}, async r => {
+      const results = await Promise.all(Array.from({ length: n }, (_, i) => i % 2
+        ? r.post({}, payload('invalid')) : r.post({}, payload('synthetic-parallel-' + i))));
+      for (const [i, result] of results.entries()) assert.equal(result.stage, i % 2
+        ? 'siteverify_rejected' : 'siteverify_passed_synthetic_mail_rejected');
+      assert.equal(r.counts.forbidden, 0);
+    }));
+    await t.test('stage: sequential requests cannot inherit mail evidence or spoof a stage', () => scenario({}, async r => {
+      assert.equal((await r.post()).stage, 'siteverify_passed_synthetic_mail_rejected');
+      assert.equal((await r.post({}, '{')).stage, 'input_rejected');
+      assert.equal((await r.post({ headers: { 'X-Contact-Negative-Stage': 'siteverify_passed_synthetic_mail_rejected' } }, payload('invalid'))).stage, 'siteverify_rejected');
+    }));
     await t.test('single-use token rejected after a successful mock Siteverify', () => scenario({}, async r => {
       assert.equal((await r.post()).code, 'MAIL_UNAVAILABLE'); assert.equal((await r.post()).code, 'VERIFICATION_FAILED');
     }));
@@ -239,6 +280,29 @@ test('negative-only CONTACT: local workerd with deny-by-default egress and no ma
       assert.equal(r.counts.rate, 1); assert.equal(r.counts.verify, 0);
     }));
   } finally { setGlobalDispatcher(previous); await block.close(); }
+});
+
+test('stage observer rejects unexpected success and requires private synthetic mail evidence', async () => {
+  const target = pathToFileURL(path.join(ROOT, 'scripts/contact-negative/worker.mjs')).href;
+  const source = `import assert from 'node:assert/strict';import {registerHooks} from 'node:module';
+    const hook=registerHooks({resolve(s,c,n){return s.endsWith('/worker/contact/api.mjs')||s==='../../worker/contact/api.mjs'
+      ?{url:'audit:contact',shortCircuit:true}:n(s,c);},load(u,c,n){return u==='audit:contact'?{format:'module',shortCircuit:true,
+      source:'export async function handleContact(r,e){await e.CONTACT_RATE_LIMITER.limit({key:"contact:submission"});return Response.json(r.headers.get("X-Fixture")==="200"?{ok:true}:{ok:false,code:"MAIL_UNAVAILABLE"},{status:r.headers.get("X-Fixture")==="200"?200:503});}'}:n(u,c);}});
+    try{const {default:worker}=await import(${JSON.stringify(target)}+'?observer-test');
+      const env={E2E_MODE:'negative',CONTACT_API_ENABLED:'true',EMAIL_SENDING_ENABLED:'true',
+        CONTACT_FROM:${JSON.stringify(FROM)},CONTACT_TO:${JSON.stringify(TO)},CONTACT_ORIGIN:${JSON.stringify(ORIGIN)},
+        TURNSTILE_HOSTNAME:${JSON.stringify(HOST)},TURNSTILE_SECRET_KEY:'synthetic-negative-secret',
+        CONTACT_RATE_LIMITER:{async limit(v){assert.equal(v.key,'contact:submission');return {success:true};}}};
+      for(const fixture of ['200','503']){const response=await worker.fetch(new Request(${JSON.stringify(ORIGIN)}+'/api/contact',
+        {method:'POST',headers:{'X-Fixture':fixture}}),env);
+        assert.equal(response.status,503);assert.equal(response.headers.get('X-Contact-Negative-Stage'),'unknown');
+        assert.equal((await response.json()).ok,false);}
+      const asset=await worker.fetch(new Request(${JSON.stringify(ORIGIN)}+'/styles.css'),{ASSETS:{fetch(){return new Response('synthetic asset');}}});
+      assert.equal(asset.status,200);assert.equal(asset.headers.has('X-Contact-Negative-Stage'),false);
+    }finally{hook.deregister();}`;
+  const result = await childProcessRun(source);
+  assert.equal(result.code, 0, 'isolated observer assertions must pass');
+  assert.equal(result.stdout, ''); assert.equal(result.stderr, '');
 });
 
 test('memory-only official-test-key preview', async t => {
