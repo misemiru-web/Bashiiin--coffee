@@ -2,6 +2,8 @@
 
 更新：2026-10-28 / STEP 08-A。現在の5ページHTMLの `img src` / `srcset`、faviconを解析した使用一覧です。CSSの `url()` とJavaScriptの画像パス参照も確認しました。画像の生成・変更・削除は行っていません。
 
+追記：2026-11-03 / STEP SEO-04-C。STEP SEO-04-Bで作成した正方形faviconへ、正式5ページのHTML参照・公開許可リスト・ブランド許可パスを切り替えました。本工程では画像の再生成・変更・削除、既存生成物の更新は行っていません。
+
 ## 基準・掲載許可
 
 - [要件定義書v1.6](requirements/requirements_v1.6_2026-10-13.md)、[デザイン定義書v1.6](design/design-system_v1.6_2026-10-13.md)、最新のユーザー指示・現行5ページ実装を基準とします。
@@ -58,7 +60,10 @@ HERO表示順は表の1〜5です。`journal/` の3点は現在TOPのみ、`hero
 | 使用ページ・場所 | 配信ファイル | 寸法 | 由来・状態 |
 |---|---|---|---|
 | 全5ページのHEADER / FOOTER | `images/web/logo-header.png` | 400×104px | 既存ブランド素材・Git追跡済み。正式使用継続可否・最終掲載確認は要確認 |
-| 全5ページのfavicon | `images/web/favicon.png` | 64×58px | 既存ブランド素材・Git追跡済み。正式使用継続可否・最終掲載確認は要確認 |
+| favicon原本（HTML未参照・配信対象外） | `images/web/favicon.png` | 64×58px | 既存ブランド素材・Git追跡済み。正方形版の原本として保持。正式使用継続可否・最終掲載確認は要確認 |
+| 全5ページのfavicon | `images/web/favicon-square.png` | 64×64px | 上記原本からSTEP SEO-04-Bで作成したPNG派生画像・未追跡。最終掲載確認は要確認 |
+
+正方形faviconは、元画像 `images/web/favicon.png`（64×58px）の画素・色・アルファ情報を変更せず、上下各3pxの透明余白を追加した `images/web/favicon-square.png`（64×64px）です。左右の余白は0pxで、拡大・縮小・変形・回転・切り抜きはありません。用途は正式5ページ共通favicon。元画像は原本としてバイト内容を変えず保持します。
 
 ロゴの繰り返し使用は共通ブランド表示のためです。Lucide系arrow-right / arrow-up-right / menu / xは各HTML内のinline SVGで、外部画像ファイル・CDN参照はありません。ライセンスコメントを各HTMLに保持しています。
 
@@ -69,7 +74,7 @@ HERO表示順は表の1〜5です。`journal/` の3点は現在TOPのみ、`hero
 - `src` は最大サイズを指定し、各写真に400 / 800 / 原本幅の `srcset` と `sizes` を設定。全本文写真にwidth / heightがあります。
 - TOP / ABOUT / COFFEEはページ先頭主写真だけ `fetchpriority="high"`。ほかの本文写真は `loading="lazy"`。ACCESS看板もlazyです。
 - 5 HTML全体で写真10要素＋共通ロゴ10要素、favicon 5参照。重複を除いた実ファイルは32。`picture` / `source` の画像参照は現在ありません。CSSの背景画像・JavaScriptの写真パス参照もありません。
-- 32ファイルすべて存在し、すべてGit追跡済み。今回、追加が必要な未追跡の配信用素材はありません。未使用素材を配信画像と混同しません。
+- 32ファイルすべて存在し、31ファイルはGit追跡済みです。正方形favicon 1ファイルは未追跡のまま公開許可リストへ登録しています。Git保存・生成物更新・公開は行っていません。未使用素材を配信画像と混同しません。
 - 上記は静的な参照・寸法確認です。全6幅の実ブラウザー最終QA・表示品質／実機検証の完了を意味しません。
 
 ## 原本17件の使用／未使用一覧
@@ -88,7 +93,7 @@ HERO表示順は表の1〜5です。`journal/` の3点は現在TOPのみ、`hero
 
 ## 未使用のWeb画像・旧素材
 
-`images/web/` の実ファイル71件中、現行5 HTMLから未参照のファイルは39件です。削除はせず保持します。原本・旧素材・未使用派生画像は本番配信対象から除外します。
+`images/web/` の画像ファイル72件中、現行5 HTMLから未参照のファイルは40件です。旧favicon原本の保持と正方形派生画像の追加を反映しています。削除はせず保持します。原本・旧素材・未使用派生画像は本番配信対象から除外します。
 
 以下は現行サイトでは未使用です。Git履歴や営業サンプルでの使用確認なしに削除しません。
 
@@ -100,6 +105,7 @@ HERO表示順は表の1〜5です。`journal/` の3点は現在TOPのみ、`hero
 - `images/web/culture/tshirt-800.jpg`
 - `images/web/dark-wood-texture.jpg`
 - `images/web/entrance-door.jpg`
+- `images/web/favicon.png`
 - `images/web/hand-drip.jpg`
 - `images/web/hero-bar-interior-mobile.jpg`
 - `images/web/hero-bar-interior.jpg`

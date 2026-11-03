@@ -7,7 +7,7 @@ import { parse } from 'parse5';
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const PAGES = ['index.html', 'about/index.html', 'coffee/index.html', 'contact/index.html', 'access/index.html'];
 const BASE = [...PAGES, 'styles.css', 'script.js'];
-const BRAND = ['images/web/logo-header.png', 'images/web/favicon.png'];
+const BRAND = ['images/web/logo-header.png', 'images/web/favicon-square.png'];
 const sha = data => createHash('sha256').update(data).digest('hex');
 function requireCondition(ok, message) { if (!ok) throw new Error(message); }
 
