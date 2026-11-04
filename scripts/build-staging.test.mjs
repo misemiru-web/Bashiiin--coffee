@@ -20,7 +20,7 @@ function fixture(run) {
 }
 test('staging changes only CONTACT attributes; isolated normal output remains byte-identical', () => fixture(root => {
   build(root); buildStaging(root, env);
-  assert.equal(verifyStaging(root, env).length, 39); assert.equal(verifyOutput(root).length, 39);
+  assert.equal(verifyStaging(root, env).length, 40); assert.equal(verifyOutput(root).length, 40);
   for (const file of source.files) {
     const normal = fs.readFileSync(path.join(root, 'dist', file));
     const staging = fs.readFileSync(path.join(root, 'dist-staging', file));
@@ -35,7 +35,7 @@ test('staging changes only CONTACT attributes; isolated normal output remains by
     }
   }
   assert.throws(() => verifyOutput(root, source, path.join(root, 'dist-staging')), /content mismatch/);
-  build(root); assert.equal(verifyStaging(root, env).length, 39);
+  build(root); assert.equal(verifyStaging(root, env).length, 40);
 }));
 for (const key of [undefined, '', ' ', 'invalid', 'x'.repeat(35), '"'.repeat(22), '0x' + 'a'.repeat(19), '1x00000000000000000000AA\n']) {
   test(`missing/malformed public key is rejected (${typeof key}, length ${key?.length ?? 0})`, () => fixture(root => {
@@ -92,7 +92,7 @@ test('normal build ignores staging environment and cannot consume its output', (
     buildStaging(root, env); build(root);
     const html = fs.readFileSync(path.join(root, 'dist/contact/index.html'), 'utf8');
     assert.match(html, /data-sitekey=""/); assert.equal(html.includes('staging-verify-only'), false);
-    assert.equal(verifyOutput(root).length, 39);
+    assert.equal(verifyOutput(root).length, 40);
   } finally {
     if (previous === undefined) delete process.env.STAGING_TURNSTILE_SITE_KEY;
     else process.env.STAGING_TURNSTILE_SITE_KEY = previous;

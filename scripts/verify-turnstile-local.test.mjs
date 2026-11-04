@@ -123,7 +123,7 @@ test('CLI imports no mail/API/Workers launcher and is absent from static manifes
   assert.deepEqual(imports,['node:url','node:path','../worker/contact/turnstile.mjs']);
   assert.equal(source.includes('process.env'),false);
   const manifest=JSON.parse(fs.readFileSync(new URL('./public-files.json',import.meta.url)));
-  assert.equal(manifest.files.length,39);assert.equal(manifest.files.some(f=>f.startsWith('scripts/')),false);
+  assert.equal(manifest.files.length,40);assert.equal(manifest.files.some(f=>f.startsWith('scripts/')),false);
   assert.equal(HOSTNAME,'bashiiin-coffee-staging.misemiruweb.workers.dev');
 });
 test('real CLI entry defaults to mock and refuses non-TTY live, without credentials', () => {

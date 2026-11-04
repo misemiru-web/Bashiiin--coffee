@@ -1,8 +1,8 @@
 # Bashiiin! coffee 正式Webサイト
 
-京都・河原町のスペシャルティコーヒー店、Bashiiin! coffeeの正式Webサイト制作リポジトリです。写真主体・短い文章・白／生成りを基調とするシンプルなデザインを、Mobile Firstの静的HTML / CSS / JavaScriptで実装しています。
+京都・河原町のスペシャルティコーヒー店、Bashiiin! coffeeの正式Webサイト制作リポジトリです。写真主体・白／生成りを基調とするシンプルなデザインを、Mobile Firstの静的HTML / CSS / JavaScriptで実装しています。2026-11-03のユーザー指示により、文章量を抑える方針をSEO改善の範囲で緩和し、各ページの内容を理解できる可視本文を掲載しています。
 
-最終更新：2026-10-29（STEP 09-C2-A）
+最終更新：2026-11-03（5ページのSEO・本文拡充、ローカル検証）
 
 ## 現在の状態と基準資料
 
@@ -20,8 +20,8 @@
 | ページ | URLパス | ファイル | 現在の役割 |
 |---|---|---|---|
 | TOP | `/` | `index.html` | スペシャルティコーヒーの第一印象、連続写真トラック、営業情報のInstagram案内、各ページへの入口 |
-| ABOUT | `/about/` | `about/index.html` | SPACE / SWEETS / CULTUREを実写と短文で紹介 |
-| COFFEE | `/coffee/` | `coffee/index.html` | コーヒー準備の写真、短い紹介、CURRENT BEANSの案内 |
+| ABOUT | `/about/` | `about/index.html` | SPACE / SWEETS / CULTUREを実写と説明文で紹介、ページ内案内と関連ページへの導線 |
+| COFFEE | `/coffee/` | `coffee/index.html` | 店内のコーヒー準備の写真、スペシャルティコーヒーの説明、豆の紹介の読み方、CURRENT BEANSの確認先 |
 | CONTACT | `/contact/` | `contact/index.html` | 3項目の問い合わせフォーム。バックエンドは実装済み、現在は送信不可 |
 | ACCESS | `/access/` | `access/index.html` | 正式住所、Google Maps、最新営業情報へのInstagram導線、入口看板写真 |
 
@@ -95,6 +95,7 @@ bashiiin_coffee_jsonld.html  # 作業用入力資料。配信対象外
 - 写真・見出し・本文・リンクは同じコンテナ基準。長文は必要に応じ `--copy-max: 38em` で行長を抑えます。通常写真は `max-height: min(56svh, 520px)` と `object-fit: cover` で高さを抑え、原本比率・表示枠に応じてトリミングします。
 - CONTACTはタイトルを含む本文最大680px。ACCESS本文・関連リンクは最大880px、768px以上は情報＋幅220pxの縦長写真の2カラム（間隔32〜40px・上端揃え）。ACCESSタイトルはABOUTと同じ広い共通コンテナで左揃えです。
 - 共通HEADER / FOOTERに5ページナビゲーションを配置。現在ページには `aria-current="page"` を指定。Mobileメニューはキーボード、Esc、focus循環・復帰、背景の `inert` に対応し、JavaScriptが動かない場合も通常リンクを表示します。
+- 初期表示ではheadで付ける `nav-loading` により、JS読込中のナビの一時表示を抑え、通常motion設定でHERO再生ボタンの領域も予約します。既存スクリプトのload／errorで解除し、JS無効・読込失敗時の通常リンクを維持します。SPACE / SWEETS / COFFEEはCSSに画像比率の読み込み前フォールバックを指定しています。計測条件・前後比較は [初期レイアウト移動の調査報告](docs/qa/layout-stability-2026-11-03.md) を参照してください。
 - Lucide系のarrow-right / arrow-up-right / menu / xをinline SVGで使用。各HTMLのライセンス表記を保持します。追加ライブラリやCDNは不要です。
 - テキストリンクは文字＋アイコンを1単位とし、共通gap 3px、連続する擬似要素の下線、原則44px以上の操作高さを確保しています。
 
@@ -129,9 +130,18 @@ bashiiin_coffee_jsonld.html  # 作業用入力資料。配信対象外
 - 入力値・tokenをconsole、URL、Analytics、Workerログへ出しません。フォーム値をlocalStorage等へ保存しません。自動再送はありません。メール受付後の通信断・タイムアウト後に新トークンで再送すると重複通知し得ます。現在、冪等性キーやDBはなく、許容方針・必要な追加対策は本番有効化前に決めます。
 - `form_start`、`form_submit`、成功応答時だけ1回の `generate_lead` の経路を用意しています。`bashiiin:analytics` と任意のdataLayer連携はGA4導入済みの証拠ではありません。現在の開発用console出力もイベント情報のみで、入力値・tokenを含みません。GA4接続時はフォーム拡張計測との重複・個人情報非送信を確認します。
 
+## レビュー用Pagesの404ページ
+
+- ルートの `404.html` は既存CSSを使う静的なエラーページで、noindexとルート相対のTOPリンクを持ち、JavaScriptなしでも利用できます。
+- Cloudflare Pagesの標準仕様ではこのファイルで未一致URLの404を処理します。Pagesローカル検証と、アップロード後の公開URL確認は区別します。今回の検証範囲と制約は[404対応報告](docs/qa/seo-preview-404-readiness-2026-11-04.md)を参照してください。
+- 正式Workerのルーティングは変更しません。ローカルWorkerのGET `/api/contact` は405、送信無効のPOSTは503です。APIのない静的PagesではGET `/api/contact` は404を目標とし、503の模倣はしません。
+- 今回の40ファイルZIPは店舗確認用Pages向けです。正式本番の公開・フォーム有効化とは別工程です。
+
 ## SEO・JSON-LD
 
-- 5ページそれぞれにtitle / description / robotsを設定し、全ページ `noindex, nofollow, noarchive` を維持。正式なcanonical・OGP・sitemap・robots.txt・GA4接続は未整備です。
+- 5ページそれぞれに固有のtitle / descriptionと、対応するOGPのtitle / description / type / site_name / localeを設定しています。全ページ `noindex, nofollow, noarchive` を維持。正式なcanonical・og:url・og:image・sitemap・robots.txtは本番ドメインと公開承認の確定後に別工程で設定します。GA4接続も未完了です。
+- ABOUT / COFFEEの本文は写真・見出し・段落に分散し、ページ内リンクで移動できます。共通の本文行幅・段落間隔は `styles.css` の `.content-copy`、ページ内案内は `.section-links` で管理します。店内写真の説明と、一般的なコーヒーの説明を店舗の未確認な提供情報と混同しません。
+- 2026-11-03の実装範囲・ページ別本文・メタ情報・ローカル検証・店舗確認待ちは [SEO改善報告](docs/qa/seo-improvement-2026-11-03.md) を参照してください。公開切替・実メール送信の完了を意味しません。
 - TOPの `<head>` に `application/ld+json` を1つ設置。JSON-LDの掲載項目は `@context` / `@type: CafeOrCoffeeShop` / `name` / 確認済み内容の `description` / `address` / Instagramの `sameAs`。
 - メニューページがないため `menu`、固定営業時間を掲載しないため `openingHoursSpecification` を除外しています。
 - 正式ドメイン未確定のため `@id` / `url` / `image` / `logo` は省略。公開時に確定済みの絶対URLで追加し、ACCESSの実表示と整合させます。推測ドメイン・example.com・架空画像URLは設定しません。
@@ -149,7 +159,7 @@ npm run verify:dist
 npm test
 ```
 
-- `build`：`scripts/public-files.json` の明示的な許可リストを検査し、39ファイルだけを `dist/` に複製します。5 HTML＋CSS/JS 2件＋WebP 30件＋ロゴ/favicon 2件です。
+- `build`：`scripts/public-files.json` の明示的な許可リストを検査し、40ファイルだけを `dist/` に複製します。5ページHTML＋404.html＋CSS/JS 2件＋WebP 30件＋ロゴ/favicon 2件です。
 - 参照切れ・許可リスト外参照・未使用の許可ファイル・パス逸脱・シンボリックリンク・原本の対応／ハッシュ不一致を拒否します。固定の生成先を置き換え、旧出力の残存を防ぎます。
 - `verify:dist`：出力一覧が許可リストと完全一致し、内容もソースと一致するか検証します。
 - `test`：静的ビルド12テストとCONTACT API関連テストを実行します。Siteverify・メール・レート制限はメモリー内モックで、実認証・実メール送信は行いません。
@@ -177,7 +187,7 @@ STEP 09-A／09-Bのローカル検証では、build・出力検証、計109自�
 
 ### Staging専用のTurnstile表示検証ビルド
 
-通常の `npm run build` / `verify:dist` は変更せず、Site Key空・フォーム無効の `dist/` を生成・検査します。追加した `npm run build:staging` / `verify:staging` は、環境変数 `STAGING_TURNSTILE_SITE_KEY` から公開用Site Keyだけを読み、独立した `dist-staging/` の39ファイルを生成・検査します。Secretを渡したり、キーをソースや設定ファイルへ保存したりしません。
+通常の `npm run build` / `verify:dist` は変更せず、Site Key空・フォーム無効の `dist/` を生成・検査します。追加した `npm run build:staging` / `verify:staging` は、環境変数 `STAGING_TURNSTILE_SITE_KEY` から公開用Site Keyだけを読み、独立した `dist-staging/` の40ファイルを生成・検査します。Secretを渡したり、キーをソースや設定ファイルへ保存したりしません。
 
 - Staging出力はCONTACTのSite Key・表示専用mode・許可hostname属性だけが通常出力と異なります。他の38ファイルは同一です。ソースHTMLは変更しません。
 - 表示には `staging-verify-only` と固定HTTPS origin `https://bashiiin-coffee-staging.misemiruweb.workers.dev` の一致が必要です。URLパラメータで有効化しません。既存のloopback限定 `verify-only` は維持します。
@@ -189,7 +199,7 @@ STEP 09-A／09-Bのローカル検証では、build・出力検証、計109自�
 
 ### Siteverify単独のローカルCLI
 
-`npm run verify:turnstile:local` はデフォルトで10ケースのモック検証だけを実行し、外部通信・TTY入力・メール送信を行いません。既存の `verifyTurnstile()` を直接利用し、CLIとテストは配信対象39ファイルに含めません。
+`npm run verify:turnstile:local` はデフォルトで10ケースのモック検証だけを実行し、外部通信・TTY入力・メール送信を行いません。既存の `verifyTurnstile()` を直接利用し、CLIとテストは配信対象40ファイルに含めません。
 
 将来、別途実通信の許可を得た場合だけ `npm run verify:turnstile:local -- --live` を使います。Secret・トークンはローカルTTYの非表示入力のみで受け取り、引数・環境変数・ファイルには設定しません。TTYまたはTTY出力を使用できない場合は停止し、エコーする入力へ切り替えません。画面共有・端末録画・入力記録を停止し、Codexチャットやツールへキーを渡さず、ユーザー自身のターミナルで操作してください。
 

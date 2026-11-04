@@ -32,7 +32,7 @@ export function stagingInventory(root = ROOT, env = process.env) {
   ensure(JSON.stringify(config.ratelimits) === JSON.stringify([{ name: 'CONTACT_RATE_LIMITER', namespace_id: '31001', simple: { limit: 5, period: 60 } }]),
     'Staging rate limiter must have exactly the approved fixed settings');
   const inventory = sourceInventory(root);
-  ensure(inventory.files.length === 39, 'Expected exactly 39 public files');
+  ensure(inventory.files.length === 40, 'Expected exactly 40 public files');
   const buffers = new Map(inventory.buffers);
   let html = buffers.get('contact/index.html').toString();
   ensure(!html.includes('data-turnstile-mode') && !html.includes('data-turnstile-hostname'), 'Source contains verification configuration');

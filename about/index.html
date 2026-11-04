@@ -4,12 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow, noarchive">
-    <meta name="description" content="京都のBashiiin! coffeeの店内、スイーツ、カルチャーを写真でご紹介します。">
+    <meta name="description" content="Bashiiin! coffeeの店内や空間、スイーツ、コーヒーをモチーフにしたアイテムをご紹介。京都・河原町のスペシャルティコーヒー店の雰囲気を、写真と文章でご覧いただけます。">
     <meta name="theme-color" content="#FAFAF7">
-    <title>店舗について：空間・スイーツ・カルチャー | Bashiiin! coffee</title>
+    <title>お店について・店内・スイーツ｜Bashiiin! coffee（京都・河原町）</title>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Bashiiin! coffee">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:title" content="お店について・店内・スイーツ｜Bashiiin! coffee（京都・河原町）">
+    <meta property="og:description" content="Bashiiin! coffeeの店内や空間、スイーツ、コーヒーをモチーフにしたアイテムをご紹介。京都・河原町のスペシャルティコーヒー店の雰囲気を、写真と文章でご覧いただけます。">
+    <meta name="twitter:card" content="summary">
     <link rel="icon" href="/images/web/favicon-square.png" type="image/png" sizes="64x64">
+    <script>document.documentElement.classList.add("nav-loading");</script>
     <link rel="stylesheet" href="/styles.css">
-    <script src="/script.js" defer></script>
+    <script src="/script.js" defer onload="document.documentElement.classList.remove('nav-loading')" onerror="document.documentElement.classList.remove('nav-loading')"></script>
     <!--
       Inline icons from Lucide: arrow-right, arrow-up-right, menu, x.
       https://github.com/lucide-icons/lucide
@@ -84,13 +91,24 @@
       <div class="page-shell page-intro">
         <p class="eyebrow">ABOUT</p>
         <h1><span class="heading-phrase">Bashiiin! coffee</span><span class="heading-phrase">について</span></h1>
+        <p class="page-intro__lead">京都・河原町のスペシャルティコーヒー店、Bashiiin! coffee。<br class="copy-break--desktop">店内や<span class="copy-phrase">スイーツ、</span><span class="copy-phrase">コーヒー</span>を描いたアイテムを写真で<span class="copy-phrase">ご紹介。</span></p>
+        <nav class="section-links" aria-label="ABOUTのページ内案内">
+          <a href="#space"><span class="section-links__label">店内・空間（SPACE）</span></a>
+          <a href="#pudding"><span class="section-links__label">スイーツ（SWEETS）</span></a>
+          <a href="#culture"><span class="section-links__label">アイテム（CULTURE）</span></a>
+        </nav>
       </div>
       <section id="space" class="space--formal tracked-section" aria-labelledby="space-title">
         <p class="page-shell space__eyebrow">SPACE</p>
         <h2 id="space-title" class="page-shell space__title"><span class="heading-phrase">木のカウンターと、</span><span class="heading-phrase">店内。</span></h2>
         <figure class="space__photo">
           <img src="/images/web/space/DSC_0167-1450.webp" srcset="/images/web/space/DSC_0167-400.webp 400w, /images/web/space/DSC_0167-800.webp 800w, /images/web/space/DSC_0167-1450.webp 1450w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) calc(87.5vw + 32px), (max-width: 1440px) calc(53.8462vw + 376.615px), (max-width: 1500px) 80vw, 1200px" alt="木のカウンターとテーブル、コーヒー器具が並ぶBashiiin! coffeeの店内" width="1450" height="960" decoding="async" loading="eager" fetchpriority="high">
+          <figcaption class="culture__caption">木のカウンター、テーブルとコーヒー器具。</figcaption>
         </figure>
+        <div class="page-shell space__copy content-copy">
+          <p>木のカウンター沿いに椅子が並び、店内には<span class="copy-phrase">テーブル</span>もあります。</p>
+          <p>ご来店前に、<a href="/access/">ACCESSページの住所と地図</a>もご確認ください。</p>
+        </div>
       </section>
 
       <section id="pudding" class="sweets--formal tracked-section" aria-labelledby="sweets-title">
@@ -101,7 +119,8 @@
           <div class="sweets__copy">
             <p class="sweets__eyebrow">SWEETS</p>
             <h2 id="sweets-title"><span>コーヒーに、</span><span>甘いひとときを。</span></h2>
-            <p class="sweets__text">コーヒーとともに楽しむスイーツ。<br>最新の提供内容は<span class="copy-phrase">Instagramでご確認を。</span></p>
+            <p class="sweets__text">カラメルのかかったプリンの一皿。</p>
+            <p class="sweets__text">スイーツの種類や提供状況は、公式Instagramでご確認ください。掲載写真と現在の提供内容は異なる場合があります。</p>
             <a class="sweets__link tracked-link text-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="open_info_click" data-placement="sweets"><span class="text-link__content"><span class="text-link__label">Instagramを見る</span><svg class="icon icon--arrow-up-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span><span class="sr-only">（@bashiiin_coffee、新しいタブで開きます）</span></a>
           </div>
           <!-- TODO: 10月新作は正式名称・説明・許可済み写真を受領してから追加する。未確定枠は表示しない。 -->
@@ -116,14 +135,18 @@
           </header>
           <figure class="culture__photo">
             <img src="/images/web/culture/DSC_0165-1450.webp" srcset="/images/web/culture/DSC_0165-400.webp 400w, /images/web/culture/DSC_0165-800.webp 800w, /images/web/culture/DSC_0165-1450.webp 1450w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) calc(87.5vw + 32px), (max-width: 1440px) calc(53.8462vw + 376.615px), (max-width: 1500px) 80vw, 1200px" alt="レンガの壁に掛けられた、コーヒーを注ぐイラスト入りのTシャツ" width="1450" height="960" decoding="async" loading="lazy">
-            <figcaption class="culture__caption">コーヒーのイラストが描かれたTシャツ。</figcaption>
+            <figcaption class="culture__caption">コーヒーを注ぐイラストが描かれたTシャツ。</figcaption>
           </figure>
-          <div class="culture__follow">
+          <div class="culture__follow content-copy">
+            <p>アイテムの情報は公式Instagramへ。</p>
             <a class="culture__link tracked-link text-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="instagram_click" data-placement="culture"><span class="text-link__content"><span class="text-link__label">Instagramを見る</span><svg class="icon icon--arrow-up-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span><span class="sr-only">（@bashiiin_coffee、新しいタブで開きます）</span></a>
           </div>
         </div>
       </section>
 
+      <div class="page-shell content-copy related-copy">
+        <p>スペシャルティコーヒーの特徴や豆の情報は、COFFEEページへ。住所と地図は、ACCESSページでご案内しています。</p>
+      </div>
       <nav class="page-shell page-next" aria-label="関連ページ">
         <a class="content-link text-link" href="/access/"><span class="text-link__content"><span class="text-link__label">アクセスを見る</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>
         <a class="content-link text-link" href="/coffee/"><span class="text-link__content"><span class="text-link__label">コーヒーを見る</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>

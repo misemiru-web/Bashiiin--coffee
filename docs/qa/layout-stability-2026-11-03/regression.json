@@ -1,0 +1,888 @@
+{
+  "environment": {
+    "browser": "156.0.8078.80",
+    "viewportHeight": 900,
+    "deviceScaleFactor": 1,
+    "engine": "Chromium / installed Chrome",
+    "externalRequests": "blocked",
+    "formPosts": "blocked"
+  },
+  "cases": [
+    {
+      "width": 360,
+      "route": "/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 360,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 360,
+      "route": "/about/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 360,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 360,
+      "route": "/coffee/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 360,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 360,
+      "route": "/contact/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 360,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 360,
+      "route": "/access/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 360,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 390,
+      "route": "/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 390,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 390,
+      "route": "/about/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 390,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 390,
+      "route": "/coffee/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 390,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 390,
+      "route": "/contact/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 390,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 390,
+      "route": "/access/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 390,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 430,
+      "route": "/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 430,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 430,
+      "route": "/about/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 430,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 430,
+      "route": "/coffee/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 430,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 430,
+      "route": "/contact/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 430,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 430,
+      "route": "/access/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 430,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 768,
+      "route": "/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 768,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 768,
+      "route": "/about/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 768,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 768,
+      "route": "/coffee/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 768,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 768,
+      "route": "/contact/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 768,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 768,
+      "route": "/access/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 768,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 1024,
+      "route": "/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 1024,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 1024,
+      "route": "/about/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 1024,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 1024,
+      "route": "/coffee/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 1024,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 1024,
+      "route": "/contact/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 1024,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 1024,
+      "route": "/access/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 1024,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "keyboard/Escape/focus trap passed"
+    },
+    {
+      "width": 1440,
+      "route": "/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 1440,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "desktop nav"
+    },
+    {
+      "width": 1440,
+      "route": "/about/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 1440,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "desktop nav"
+    },
+    {
+      "width": 1440,
+      "route": "/coffee/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 1440,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "desktop nav"
+    },
+    {
+      "width": 1440,
+      "route": "/contact/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 1440,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "desktop nav"
+    },
+    {
+      "width": 1440,
+      "route": "/access/",
+      "cls": 0,
+      "postInteractionCls": 0,
+      "shifts": [],
+      "scrollWidth": 1440,
+      "images": "loaded",
+      "copy": "visible >=16px",
+      "menu": "desktop nav"
+    }
+  ],
+  "screenshotComparison": [
+    {
+      "width": 360,
+      "page": "top",
+      "sameSize": true,
+      "beforeSize": [
+        360,
+        2809
+      ],
+      "afterSize": [
+        360,
+        2809
+      ],
+      "changedPixels": 2337,
+      "fraction": 0.0023110240892369764,
+      "bounds": {
+        "left": 25,
+        "right": 334,
+        "top": 337,
+        "bottom": 556
+      }
+    },
+    {
+      "width": 360,
+      "page": "about",
+      "sameSize": true,
+      "beforeSize": [
+        360,
+        4059
+      ],
+      "afterSize": [
+        360,
+        4059
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 360,
+      "page": "coffee",
+      "sameSize": true,
+      "beforeSize": [
+        360,
+        3990
+      ],
+      "afterSize": [
+        360,
+        3990
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 360,
+      "page": "contact",
+      "sameSize": true,
+      "beforeSize": [
+        360,
+        1917
+      ],
+      "afterSize": [
+        360,
+        1917
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 360,
+      "page": "access",
+      "sameSize": true,
+      "beforeSize": [
+        360,
+        2259
+      ],
+      "afterSize": [
+        360,
+        2259
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 390,
+      "page": "top",
+      "sameSize": true,
+      "beforeSize": [
+        390,
+        2768
+      ],
+      "afterSize": [
+        390,
+        2768
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 390,
+      "page": "about",
+      "sameSize": true,
+      "beforeSize": [
+        390,
+        3996
+      ],
+      "afterSize": [
+        390,
+        3996
+      ],
+      "changedPixels": 1805,
+      "fraction": 0.0011582094915428248,
+      "bounds": {
+        "left": 28,
+        "right": 349,
+        "top": 24,
+        "bottom": 57
+      }
+    },
+    {
+      "width": 390,
+      "page": "coffee",
+      "sameSize": true,
+      "beforeSize": [
+        390,
+        3803
+      ],
+      "afterSize": [
+        390,
+        3803
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 390,
+      "page": "contact",
+      "sameSize": true,
+      "beforeSize": [
+        390,
+        1829
+      ],
+      "afterSize": [
+        390,
+        1829
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 390,
+      "page": "access",
+      "sameSize": true,
+      "beforeSize": [
+        390,
+        2265
+      ],
+      "afterSize": [
+        390,
+        2265
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 430,
+      "page": "top",
+      "sameSize": true,
+      "beforeSize": [
+        430,
+        2670
+      ],
+      "afterSize": [
+        430,
+        2670
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 430,
+      "page": "about",
+      "sameSize": true,
+      "beforeSize": [
+        430,
+        3818
+      ],
+      "afterSize": [
+        430,
+        3818
+      ],
+      "changedPixels": 1805,
+      "fraction": 0.0010994432735999611,
+      "bounds": {
+        "left": 28,
+        "right": 389,
+        "top": 24,
+        "bottom": 57
+      }
+    },
+    {
+      "width": 430,
+      "page": "coffee",
+      "sameSize": true,
+      "beforeSize": [
+        430,
+        3561
+      ],
+      "afterSize": [
+        430,
+        3561
+      ],
+      "changedPixels": 1805,
+      "fraction": 0.00117879090665674,
+      "bounds": {
+        "left": 28,
+        "right": 389,
+        "top": 24,
+        "bottom": 57
+      }
+    },
+    {
+      "width": 430,
+      "page": "contact",
+      "sameSize": true,
+      "beforeSize": [
+        430,
+        1829
+      ],
+      "afterSize": [
+        430,
+        1829
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 430,
+      "page": "access",
+      "sameSize": true,
+      "beforeSize": [
+        430,
+        2235
+      ],
+      "afterSize": [
+        430,
+        2235
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 768,
+      "page": "top",
+      "sameSize": true,
+      "beforeSize": [
+        768,
+        2357
+      ],
+      "afterSize": [
+        768,
+        2357
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 768,
+      "page": "about",
+      "sameSize": true,
+      "beforeSize": [
+        768,
+        4028
+      ],
+      "afterSize": [
+        768,
+        4028
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 768,
+      "page": "coffee",
+      "sameSize": true,
+      "beforeSize": [
+        768,
+        3215
+      ],
+      "afterSize": [
+        768,
+        3215
+      ],
+      "changedPixels": 1805,
+      "fraction": 0.0007310296785899429,
+      "bounds": {
+        "left": 36,
+        "right": 719,
+        "top": 24,
+        "bottom": 57
+      }
+    },
+    {
+      "width": 768,
+      "page": "contact",
+      "sameSize": true,
+      "beforeSize": [
+        768,
+        1585
+      ],
+      "afterSize": [
+        768,
+        1585
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 768,
+      "page": "access",
+      "sameSize": true,
+      "beforeSize": [
+        768,
+        1428
+      ],
+      "afterSize": [
+        768,
+        1428
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 1024,
+      "page": "top",
+      "sameSize": true,
+      "beforeSize": [
+        1024,
+        2298
+      ],
+      "afterSize": [
+        1024,
+        2298
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 1024,
+      "page": "about",
+      "sameSize": true,
+      "beforeSize": [
+        1024,
+        4138
+      ],
+      "afterSize": [
+        1024,
+        4138
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 1024,
+      "page": "coffee",
+      "sameSize": true,
+      "beforeSize": [
+        1024,
+        3179
+      ],
+      "afterSize": [
+        1024,
+        3179
+      ],
+      "changedPixels": 1805,
+      "fraction": 0.0005544810671594841,
+      "bounds": {
+        "left": 52,
+        "right": 959,
+        "top": 24,
+        "bottom": 57
+      }
+    },
+    {
+      "width": 1024,
+      "page": "contact",
+      "sameSize": true,
+      "beforeSize": [
+        1024,
+        1585
+      ],
+      "afterSize": [
+        1024,
+        1585
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 1024,
+      "page": "access",
+      "sameSize": true,
+      "beforeSize": [
+        1024,
+        1369
+      ],
+      "afterSize": [
+        1024,
+        1369
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 1440,
+      "page": "top",
+      "sameSize": true,
+      "beforeSize": [
+        1440,
+        2306
+      ],
+      "afterSize": [
+        1440,
+        2306
+      ],
+      "changedPixels": 6895,
+      "fraction": 0.0020764069576949024,
+      "bounds": {
+        "left": 154,
+        "right": 1207,
+        "top": 325,
+        "bottom": 660
+      }
+    },
+    {
+      "width": 1440,
+      "page": "about",
+      "sameSize": true,
+      "beforeSize": [
+        1440,
+        3796
+      ],
+      "afterSize": [
+        1440,
+        3796
+      ],
+      "changedPixels": 3311,
+      "fraction": 0.0006057180072591031,
+      "bounds": {
+        "left": 148,
+        "right": 1294,
+        "top": 33,
+        "bottom": 72
+      }
+    },
+    {
+      "width": 1440,
+      "page": "coffee",
+      "sameSize": true,
+      "beforeSize": [
+        1440,
+        3389
+      ],
+      "afterSize": [
+        1440,
+        3389
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 1440,
+      "page": "contact",
+      "sameSize": true,
+      "beforeSize": [
+        1440,
+        1671
+      ],
+      "afterSize": [
+        1440,
+        1671
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    },
+    {
+      "width": 1440,
+      "page": "access",
+      "sameSize": true,
+      "beforeSize": [
+        1440,
+        1429
+      ],
+      "afterSize": [
+        1440,
+        1429
+      ],
+      "changedPixels": 0,
+      "fraction": 0,
+      "bounds": null
+    }
+  ],
+  "javascriptDisabled": {
+    "width": 390,
+    "pages": 5,
+    "result": "passed"
+  },
+  "fallbackFailures": {
+    "widths": [
+      390,
+      1024,
+      1440
+    ],
+    "pages": 5,
+    "profiles": [
+      "request-failed",
+      "navigation-init-failed"
+    ],
+    "cases": 30,
+    "result": "accessible navigation and disabled CONTACT preserved"
+  },
+  "reducedMotion": {
+    "width": 390,
+    "manualGallery": "passed",
+    "autoPlayback": false
+  }
+}

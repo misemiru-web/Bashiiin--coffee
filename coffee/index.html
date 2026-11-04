@@ -4,12 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow, noarchive">
-    <meta name="description" content="京都のBashiiin! coffee。スペシャルティコーヒーと、現在の豆の情報を確認するInstagramへのご案内。">
+    <meta name="description" content="京都・河原町のBashiiin! coffee。スペシャルティコーヒーの楽しみ方と、店内のカウンターをご紹介します。現在の豆の取り扱いは公式Instagramでご確認ください。">
     <meta name="theme-color" content="#FAFAF7">
-    <title>スペシャルティコーヒー | Bashiiin! coffee</title>
+    <title>コーヒーのご案内｜Bashiiin! coffee（京都・河原町）</title>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Bashiiin! coffee">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:title" content="コーヒーのご案内｜Bashiiin! coffee（京都・河原町）">
+    <meta property="og:description" content="京都・河原町のBashiiin! coffee。スペシャルティコーヒーの楽しみ方と、店内のカウンターをご紹介します。現在の豆の取り扱いは公式Instagramでご確認ください。">
+    <meta name="twitter:card" content="summary">
     <link rel="icon" href="/images/web/favicon-square.png" type="image/png" sizes="64x64">
+    <script>document.documentElement.classList.add("nav-loading");</script>
     <link rel="stylesheet" href="/styles.css">
-    <script src="/script.js" defer></script>
+    <script src="/script.js" defer onload="document.documentElement.classList.remove('nav-loading')" onerror="document.documentElement.classList.remove('nav-loading')"></script>
     <!--
       Inline icons from Lucide: arrow-right, arrow-up-right, menu, x.
       https://github.com/lucide-icons/lucide
@@ -84,25 +91,44 @@
       <div class="page-shell page-intro">
         <p class="eyebrow">COFFEE</p>
         <h1 id="coffee-title"><span>スペシャルティ</span><span><span class="coffee-title__phrase">コーヒーを、</span><wbr><span class="coffee-title__phrase">中心に。</span></span></h1>
+        <p class="page-intro__lead">京都・河原町のスペシャルティコーヒー店、Bashiiin! coffee。<br class="copy-break--desktop">コーヒーを準備する風景と、豆の最新情報の確認先をご紹介します。</p>
+        <nav class="section-links" aria-label="COFFEEのページ内案内">
+          <a href="#specialty"><span class="section-links__label">スペシャルティコーヒーについて</span></a>
+          <a href="#coffee"><span class="section-links__label">コーヒーのあるカウンター</span></a>
+          <a href="#current-beans"><span class="section-links__label">コーヒー豆の最新情報</span></a>
+        </nav>
       </div>
-      <section id="coffee" class="coffee--formal tracked-section" aria-labelledby="coffee-title">
+      <section id="coffee" class="coffee--formal tracked-section" aria-labelledby="counter-title">
         <div class="page-shell coffee__layout">
           <figure class="coffee__photo">
             <img src="/images/web/coffee/coffee-preparation-1206.webp" srcset="/images/web/coffee/coffee-preparation-400.webp 400w, /images/web/coffee/coffee-preparation-800.webp 800w, /images/web/coffee/coffee-preparation-1206.webp 1206w" sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) calc(87.5vw + 32px), (max-width: 1440px) calc(53.8462vw + 376.615px), (max-width: 1500px) 80vw, 1200px" alt="ドリッパー、ガラスサーバー、ポットが並ぶカウンターでコーヒーを準備する手元" width="1206" height="798" decoding="async" loading="eager" fetchpriority="high">
           </figure>
-          <p class="coffee__intro">スペシャルティコーヒーを<span class="copy-phrase">中心にした</span><span class="copy-phrase">京都のコーヒー店。</span></p>
+          <div class="coffee__story content-copy">
+            <h2 id="counter-title"><span class="heading-phrase">コーヒーのある</span><span class="heading-phrase">カウンター</span></h2>
+            <p class="coffee__intro">木のカウンターに並ぶドリッパーや<span class="copy-phrase">ガラス</span><span class="copy-phrase">サーバー、</span>ポット。コーヒーを準備する手元も写っています。一杯が生まれる店内の風景を<span class="copy-phrase">ご覧ください。</span></p>
+            <p>店内やスイーツ、コーヒーを描いたアイテムは、<a href="/about/">ABOUTページ</a>へ。</p>
+          </div>
         </div>
+      </section>
+
+      <section id="specialty" class="page-shell coffee-guide content-copy" aria-labelledby="specialty-title">
+        <h2 id="specialty-title"><span class="heading-phrase">スペシャルティ</span><span class="heading-phrase">コーヒーについて</span></h2>
+        <p>スペシャルティコーヒーでは、風味や香り、生産地や生産の背景など、その一杯ならではの特徴に価値が見いだされます。一杯の味わいとともに、豆がどこから来て、どのように作られたかを知る楽しみもあります。</p>
+        <p>香りや酸味、甘さ、口に含んだときの質感、飲んだあとの余韻。苦さや濃さに加え、こうした違いにも目を向けると、一杯を楽しむ手がかりが<span class="copy-phrase">見つかります。</span></p>
+        <h3>豆の紹介を読むときに</h3>
+        <p>豆の紹介にある「産地」は、豆が育った国や地域のこと。「風味」は、飲んだときの香りや味わい、口当たりを表します。産地から豆の背景を知り、風味から好みに近いものを探す。豆の紹介を読むことも、一杯を選ぶ楽しみにつながります。</p>
+        <p>現在の豆の取り扱いについては、<a href="#current-beans">最新情報の確認先</a>をご覧ください。</p>
       </section>
 
       <section id="current-beans" class="current-beans current-beans--pending tracked-section" aria-labelledby="beans-title">
         <div class="page-shell beans__inner">
           <div class="beans__heading">
-            <p class="beans__eyebrow">CURRENT BEANS</p>
-            <h2 id="beans-title">いまの豆</h2>
+            <p class="beans__eyebrow">COFFEE BEANS</p>
+            <h2 id="beans-title">コーヒー豆の最新情報</h2>
           </div>
           <div class="beans__content">
             <div class="beans__notice">
-              <p>現在のコーヒー豆については、<span class="copy-phrase">Instagramで最新情報を</span><span class="copy-phrase">ご確認ください。</span></p>
+              <p>取り扱う豆や提供状況は、時期によって異なる場合があります。現在の取り扱いは、公式Instagramでご確認ください。</p>
               <a class="beans__link tracked-link text-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="open_info_click" data-placement="current-beans"><span class="text-link__content"><span class="text-link__label">Instagramで豆の最新情報を見る</span><svg class="icon icon--arrow-up-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span><span class="sr-only">（@bashiiin_coffee、新しいタブで開きます）</span></a>
             </div>
             <!-- TODO: 店舗確認済みの豆データを下のtemplateから追加し、一覧のhiddenを外す。
@@ -132,7 +158,11 @@
         </div>
       </section>
 
+      <div class="page-shell content-copy related-copy">
+        <p>営業日・営業時間の最新情報は<a href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer">公式Instagram<span class="sr-only">（@bashiiin_coffee、新しいタブで開きます）</span></a>へ。住所と地図はACCESSページ、お問い合わせフォームはCONTACTページでご案内しています。フォームの送信機能は準備中です。</p>
+      </div>
       <nav class="page-shell page-next" aria-label="関連ページ">
+        <a class="content-link text-link" href="/access/"><span class="text-link__content"><span class="text-link__label">店舗所在地と地図を見る</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>
         <a class="content-link text-link" href="/contact/"><span class="text-link__content"><span class="text-link__label">お問い合わせ</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>
       </nav>
     </main>

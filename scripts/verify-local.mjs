@@ -9,7 +9,7 @@ assert.ok(!origin.username && !origin.password && !origin.search && !origin.hash
 const inventory = sourceInventory();
 verifyOutput();
 const request = (url, options = {}) => fetch(new URL(url, origin), { redirect: 'manual', signal: AbortSignal.timeout(10000), ...options });
-const route = file => file === 'index.html' ? '/' : file.replace(/index\.html$/, '');
+const route = file => file === 'index.html' ? '/' : file === '404.html' ? '404/' : file.replace(/index\.html$/, '');
 let checks = 0;
 for (const file of inventory.files) {
   const url = '/' + route(file).replace(/^\//, '');

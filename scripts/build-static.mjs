@@ -6,7 +6,8 @@ import { parse } from 'parse5';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const PAGES = ['index.html', 'about/index.html', 'coffee/index.html', 'contact/index.html', 'access/index.html'];
-const BASE = [...PAGES, 'styles.css', 'script.js'];
+export const ERROR_PAGES = ['404.html'];
+const BASE = [...PAGES, ...ERROR_PAGES, 'styles.css', 'script.js'];
 const BRAND = ['images/web/logo-header.png', 'images/web/favicon-square.png'];
 const sha = data => createHash('sha256').update(data).digest('hex');
 function requireCondition(ok, message) { if (!ok) throw new Error(message); }
@@ -75,7 +76,7 @@ export function sourceInventory(root = ROOT) {
     }
     return target;
   };
-  for (const page of PAGES) {
+  for (const page of [...PAGES, ...ERROR_PAGES]) {
     const tree = parse(buffers.get(page).toString());
     const pageIds = new Set(); ids.set(page, pageIds);
     let robots = false, disabled = false, ready = false, sitekey = null;

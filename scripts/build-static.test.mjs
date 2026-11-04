@@ -82,3 +82,20 @@ test('CONTACT activation rejected', () => fixture(root => {
   change(root, 'contact/index.html', 'data-endpoint-ready="false"', 'data-endpoint-ready="true"');
   assert.throws(() => build(root), /CONTACT must remain/);
 }));
+
+test('404 is required; a missing error page cannot replace the previous build', () => fixture(root => {
+  build(root);
+  const previous = fs.readFileSync(path.join(root, 'dist/404.html'));
+  fs.unlinkSync(path.join(root, '404.html'));
+  assert.throws(() => build(root), /ENOENT/);
+  assert.deepEqual(fs.readFileSync(path.join(root, 'dist/404.html')), previous);
+}));
+test('404 must keep noindex and a valid root-relative return link', () => fixture(root => {
+  assert.match(fs.readFileSync(path.join(root, '404.html'), 'utf8'), /href="\/"/);
+  change(root, '404.html', 'href="/"', 'href="/missing-return-page/"');
+  assert.throws(() => build(root), /outside allowlist/);
+}));
+test('404 noindex removal is rejected like the five normal pages', () => fixture(root => {
+  change(root, '404.html', 'noindex, nofollow, noarchive', 'index, follow');
+  assert.throws(() => build(root), /robots policy/);
+}));

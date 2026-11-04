@@ -4,12 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow, noarchive">
-    <meta name="description" content="Bashiiin! coffeeのお問い合わせフォーム。現在、送信機能は準備中です。">
+    <meta name="description" content="Bashiiin! coffeeへのお問い合わせページ。お名前・メールアドレス・お問い合わせ内容の3項目フォームをご案内しています。現在、送信機能は準備中です。営業情報は公式Instagramをご確認ください。">
     <meta name="theme-color" content="#FAFAF7">
-    <title>お問い合わせ | Bashiiin! coffee</title>
+    <title>お問い合わせ｜Bashiiin! coffee（京都・河原町）</title>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Bashiiin! coffee">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:title" content="お問い合わせ｜Bashiiin! coffee（京都・河原町）">
+    <meta property="og:description" content="Bashiiin! coffeeへのお問い合わせページ。お名前・メールアドレス・お問い合わせ内容の3項目フォームをご案内しています。現在、送信機能は準備中です。営業情報は公式Instagramをご確認ください。">
+    <meta name="twitter:card" content="summary">
     <link rel="icon" href="/images/web/favicon-square.png" type="image/png" sizes="64x64">
+    <script>document.documentElement.classList.add("nav-loading");</script>
     <link rel="stylesheet" href="/styles.css">
-    <script src="/script.js" defer></script>
+    <script src="/script.js" defer onload="document.documentElement.classList.remove('nav-loading')" onerror="document.documentElement.classList.remove('nav-loading')"></script>
     <!--
       Inline icons from Lucide: arrow-right, arrow-up-right, menu, x.
       https://github.com/lucide-icons/lucide
@@ -86,6 +93,10 @@
           <div class="page-intro">
             <p class="eyebrow">CONTACT</p>
             <h1 id="contact-title">お問い合わせ</h1>
+            <div class="page-intro__lead content-copy">
+              <p>入力項目は、お名前・<span class="copy-phrase">メール</span><span class="copy-phrase">アドレス・</span>お問い合わせ内容の3つです。<br class="copy-break--desktop">現在、お問い合わせフォームの送信機能は<span class="copy-phrase">準備中です。</span></p>
+              <p>営業日・営業時間の最新情報は<a href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer">公式Instagram<span class="sr-only">（@bashiiin_coffee、新しいタブで開きます）</span></a>でご案内しています。ご来店前の住所・建物名・地図は、<a href="/access/">ACCESSページ</a>をご覧ください。</p>
+            </div>
           </div>
           <!-- 公開前にWorker・Siteverify・実メール到達を検証してから送信を有効化する。 -->
           <form id="contact-form" class="contact__form" action="/api/contact" method="post" data-endpoint-ready="false" data-state="initial" aria-describedby="contact-purpose contact-status">
@@ -106,7 +117,7 @@
               <p id="contact-message-error" class="contact__error" hidden></p>
             </div>
             <div id="contact-turnstile" class="contact__turnstile" data-sitekey="" aria-label="送信前の確認"></div>
-            <p id="contact-purpose" class="contact__purpose"><span class="copy-phrase">入力いただいた情報は、</span><span class="copy-phrase">お問い合わせへの</span><span class="copy-phrase">回答のために</span><span class="copy-phrase">利用します。</span></p>
+            <p id="contact-purpose" class="contact__purpose">入力いただいた情報は、お問い合わせに回答するために利用します。</p>
             <button id="contact-submit" class="contact__submit" type="submit" disabled>送信する</button>
             <noscript><p class="contact__purpose">送信にはJavaScriptが必要です。</p></noscript>
           </form>

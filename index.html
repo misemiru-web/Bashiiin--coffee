@@ -4,12 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow, noarchive">
-    <meta name="description" content="京都のBashiiin! coffee。スペシャルティコーヒーを中心に、コーヒー、スイーツ、空間、カルチャーを写真でご紹介します。">
+    <meta name="description" content="京都・河原町にあるスペシャルティコーヒー店、Bashiiin! coffee。コーヒーや店内の様子、スイーツ、店舗所在地をご紹介。営業日・営業時間の最新情報は公式Instagramでご確認ください。">
     <meta name="theme-color" content="#FAFAF7">
-    <title>Bashiiin! coffee | SPECIALTY COFFEE / KYOTO</title>
+    <title>Bashiiin! coffee｜京都・河原町のスペシャルティコーヒー</title>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Bashiiin! coffee">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:title" content="Bashiiin! coffee｜京都・河原町のスペシャルティコーヒー">
+    <meta property="og:description" content="京都・河原町にあるスペシャルティコーヒー店、Bashiiin! coffee。コーヒーや店内の様子、スイーツ、店舗所在地をご紹介。営業日・営業時間の最新情報は公式Instagramでご確認ください。">
+    <meta name="twitter:card" content="summary">
     <link rel="icon" href="/images/web/favicon-square.png" type="image/png" sizes="64x64">
+    <script>document.documentElement.classList.add("nav-loading");</script>
     <link rel="stylesheet" href="/styles.css">
-    <script src="/script.js" defer></script>
+    <script src="/script.js" defer onload="document.documentElement.classList.remove('nav-loading')" onerror="document.documentElement.classList.remove('nav-loading')"></script>
     <!-- JSON-LD: 店舗提供資料を基に確認済み情報のみ掲載。
          TODO（公開前）: 正式ドメイン確定後に @id（正規トップURL + #shop）、url、image、logo を追加。
          image候補: images/web/space/DSC_0167-1450.webp、images/web/hero/DSC_0052-1450.webp。
@@ -129,7 +136,10 @@
           </div>
         </div>
         <div class="page-shell hero__outro">
-          <p class="hero__lead">スペシャルティコーヒーを<span class="copy-phrase">中心にした、</span><span class="copy-phrase">京都のコーヒー店。</span></p>
+          <div class="content-copy hero__copy">
+          <p class="hero__lead">京都・河原町のスペシャルティコーヒー店、Bashiiin! coffee。<br class="copy-break--desktop"><span class="copy-phrase">木のカウンター</span>や器具が並ぶ店内で、コーヒーを楽しむひとときを。</p>
+          <p>店内やスイーツ、コーヒーをモチーフにしたアイテムも写真で紹介。</p>
+          </div>
           <a class="hero__link text-link" href="/coffee/"><span class="text-link__content"><span class="text-link__label">コーヒーを見る</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>
         </div>
       </section>
@@ -137,15 +147,17 @@
       <section id="latest-info" class="latest-info tracked-section" aria-labelledby="latest-title">
         <div class="page-shell latest-info__inner">
           <h2 id="latest-title" class="latest-info__label">LATEST INFO</h2>
-          <p class="latest-info__message">営業日・営業時間の最新情報は、<br>Instagramをご確認ください。</p>
+          <p class="latest-info__message">営業日・営業時間の最新情報は、公式Instagramでご案内しています。変更される場合があるため、ご来店前に最新の投稿・お知らせをご確認ください。</p>
           <a class="latest-info__link tracked-link text-link" href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer" data-event="open_info_click" data-placement="latest-info"><span class="text-link__content"><span class="text-link__label">Instagramで最新情報を見る</span><svg class="icon icon--arrow-up-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></span><span class="sr-only">（@bashiiin_coffee、新しいタブで開きます）</span></a>
         </div>
       </section>
 
-      <nav class="page-shell top-pages" aria-label="店舗情報のページ案内">
-        <a href="/about/"><span class="top-pages__label">ABOUT</span><span class="text-link__content"><span class="text-link__label">Bashiiin! coffeeについて</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>
-        <a href="/access/"><span class="top-pages__label">ACCESS</span><span class="text-link__content"><span class="text-link__label">所在地を確認する</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>
-        <a href="/contact/"><span class="top-pages__label">CONTACT</span><span class="text-link__content"><span class="text-link__label">お問い合わせ</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span></a>
+      <nav class="page-shell top-pages" aria-labelledby="site-guide-title">
+        <h2 id="site-guide-title">Bashiiin! coffeeを知る</h2>
+        <a href="/coffee/"><span class="top-pages__label">COFFEE</span><span class="text-link__content"><span class="text-link__label">スペシャルティコーヒーと豆のご案内</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span class="top-pages__description">スペシャルティコーヒーの特徴と、豆の最新情報の確認先を紹介。</span></a>
+        <a href="/about/"><span class="top-pages__label">ABOUT</span><span class="text-link__content"><span class="text-link__label">Bashiiin! coffeeについて</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span class="top-pages__description">店内やスイーツ、コーヒーを描いたアイテムを写真で紹介します。</span></a>
+        <a href="/access/"><span class="top-pages__label">ACCESS</span><span class="text-link__content"><span class="text-link__label">所在地を確認する</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span class="top-pages__description">やながわビル2Fの住所とGoogle Mapsの地図をご案内。</span></a>
+        <a href="/contact/"><span class="top-pages__label">CONTACT</span><span class="text-link__content"><span class="text-link__label">お問い合わせ</span><svg class="icon icon--arrow-right" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></span><span class="top-pages__description">3項目のお問い合わせフォーム。送信機能は現在準備中です。</span></a>
       </nav>
     </main>
 
