@@ -1,0 +1,2542 @@
+{
+  "results": [
+    {
+      "page": "top",
+      "width": 360,
+      "scrollWidth": 360,
+      "h1": "スペシャルティ\nコーヒーを、\n京都で。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/DSC_0052-1450.webp",
+          "loaded": true,
+          "width": 239,
+          "height": 220,
+          "naturalWidth": 332,
+          "naturalHeight": 220
+        },
+        {
+          "src": "/images/web/hero/coffee-packages-1206.webp",
+          "loaded": true,
+          "width": 239,
+          "height": 220,
+          "naturalWidth": 238,
+          "naturalHeight": 358
+        },
+        {
+          "src": "/images/web/journal/spoon-1206.webp",
+          "loaded": true,
+          "width": 239,
+          "height": 220,
+          "naturalWidth": 238,
+          "naturalHeight": 358
+        },
+        {
+          "src": "/images/web/journal/DSC_0132-1450.webp",
+          "loaded": true,
+          "width": 239,
+          "height": 220,
+          "naturalWidth": 332,
+          "naturalHeight": 220
+        },
+        {
+          "src": "/images/web/journal/coffee-pouring-1206.webp",
+          "loaded": true,
+          "width": 239,
+          "height": 220,
+          "naturalWidth": 332,
+          "naturalHeight": 220
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティ\nコーヒーを、\n京都で。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "Bashiiin! coffeeを知る",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": [
+        {
+          "href": "/coffee/",
+          "height": 102.1875,
+          "children": 2
+        },
+        {
+          "href": "/about/",
+          "height": 102.1875,
+          "children": 2
+        },
+        {
+          "href": "/access/",
+          "height": 102.1875,
+          "children": 2
+        },
+        {
+          "href": "/contact/",
+          "height": 103.1875,
+          "children": 2
+        }
+      ],
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed",
+      "gallery": "autoplay / pause / play / accessible loop passed"
+    },
+    {
+      "page": "about",
+      "width": 360,
+      "scrollWidth": 360,
+      "h1": "Bashiiin! coffeeについて",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/space/DSC_0030-1450.webp",
+          "loaded": true,
+          "width": 312,
+          "height": 207,
+          "naturalWidth": 312,
+          "naturalHeight": 206
+        },
+        {
+          "src": "/images/web/sweets/R0000476-1920.webp",
+          "loaded": true,
+          "width": 312,
+          "height": 208,
+          "naturalWidth": 312,
+          "naturalHeight": 208
+        },
+        {
+          "src": "/images/web/culture/DSC_0165-1450.webp",
+          "loaded": true,
+          "width": 312,
+          "height": 207,
+          "naturalWidth": 312,
+          "naturalHeight": 206
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "Bashiiin! coffeeについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "店内について",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "コーヒーに、\n甘いひとときを。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "Bashiiin!coffee グッズ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "coffee",
+      "width": 360,
+      "scrollWidth": 360,
+      "h1": "スペシャルティ\nコーヒーを、中心に。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/coffee/coffee-preparation-1206.webp",
+          "loaded": true,
+          "width": 312,
+          "height": 207,
+          "naturalWidth": 312,
+          "naturalHeight": 206
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティ\nコーヒーを、中心に。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "コーヒーのあるカウンター",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "スペシャルティコーヒーについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "豆の紹介を読むときに",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "20px",
+          "weight": "600",
+          "lineHeight": "30px",
+          "spacing": "0.64px"
+        },
+        {
+          "text": "コーヒー豆の最新情報",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "contact",
+      "width": 360,
+      "scrollWidth": 360,
+      "h1": "お問い合わせ",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "お問い合わせ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "form": {
+        "action": "/api/contact",
+        "ready": "false",
+        "disabled": true,
+        "key": "",
+        "fields": 3,
+        "turnstileScripts": 0,
+        "leads": 0
+      },
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "access",
+      "width": 360,
+      "scrollWidth": 360,
+      "h1": "アクセス",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/entrance-sign-1206.webp",
+          "loaded": true,
+          "width": 312,
+          "height": 468,
+          "naturalWidth": 312,
+          "naturalHeight": 467
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "アクセス",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "店舗所在地と地図",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "24px",
+          "weight": "500",
+          "lineHeight": "36px",
+          "spacing": "0.48px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "top",
+      "width": 390,
+      "scrollWidth": 390,
+      "h1": "スペシャルティ\nコーヒーを、\n京都で。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/DSC_0052-1450.webp",
+          "loaded": true,
+          "width": 259,
+          "height": 239,
+          "naturalWidth": 360,
+          "naturalHeight": 238
+        },
+        {
+          "src": "/images/web/hero/coffee-packages-1206.webp",
+          "loaded": true,
+          "width": 259,
+          "height": 239,
+          "naturalWidth": 258,
+          "naturalHeight": 387
+        },
+        {
+          "src": "/images/web/journal/spoon-1206.webp",
+          "loaded": true,
+          "width": 259,
+          "height": 239,
+          "naturalWidth": 258,
+          "naturalHeight": 387
+        },
+        {
+          "src": "/images/web/journal/DSC_0132-1450.webp",
+          "loaded": true,
+          "width": 259,
+          "height": 239,
+          "naturalWidth": 360,
+          "naturalHeight": 238
+        },
+        {
+          "src": "/images/web/journal/coffee-pouring-1206.webp",
+          "loaded": true,
+          "width": 259,
+          "height": 239,
+          "naturalWidth": 360,
+          "naturalHeight": 238
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティ\nコーヒーを、\n京都で。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "Bashiiin! coffeeを知る",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": [
+        {
+          "href": "/coffee/",
+          "height": 102.1875,
+          "children": 2
+        },
+        {
+          "href": "/about/",
+          "height": 102.1875,
+          "children": 2
+        },
+        {
+          "href": "/access/",
+          "height": 102.1875,
+          "children": 2
+        },
+        {
+          "href": "/contact/",
+          "height": 103.1875,
+          "children": 2
+        }
+      ],
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed",
+      "gallery": "autoplay / pause / play / accessible loop passed"
+    },
+    {
+      "page": "about",
+      "width": 390,
+      "scrollWidth": 390,
+      "h1": "Bashiiin! coffeeについて",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/space/DSC_0030-1450.webp",
+          "loaded": true,
+          "width": 342,
+          "height": 227,
+          "naturalWidth": 342,
+          "naturalHeight": 226
+        },
+        {
+          "src": "/images/web/sweets/R0000476-1920.webp",
+          "loaded": true,
+          "width": 342,
+          "height": 228,
+          "naturalWidth": 342,
+          "naturalHeight": 228
+        },
+        {
+          "src": "/images/web/culture/DSC_0165-1450.webp",
+          "loaded": true,
+          "width": 342,
+          "height": 227,
+          "naturalWidth": 342,
+          "naturalHeight": 226
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "Bashiiin! coffeeについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "店内について",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "コーヒーに、\n甘いひとときを。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "Bashiiin!coffee グッズ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "coffee",
+      "width": 390,
+      "scrollWidth": 390,
+      "h1": "スペシャルティ\nコーヒーを、中心に。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/coffee/coffee-preparation-1206.webp",
+          "loaded": true,
+          "width": 342,
+          "height": 227,
+          "naturalWidth": 342,
+          "naturalHeight": 226
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティ\nコーヒーを、中心に。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "コーヒーのあるカウンター",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "スペシャルティコーヒーについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "豆の紹介を読むときに",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "20px",
+          "weight": "600",
+          "lineHeight": "30px",
+          "spacing": "0.64px"
+        },
+        {
+          "text": "コーヒー豆の最新情報",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "contact",
+      "width": 390,
+      "scrollWidth": 390,
+      "h1": "お問い合わせ",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "お問い合わせ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "form": {
+        "action": "/api/contact",
+        "ready": "false",
+        "disabled": true,
+        "key": "",
+        "fields": 3,
+        "turnstileScripts": 0,
+        "leads": 0
+      },
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "access",
+      "width": 390,
+      "scrollWidth": 390,
+      "h1": "アクセス",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/entrance-sign-1206.webp",
+          "loaded": true,
+          "width": 342,
+          "height": 504,
+          "naturalWidth": 342,
+          "naturalHeight": 513
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "アクセス",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "店舗所在地と地図",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "24px",
+          "weight": "500",
+          "lineHeight": "36px",
+          "spacing": "0.48px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "top",
+      "width": 430,
+      "scrollWidth": 430,
+      "h1": "スペシャルティ\nコーヒーを、\n京都で。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/DSC_0052-1450.webp",
+          "loaded": true,
+          "width": 285,
+          "height": 258,
+          "naturalWidth": 390,
+          "naturalHeight": 258
+        },
+        {
+          "src": "/images/web/hero/coffee-packages-1206.webp",
+          "loaded": true,
+          "width": 285,
+          "height": 258,
+          "naturalWidth": 285,
+          "naturalHeight": 427
+        },
+        {
+          "src": "/images/web/journal/spoon-1206.webp",
+          "loaded": true,
+          "width": 285,
+          "height": 258,
+          "naturalWidth": 285,
+          "naturalHeight": 427
+        },
+        {
+          "src": "/images/web/journal/DSC_0132-1450.webp",
+          "loaded": true,
+          "width": 285,
+          "height": 258,
+          "naturalWidth": 390,
+          "naturalHeight": 258
+        },
+        {
+          "src": "/images/web/journal/coffee-pouring-1206.webp",
+          "loaded": true,
+          "width": 285,
+          "height": 258,
+          "naturalWidth": 390,
+          "naturalHeight": 258
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティ\nコーヒーを、\n京都で。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "Bashiiin! coffeeを知る",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": [
+        {
+          "href": "/coffee/",
+          "height": 102.1875,
+          "children": 2
+        },
+        {
+          "href": "/about/",
+          "height": 102.1875,
+          "children": 2
+        },
+        {
+          "href": "/access/",
+          "height": 102.1875,
+          "children": 2
+        },
+        {
+          "href": "/contact/",
+          "height": 103.1875,
+          "children": 2
+        }
+      ],
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed",
+      "gallery": "autoplay / pause / play / accessible loop passed"
+    },
+    {
+      "page": "about",
+      "width": 430,
+      "scrollWidth": 430,
+      "h1": "Bashiiin! coffeeについて",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/space/DSC_0030-1450.webp",
+          "loaded": true,
+          "width": 382,
+          "height": 253,
+          "naturalWidth": 382,
+          "naturalHeight": 253
+        },
+        {
+          "src": "/images/web/sweets/R0000476-1920.webp",
+          "loaded": true,
+          "width": 382,
+          "height": 255,
+          "naturalWidth": 382,
+          "naturalHeight": 254
+        },
+        {
+          "src": "/images/web/culture/DSC_0165-1450.webp",
+          "loaded": true,
+          "width": 382,
+          "height": 253,
+          "naturalWidth": 382,
+          "naturalHeight": 253
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "Bashiiin! coffeeについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "店内について",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "コーヒーに、\n甘いひとときを。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "Bashiiin!coffee グッズ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "coffee",
+      "width": 430,
+      "scrollWidth": 430,
+      "h1": "スペシャルティ\nコーヒーを、中心に。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/coffee/coffee-preparation-1206.webp",
+          "loaded": true,
+          "width": 382,
+          "height": 253,
+          "naturalWidth": 382,
+          "naturalHeight": 253
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティ\nコーヒーを、中心に。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "コーヒーのあるカウンター",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "スペシャルティコーヒーについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        },
+        {
+          "text": "豆の紹介を読むときに",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "20px",
+          "weight": "600",
+          "lineHeight": "30px",
+          "spacing": "0.64px"
+        },
+        {
+          "text": "コーヒー豆の最新情報",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "26px",
+          "weight": "500",
+          "lineHeight": "39px",
+          "spacing": "0.52px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "contact",
+      "width": 430,
+      "scrollWidth": 430,
+      "h1": "お問い合わせ",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "お問い合わせ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "form": {
+        "action": "/api/contact",
+        "ready": "false",
+        "disabled": true,
+        "key": "",
+        "fields": 3,
+        "turnstileScripts": 0,
+        "leads": 0
+      },
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "access",
+      "width": 430,
+      "scrollWidth": 430,
+      "h1": "アクセス",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/entrance-sign-1206.webp",
+          "loaded": true,
+          "width": 382,
+          "height": 504,
+          "naturalWidth": 382,
+          "naturalHeight": 573
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "アクセス",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "47.6px",
+          "spacing": "0.34px"
+        },
+        {
+          "text": "店舗所在地と地図",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "24px",
+          "weight": "500",
+          "lineHeight": "36px",
+          "spacing": "0.48px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "top",
+      "width": 768,
+      "scrollWidth": 768,
+      "h1": "スペシャルティコーヒーを、\n京都で。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/DSC_0052-1450.webp",
+          "loaded": true,
+          "width": 459,
+          "height": 304,
+          "naturalWidth": 460,
+          "naturalHeight": 304
+        },
+        {
+          "src": "/images/web/hero/coffee-packages-1206.webp",
+          "loaded": true,
+          "width": 272,
+          "height": 304,
+          "naturalWidth": 272,
+          "naturalHeight": 408
+        },
+        {
+          "src": "/images/web/journal/spoon-1206.webp",
+          "loaded": true,
+          "width": 272,
+          "height": 304,
+          "naturalWidth": 272,
+          "naturalHeight": 408
+        },
+        {
+          "src": "/images/web/journal/DSC_0132-1450.webp",
+          "loaded": true,
+          "width": 459,
+          "height": 304,
+          "naturalWidth": 460,
+          "naturalHeight": 304
+        },
+        {
+          "src": "/images/web/journal/coffee-pouring-1206.webp",
+          "loaded": true,
+          "width": 459,
+          "height": 304,
+          "naturalWidth": 460,
+          "naturalHeight": 304
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティコーヒーを、\n京都で。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "44px",
+          "weight": "500",
+          "lineHeight": "61.6px",
+          "spacing": "0.44px"
+        },
+        {
+          "text": "Bashiiin! coffeeを知る",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": [
+        {
+          "href": "/coffee/",
+          "height": 80,
+          "children": 2
+        },
+        {
+          "href": "/about/",
+          "height": 80,
+          "children": 2
+        },
+        {
+          "href": "/access/",
+          "height": 80,
+          "children": 2
+        },
+        {
+          "href": "/contact/",
+          "height": 80,
+          "children": 2
+        }
+      ],
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed",
+      "gallery": "autoplay / pause / play / accessible loop passed"
+    },
+    {
+      "page": "about",
+      "width": 768,
+      "scrollWidth": 768,
+      "h1": "Bashiiin! coffeeについて",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/space/DSC_0030-1450.webp",
+          "loaded": true,
+          "width": 704,
+          "height": 466,
+          "naturalWidth": 704,
+          "naturalHeight": 466
+        },
+        {
+          "src": "/images/web/sweets/R0000476-1920.webp",
+          "loaded": true,
+          "width": 704,
+          "height": 469,
+          "naturalWidth": 704,
+          "naturalHeight": 469
+        },
+        {
+          "src": "/images/web/culture/DSC_0165-1450.webp",
+          "loaded": true,
+          "width": 704,
+          "height": 466,
+          "naturalWidth": 704,
+          "naturalHeight": 466
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "Bashiiin! coffeeについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "44px",
+          "weight": "500",
+          "lineHeight": "61.6px",
+          "spacing": "0.44px"
+        },
+        {
+          "text": "店内について",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        },
+        {
+          "text": "コーヒーに、\n甘いひとときを。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        },
+        {
+          "text": "Bashiiin!coffee グッズ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "coffee",
+      "width": 768,
+      "scrollWidth": 768,
+      "h1": "スペシャルティ\nコーヒーを、中心に。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/coffee/coffee-preparation-1206.webp",
+          "loaded": true,
+          "width": 704,
+          "height": 466,
+          "naturalWidth": 704,
+          "naturalHeight": 465
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティ\nコーヒーを、中心に。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "44px",
+          "weight": "500",
+          "lineHeight": "61.6px",
+          "spacing": "0.44px"
+        },
+        {
+          "text": "コーヒーのあるカウンター",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        },
+        {
+          "text": "スペシャルティコーヒーについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        },
+        {
+          "text": "豆の紹介を読むときに",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "20px",
+          "weight": "600",
+          "lineHeight": "30px",
+          "spacing": "0.64px"
+        },
+        {
+          "text": "コーヒー豆の最新情報",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "contact",
+      "width": 768,
+      "scrollWidth": 768,
+      "h1": "お問い合わせ",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "お問い合わせ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "44px",
+          "weight": "500",
+          "lineHeight": "61.6px",
+          "spacing": "0.44px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "form": {
+        "action": "/api/contact",
+        "ready": "false",
+        "disabled": true,
+        "key": "",
+        "fields": 3,
+        "turnstileScripts": 0,
+        "leads": 0
+      },
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "access",
+      "width": 768,
+      "scrollWidth": 768,
+      "h1": "アクセス",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/entrance-sign-1206.webp",
+          "loaded": true,
+          "width": 220,
+          "height": 330,
+          "naturalWidth": 220,
+          "naturalHeight": 330
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "アクセス",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "44px",
+          "weight": "500",
+          "lineHeight": "61.6px",
+          "spacing": "0.44px"
+        },
+        {
+          "text": "店舗所在地と地図",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "24px",
+          "weight": "500",
+          "lineHeight": "36px",
+          "spacing": "0.48px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "top",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "h1": "スペシャルティコーヒーを、\n京都で。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/DSC_0052-1450.webp",
+          "loaded": true,
+          "width": 459,
+          "height": 304,
+          "naturalWidth": 460,
+          "naturalHeight": 304
+        },
+        {
+          "src": "/images/web/hero/coffee-packages-1206.webp",
+          "loaded": true,
+          "width": 272,
+          "height": 304,
+          "naturalWidth": 272,
+          "naturalHeight": 408
+        },
+        {
+          "src": "/images/web/journal/spoon-1206.webp",
+          "loaded": true,
+          "width": 272,
+          "height": 304,
+          "naturalWidth": 272,
+          "naturalHeight": 408
+        },
+        {
+          "src": "/images/web/journal/DSC_0132-1450.webp",
+          "loaded": true,
+          "width": 459,
+          "height": 304,
+          "naturalWidth": 460,
+          "naturalHeight": 304
+        },
+        {
+          "src": "/images/web/journal/coffee-pouring-1206.webp",
+          "loaded": true,
+          "width": 459,
+          "height": 304,
+          "naturalWidth": 460,
+          "naturalHeight": 304
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティコーヒーを、\n京都で。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "44px",
+          "weight": "500",
+          "lineHeight": "61.6px",
+          "spacing": "0.44px"
+        },
+        {
+          "text": "Bashiiin! coffeeを知る",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": [
+        {
+          "href": "/coffee/",
+          "height": 80,
+          "children": 2
+        },
+        {
+          "href": "/about/",
+          "height": 80,
+          "children": 2
+        },
+        {
+          "href": "/access/",
+          "height": 80,
+          "children": 2
+        },
+        {
+          "href": "/contact/",
+          "height": 80,
+          "children": 2
+        }
+      ],
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed",
+      "gallery": "autoplay / pause / play / accessible loop passed"
+    },
+    {
+      "page": "about",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "h1": "Bashiiin! coffeeについて",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/space/DSC_0030-1450.webp",
+          "loaded": true,
+          "width": 928,
+          "height": 614,
+          "naturalWidth": 928,
+          "naturalHeight": 614
+        },
+        {
+          "src": "/images/web/sweets/R0000476-1920.webp",
+          "loaded": true,
+          "width": 928,
+          "height": 504,
+          "naturalWidth": 928,
+          "naturalHeight": 618
+        },
+        {
+          "src": "/images/web/culture/DSC_0165-1450.webp",
+          "loaded": true,
+          "width": 928,
+          "height": 504,
+          "naturalWidth": 928,
+          "naturalHeight": 614
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "Bashiiin! coffeeについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "44px",
+          "weight": "500",
+          "lineHeight": "61.6px",
+          "spacing": "0.44px"
+        },
+        {
+          "text": "店内について",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        },
+        {
+          "text": "コーヒーに、\n甘いひとときを。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        },
+        {
+          "text": "Bashiiin!coffee グッズ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "coffee",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "h1": "スペシャルティ\nコーヒーを、中心に。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/coffee/coffee-preparation-1206.webp",
+          "loaded": true,
+          "width": 928,
+          "height": 504,
+          "naturalWidth": 928,
+          "naturalHeight": 614
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティ\nコーヒーを、中心に。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "44px",
+          "weight": "500",
+          "lineHeight": "61.6px",
+          "spacing": "0.44px"
+        },
+        {
+          "text": "コーヒーのあるカウンター",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        },
+        {
+          "text": "スペシャルティコーヒーについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        },
+        {
+          "text": "豆の紹介を読むときに",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "20px",
+          "weight": "600",
+          "lineHeight": "30px",
+          "spacing": "0.64px"
+        },
+        {
+          "text": "コーヒー豆の最新情報",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "30px",
+          "weight": "500",
+          "lineHeight": "45px",
+          "spacing": "0.6px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "contact",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "h1": "お問い合わせ",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "お問い合わせ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "44px",
+          "weight": "500",
+          "lineHeight": "61.6px",
+          "spacing": "0.44px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "form": {
+        "action": "/api/contact",
+        "ready": "false",
+        "disabled": true,
+        "key": "",
+        "fields": 3,
+        "turnstileScripts": 0,
+        "leads": 0
+      },
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "access",
+      "width": 1024,
+      "scrollWidth": 1024,
+      "h1": "アクセス",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 156,
+          "height": 41,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/entrance-sign-1206.webp",
+          "loaded": true,
+          "width": 220,
+          "height": 330,
+          "naturalWidth": 220,
+          "naturalHeight": 330
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "アクセス",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "44px",
+          "weight": "500",
+          "lineHeight": "61.6px",
+          "spacing": "0.44px"
+        },
+        {
+          "text": "店舗所在地と地図",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "24px",
+          "weight": "500",
+          "lineHeight": "36px",
+          "spacing": "0.48px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "mobileMenu": "open / Escape / focus return passed"
+    },
+    {
+      "page": "top",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "h1": "スペシャルティコーヒーを、京都で。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/DSC_0052-1450.webp",
+          "loaded": true,
+          "width": 508,
+          "height": 336,
+          "naturalWidth": 508,
+          "naturalHeight": 336
+        },
+        {
+          "src": "/images/web/hero/coffee-packages-1206.webp",
+          "loaded": true,
+          "width": 288,
+          "height": 336,
+          "naturalWidth": 288,
+          "naturalHeight": 432
+        },
+        {
+          "src": "/images/web/journal/spoon-1206.webp",
+          "loaded": true,
+          "width": 288,
+          "height": 336,
+          "naturalWidth": 288,
+          "naturalHeight": 432
+        },
+        {
+          "src": "/images/web/journal/DSC_0132-1450.webp",
+          "loaded": true,
+          "width": 508,
+          "height": 336,
+          "naturalWidth": 508,
+          "naturalHeight": 336
+        },
+        {
+          "src": "/images/web/journal/coffee-pouring-1206.webp",
+          "loaded": true,
+          "width": 508,
+          "height": 336,
+          "naturalWidth": 508,
+          "naturalHeight": 335
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティコーヒーを、京都で。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "56px",
+          "weight": "500",
+          "lineHeight": "78.4px",
+          "spacing": "0.56px"
+        },
+        {
+          "text": "Bashiiin! coffeeを知る",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "51px",
+          "spacing": "0.68px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": [
+        {
+          "href": "/coffee/",
+          "height": 80,
+          "children": 2
+        },
+        {
+          "href": "/about/",
+          "height": 80,
+          "children": 2
+        },
+        {
+          "href": "/access/",
+          "height": 80,
+          "children": 2
+        },
+        {
+          "href": "/contact/",
+          "height": 80,
+          "children": 2
+        }
+      ],
+      "emptyContainers": [],
+      "gallery": "autoplay / pause / play / accessible loop passed"
+    },
+    {
+      "page": "about",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "h1": "Bashiiin! coffeeについて",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/space/DSC_0030-1450.webp",
+          "loaded": true,
+          "width": 1152,
+          "height": 763,
+          "naturalWidth": 1152,
+          "naturalHeight": 762
+        },
+        {
+          "src": "/images/web/sweets/R0000476-1920.webp",
+          "loaded": true,
+          "width": 554,
+          "height": 369,
+          "naturalWidth": 554,
+          "naturalHeight": 369
+        },
+        {
+          "src": "/images/web/culture/DSC_0165-1450.webp",
+          "loaded": true,
+          "width": 1152,
+          "height": 504,
+          "naturalWidth": 1152,
+          "naturalHeight": 762
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "Bashiiin! coffeeについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "56px",
+          "weight": "500",
+          "lineHeight": "78.4px",
+          "spacing": "0.56px"
+        },
+        {
+          "text": "店内について",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "51px",
+          "spacing": "0.68px"
+        },
+        {
+          "text": "コーヒーに、\n甘いひとときを。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "51px",
+          "spacing": "0.68px"
+        },
+        {
+          "text": "Bashiiin!coffee グッズ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "51px",
+          "spacing": "0.68px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": []
+    },
+    {
+      "page": "coffee",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "h1": "スペシャルティ\nコーヒーを、中心に。",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/coffee/coffee-preparation-1206.webp",
+          "loaded": true,
+          "width": 1152,
+          "height": 504,
+          "naturalWidth": 1152,
+          "naturalHeight": 762
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "スペシャルティ\nコーヒーを、中心に。",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "56px",
+          "weight": "500",
+          "lineHeight": "78.4px",
+          "spacing": "0.56px"
+        },
+        {
+          "text": "コーヒーのあるカウンター",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "51px",
+          "spacing": "0.68px"
+        },
+        {
+          "text": "スペシャルティコーヒーについて",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "51px",
+          "spacing": "0.68px"
+        },
+        {
+          "text": "豆の紹介を読むときに",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "20px",
+          "weight": "600",
+          "lineHeight": "30px",
+          "spacing": "0.64px"
+        },
+        {
+          "text": "コーヒー豆の最新情報",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "34px",
+          "weight": "500",
+          "lineHeight": "51px",
+          "spacing": "0.68px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": []
+    },
+    {
+      "page": "contact",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "h1": "お問い合わせ",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "お問い合わせ",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "56px",
+          "weight": "500",
+          "lineHeight": "78.4px",
+          "spacing": "0.56px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": [],
+      "form": {
+        "action": "/api/contact",
+        "ready": "false",
+        "disabled": true,
+        "key": "",
+        "fields": 3,
+        "turnstileScripts": 0,
+        "leads": 0
+      }
+    },
+    {
+      "page": "access",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "h1": "アクセス",
+      "h1Count": 1,
+      "footerLinks": [
+        "/",
+        "/about/",
+        "/coffee/",
+        "/contact/",
+        "/access/"
+      ],
+      "images": [
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        },
+        {
+          "src": "/images/web/hero/entrance-sign-1206.webp",
+          "loaded": true,
+          "width": 220,
+          "height": 330,
+          "naturalWidth": 220,
+          "naturalHeight": 330
+        },
+        {
+          "src": "/images/web/logo-header.png",
+          "loaded": true,
+          "width": 180,
+          "height": 47,
+          "naturalWidth": 400,
+          "naturalHeight": 104
+        }
+      ],
+      "headings": [
+        {
+          "text": "アクセス",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "56px",
+          "weight": "500",
+          "lineHeight": "78.4px",
+          "spacing": "0.56px"
+        },
+        {
+          "text": "店舗所在地と地図",
+          "font": "\"Hiragino Sans\", \"Noto Sans JP\", \"Hiragino Kaku Gothic ProN\", \"Yu Gothic\", YuGothic, system-ui, sans-serif",
+          "size": "24px",
+          "weight": "500",
+          "lineHeight": "36px",
+          "spacing": "0.48px"
+        }
+      ],
+      "textOverflow": [],
+      "cls": 0,
+      "robots": "noindex, nofollow, noarchive",
+      "guide": null,
+      "emptyContainers": []
+    }
+  ],
+  "reducedMotion": "passed",
+  "noJsNavigation": "passed",
+  "errors": [],
+  "badResponses": [],
+  "failedRequests": []
+}

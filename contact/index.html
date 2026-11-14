@@ -94,13 +94,12 @@
             <p class="eyebrow">CONTACT</p>
             <h1 id="contact-title">お問い合わせ</h1>
             <div class="page-intro__lead content-copy">
-              <p>入力項目は、お名前・<span class="copy-phrase">メール</span><span class="copy-phrase">アドレス・</span>お問い合わせ内容の3つです。<br class="copy-break--desktop">現在、お問い合わせフォームの送信機能は<span class="copy-phrase">準備中です。</span></p>
               <p>営業日・営業時間の最新情報は<a href="https://www.instagram.com/bashiiin_coffee/" target="_blank" rel="noopener noreferrer">公式Instagram<span class="sr-only">（@bashiiin_coffee、新しいタブで開きます）</span></a>でご案内しています。ご来店前の住所・建物名・地図は、<a href="/access/">ACCESSページ</a>をご覧ください。</p>
             </div>
           </div>
           <!-- 公開前にWorker・Siteverify・実メール到達を検証してから送信を有効化する。 -->
           <form id="contact-form" class="contact__form" action="/api/contact" method="post" data-endpoint-ready="false" data-state="initial" aria-describedby="contact-purpose contact-status">
-            <p id="contact-status" class="contact__status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1">現在、送信機能は準備中です。</p>
+            <p id="contact-status" class="contact__status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
             <div class="contact__field">
               <label for="contact-name">お名前 <span>（必須）</span></label>
               <input id="contact-name" name="name" type="text" autocomplete="name" required maxlength="100" aria-describedby="contact-name-error">
@@ -129,7 +128,6 @@
       <div class="page-shell footer__inner">
         <div class="footer__identity">
           <img class="footer__logo" src="/images/web/logo-header.png" alt="Bashiiin! coffee" width="400" height="104" loading="lazy" decoding="async">
-          <address class="footer__address">京都府京都市下京区市之町239-1<br>やながわビル2F</address>
         </div>
         <nav class="footer__nav" aria-label="フッターナビゲーション">
           <a href="/">TOP</a>

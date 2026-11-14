@@ -10,9 +10,7 @@ const env = { STAGING_TURNSTILE_SITE_KEY: '1x00000000000000000000AA' };
 const source = sourceInventory();
 function fixture(run) {
   const root = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'bashiiin-staging-test-')));
-  const map = fs.readFileSync(path.join(ROOT, 'docs/asset-map.md'), 'utf8');
-  const originals = map.split('\n').filter(row => row.includes('使用中／')).map(row => 'images/formal ver/' + [...row.matchAll(/`([^`]+)`/g)][3][1]);
-  for (const file of new Set([...source.files, ...originals, 'scripts/public-files.json', 'docs/asset-map.md', 'wrangler.jsonc', 'wrangler.staging.jsonc'])) {
+  for (const file of new Set([...source.files, 'scripts/public-files.json', 'scripts/asset-integrity.json', 'docs/asset-map.md', 'wrangler.jsonc', 'wrangler.staging.jsonc'])) {
     fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true });
     fs.copyFileSync(path.join(ROOT, file), path.join(root, file));
   }

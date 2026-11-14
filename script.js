@@ -462,7 +462,6 @@
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const revealGroups = [
-    "#latest-info .copy-block, #latest-info .photo-frame",
     "#coffee .photo-frame, #coffee .copy-block",
     "#pudding .copy-block, #pudding .photo-frame",
     "#space .photo-frame, #space .copy-block",

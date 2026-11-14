@@ -1,0 +1,490 @@
+{
+  "date": "2026-11-15",
+  "branch": "formal-production",
+  "baselineHead": "95468695bf0014ae9a8f5b3e2805d8316483ceee",
+  "implementation": {
+    "deliveryIntegrityManifest": "scripts/asset-integrity.json",
+    "deliveryImages": 32,
+    "optionalOriginalAbsenceOnly": "ENOENT",
+    "strictOriginalAudit": "node scripts/build-static.mjs --verify-originals"
+  },
+  "cleanEnvironment": {
+    "copied": "existing Git-tracked files plus explicit A_commit candidates; no untracked originals or existing node_modules/dist",
+    "node": "v22.17.0",
+    "installCommand": "npm ci --ignore-scripts --no-audit --no-fund --cache <temporary cache>",
+    "installedPackages": 41,
+    "build": "PASS",
+    "verifyDist": "PASS",
+    "tests": {
+      "tests": 367,
+      "pass": 367,
+      "fail": 0,
+      "skipped": 0
+    },
+    "activeOriginalsPresent": 0,
+    "strictAuditWithMissingOriginals": "rejected as designed"
+  },
+  "workingEnvironment": {
+    "build": "PASS",
+    "verifyDist": "PASS",
+    "tests": {
+      "tests": 367,
+      "pass": 367,
+      "fail": 0,
+      "skipped": 0
+    },
+    "strictOriginalAudit": "PASS",
+    "allLocalOriginalFilesUnchanged": true
+  },
+  "delivery": {
+    "count": 40,
+    "allBytesMatchPreChangeBaseline": true,
+    "forbiddenPaths": [],
+    "files": [
+      {
+        "file": "index.html",
+        "bytes": 14854,
+        "sha256": "ac8b8f207509277fce54476d213db04ba168afb4e9c6a1e65199de5d790c5e0f"
+      },
+      {
+        "file": "404.html",
+        "bytes": 1313,
+        "sha256": "a3adbf27385a0dcb9fa0593e383a958269cacc1708fe14a3ed837e2833e1d328"
+      },
+      {
+        "file": "about/index.html",
+        "bytes": 14237,
+        "sha256": "6bd102ee1c2387c9688fe23a7a5691756dc6cd31ec14e07ad36a121ab9a611d7"
+      },
+      {
+        "file": "coffee/index.html",
+        "bytes": 15841,
+        "sha256": "d043c0a519871f215924572819fba102924c49b539cdfc2de9bd4312d5847aed"
+      },
+      {
+        "file": "contact/index.html",
+        "bytes": 10509,
+        "sha256": "baa4e1e93a0288d2ada38b38b5615554db1b36908b90bee51481d43e7a6879f2"
+      },
+      {
+        "file": "access/index.html",
+        "bytes": 10594,
+        "sha256": "4f13ad994778d79aa0c3e83e7d38455973ed2e3410cc863cf022e1f93b990645"
+      },
+      {
+        "file": "styles.css",
+        "bytes": 50397,
+        "sha256": "5d3081469b51af5c0c38720542a14ece8efb64d5bd11fce05e30fc77257aecea"
+      },
+      {
+        "file": "script.js",
+        "bytes": 23550,
+        "sha256": "64011f6c64221742de386a6ac5506d7650775bdd08a1b7ffe2a176af3f4c740d"
+      },
+      {
+        "file": "images/web/coffee/coffee-preparation-1206.webp",
+        "bytes": 72940,
+        "sha256": "ea5096ea05f9151f54f6f19edfa81170426fff883dfd2ec980c003b73c0df3e2"
+      },
+      {
+        "file": "images/web/coffee/coffee-preparation-400.webp",
+        "bytes": 16272,
+        "sha256": "5e79cc6cc90facc98137f2820534e38c89711573e8d4e953060e10c9eee4b433"
+      },
+      {
+        "file": "images/web/coffee/coffee-preparation-800.webp",
+        "bytes": 40776,
+        "sha256": "0b528abb7c0ed4f4e360ed57d93a7ed5b20926ce5c56c30eb7967346b350ab9f"
+      },
+      {
+        "file": "images/web/culture/DSC_0165-1450.webp",
+        "bytes": 117082,
+        "sha256": "1a11b29071ec03ab7f71d5f0c258c49655418f897336cc42560fb39492227ca5"
+      },
+      {
+        "file": "images/web/culture/DSC_0165-400.webp",
+        "bytes": 12590,
+        "sha256": "3424ea38ab2b3579713d19c7942d336d27f576ed5032668be9a75b85a80d0020"
+      },
+      {
+        "file": "images/web/culture/DSC_0165-800.webp",
+        "bytes": 37090,
+        "sha256": "8b62fc14aa5ff6a415679ce5141bf1df0a1eb11560755406e17d632d439c5e6f"
+      },
+      {
+        "file": "images/web/favicon-square.png",
+        "bytes": 3379,
+        "sha256": "6bb22e610a08a1121614a4acf81b2f002d6ca59d76479c9d223a1985c62bf0b9"
+      },
+      {
+        "file": "images/web/hero/DSC_0052-1450.webp",
+        "bytes": 128992,
+        "sha256": "10c6100da509869a7478f4a3d81ea687288ddd7815b86b96b6189aac0ad69454"
+      },
+      {
+        "file": "images/web/hero/DSC_0052-400.webp",
+        "bytes": 10942,
+        "sha256": "463b1b65140bfda05f159e0aa8ac43dede6968dbc2230f30de887a1259cf8c77"
+      },
+      {
+        "file": "images/web/hero/DSC_0052-800.webp",
+        "bytes": 27592,
+        "sha256": "62e8a2f74d071545e7a32b09ae8a1a42b3d224ee6b860753de8ff9e8df2bd2cd"
+      },
+      {
+        "file": "images/web/hero/coffee-packages-1206.webp",
+        "bytes": 99688,
+        "sha256": "cf92f7f1461228e988d7b5e83fbb5ad76bd37491a95edc751f354f78de13f74d"
+      },
+      {
+        "file": "images/web/hero/coffee-packages-400.webp",
+        "bytes": 19566,
+        "sha256": "58a03b50b8d9d835e6afd9b7b8f78369e7218e30e4bd026146aa49edb9e70a52"
+      },
+      {
+        "file": "images/web/hero/coffee-packages-800.webp",
+        "bytes": 51408,
+        "sha256": "f668ee3cbe0570b8071b5c122798dab1662ad1d81aae002f9027f00d461b52fb"
+      },
+      {
+        "file": "images/web/hero/entrance-sign-1206.webp",
+        "bytes": 93774,
+        "sha256": "7b9a5b565e02340f49288368e670960bb9c7d82fd29103fbf83a8a3dd5a0618e"
+      },
+      {
+        "file": "images/web/hero/entrance-sign-400.webp",
+        "bytes": 20700,
+        "sha256": "f76f7883a9e0c789342d63ac803c5cccb57630ff125dd617fbb48ce634ed9bd9"
+      },
+      {
+        "file": "images/web/hero/entrance-sign-800.webp",
+        "bytes": 53132,
+        "sha256": "47fc5b15de362bc706205d9f607d32087761fb6eda0cce002dbb7e472b89a4a3"
+      },
+      {
+        "file": "images/web/journal/DSC_0132-1450.webp",
+        "bytes": 161730,
+        "sha256": "b73351144d4ee0662fc4668b6c7052427b3d8f7a553b3ed15752a4d5910f0e21"
+      },
+      {
+        "file": "images/web/journal/DSC_0132-400.webp",
+        "bytes": 9908,
+        "sha256": "0f1de82a5a86bf59af77c778b80b6bf4b67c5d4d5c82bf4ca652745bb58d847a"
+      },
+      {
+        "file": "images/web/journal/DSC_0132-800.webp",
+        "bytes": 26948,
+        "sha256": "a0ea0a1f3269a81b251bb39889642d425ff6d8090fc678c653fdf7e74f84727b"
+      },
+      {
+        "file": "images/web/journal/coffee-pouring-1206.webp",
+        "bytes": 56830,
+        "sha256": "11db6ad38c0f1c2c7359fd2ceddf8fcbdeed9f29ac2c425c6c372511b359aa2e"
+      },
+      {
+        "file": "images/web/journal/coffee-pouring-400.webp",
+        "bytes": 12892,
+        "sha256": "1c9c0f329604ec59c4b5b1ff33050ea2156a1efd3a5d70508c3a5d7010084dbf"
+      },
+      {
+        "file": "images/web/journal/coffee-pouring-800.webp",
+        "bytes": 30892,
+        "sha256": "9656d05322a90bebec043e5ba4d62a9c73eb7a0624398b4629f3190ee95fa224"
+      },
+      {
+        "file": "images/web/journal/spoon-1206.webp",
+        "bytes": 139916,
+        "sha256": "17dd3f9662d9cf8d296a1ffa890af5c7b6e95d16c6bd690a787ed5f564e43d4c"
+      },
+      {
+        "file": "images/web/journal/spoon-400.webp",
+        "bytes": 28126,
+        "sha256": "2a45b5b70f369cd516ab945b7588a1f8eac06c2611f4f75f255f13b382d1f4f1"
+      },
+      {
+        "file": "images/web/journal/spoon-800.webp",
+        "bytes": 76498,
+        "sha256": "0b9ff6ab8939c30fc0fdcfc499cdf470d42f023d2e23c580f70753fca3753afd"
+      },
+      {
+        "file": "images/web/logo-header.png",
+        "bytes": 20842,
+        "sha256": "8b906c2463522ac765433fb9f5158937d508dcf64aeea1a76aeb0a3079793248"
+      },
+      {
+        "file": "images/web/space/DSC_0030-1450.webp",
+        "bytes": 238360,
+        "sha256": "e6d80c893972405034f33e9b92437ac86894e9c41b854c874d5eb4e24253fe5d"
+      },
+      {
+        "file": "images/web/space/DSC_0030-400.webp",
+        "bytes": 17692,
+        "sha256": "0f97de5ae2c46d9a89f90a552c701d26d8b9f5e92b6dd78391870d3db4216031"
+      },
+      {
+        "file": "images/web/space/DSC_0030-800.webp",
+        "bytes": 59968,
+        "sha256": "8a34c7579f2600962795dcc6efbb7ad2f7e943e77fd278a91ad6a20f41329a39"
+      },
+      {
+        "file": "images/web/sweets/R0000476-1920.webp",
+        "bytes": 198832,
+        "sha256": "fcf712bb12f0db69b2d177bd07fed4b4c0b03f9f1282b6c088845df2b0d5aede"
+      },
+      {
+        "file": "images/web/sweets/R0000476-400.webp",
+        "bytes": 10660,
+        "sha256": "b9ec97330dbd29a61774fc822feb336015051338d20b7a0917c96e0629f8f2b7"
+      },
+      {
+        "file": "images/web/sweets/R0000476-800.webp",
+        "bytes": 27094,
+        "sha256": "28d2f0ad718a96a4574fe0701b733b16f807843733294da77022fc02bb9222b3"
+      }
+    ]
+  },
+  "sourceOriginals": [
+    {
+      "file": "images/formal ver/DSC_0052.webp",
+      "usage": "TOP / HERO 1",
+      "expectedSha256": "07507bab2cd14abd241b538e6cbffd83bc4dedc9ba146a99c5c54d957eb0ad5a",
+      "deliveryFiles": [
+        "images/web/hero/DSC_0052-400.webp",
+        "images/web/hero/DSC_0052-800.webp",
+        "images/web/hero/DSC_0052-1450.webp"
+      ],
+      "absentInClean": true,
+      "localOriginalUnchanged": true
+    },
+    {
+      "file": "images/formal ver/829940080_1786515612391095_3237499876071483915_n.webp",
+      "usage": "TOP / HERO 2",
+      "expectedSha256": "fa4c53c02a01fa59bf34cdbc2792c2610f2742376b6920c2cb1bd038b804d45a",
+      "deliveryFiles": [
+        "images/web/hero/coffee-packages-400.webp",
+        "images/web/hero/coffee-packages-800.webp",
+        "images/web/hero/coffee-packages-1206.webp"
+      ],
+      "absentInClean": true,
+      "localOriginalUnchanged": true
+    },
+    {
+      "file": "images/formal ver/830324349_4550763371904964_7100813407432157579_n.webp",
+      "usage": "TOP / HERO 3",
+      "expectedSha256": "ce0d341a89a895ad9a709a006fa0218eb3c503d12f21be095a9b09a432fdc2af",
+      "deliveryFiles": [
+        "images/web/journal/spoon-400.webp",
+        "images/web/journal/spoon-800.webp",
+        "images/web/journal/spoon-1206.webp"
+      ],
+      "absentInClean": true,
+      "localOriginalUnchanged": true
+    },
+    {
+      "file": "images/formal ver/DSC_0132.webp",
+      "usage": "TOP / HERO 4",
+      "expectedSha256": "5a72bf5c5642d9bb8ef99ddc4f8657f37e535c1e19bbb0e7623d669ddd4319fa",
+      "deliveryFiles": [
+        "images/web/journal/DSC_0132-400.webp",
+        "images/web/journal/DSC_0132-800.webp",
+        "images/web/journal/DSC_0132-1450.webp"
+      ],
+      "absentInClean": true,
+      "localOriginalUnchanged": true
+    },
+    {
+      "file": "images/formal ver/833135303_1893980718650582_7245257760060958267_n.webp",
+      "usage": "TOP / HERO 5",
+      "expectedSha256": "abdbddc69ac46e578ec637230ce2eba1aa8936aed8073cd9f312b83b9b9fa115",
+      "deliveryFiles": [
+        "images/web/journal/coffee-pouring-400.webp",
+        "images/web/journal/coffee-pouring-800.webp",
+        "images/web/journal/coffee-pouring-1206.webp"
+      ],
+      "absentInClean": true,
+      "localOriginalUnchanged": true
+    },
+    {
+      "file": "images/formal ver/DSC_0030.jpeg",
+      "usage": "ABOUT / SPACE",
+      "expectedSha256": "f254b238e0be41618d00e9082101f81c183bc2a1b5170f0932ac14d8fa279114",
+      "deliveryFiles": [
+        "images/web/space/DSC_0030-400.webp",
+        "images/web/space/DSC_0030-800.webp",
+        "images/web/space/DSC_0030-1450.webp"
+      ],
+      "absentInClean": true,
+      "localOriginalUnchanged": true
+    },
+    {
+      "file": "images/formal ver/R0000476.webp",
+      "usage": "ABOUT / SWEETS",
+      "expectedSha256": "b88bff4c7c22eb38e40f3a73ec7427df1affd95b0a173966757526525c6f912e",
+      "deliveryFiles": [
+        "images/web/sweets/R0000476-400.webp",
+        "images/web/sweets/R0000476-800.webp",
+        "images/web/sweets/R0000476-1920.webp"
+      ],
+      "absentInClean": true,
+      "localOriginalUnchanged": true
+    },
+    {
+      "file": "images/formal ver/DSC_0165.webp",
+      "usage": "ABOUT / CULTURE",
+      "expectedSha256": "400a7e2890118d2b60ca83caf3bcd6dce89af812a39564592db5a6caf1f27bb1",
+      "deliveryFiles": [
+        "images/web/culture/DSC_0165-400.webp",
+        "images/web/culture/DSC_0165-800.webp",
+        "images/web/culture/DSC_0165-1450.webp"
+      ],
+      "absentInClean": true,
+      "localOriginalUnchanged": true
+    },
+    {
+      "file": "images/formal ver/836650886_1839293087060384_1504843703391329726_n.webp",
+      "usage": "COFFEE / メイン写真",
+      "expectedSha256": "91de56aa925f761a15ae59af840f955ffebab98e7d0cd9a5904f30e4a31a0cca",
+      "deliveryFiles": [
+        "images/web/coffee/coffee-preparation-400.webp",
+        "images/web/coffee/coffee-preparation-800.webp",
+        "images/web/coffee/coffee-preparation-1206.webp"
+      ],
+      "absentInClean": true,
+      "localOriginalUnchanged": true
+    },
+    {
+      "file": "images/formal ver/835355627_2191449308084144_6214797320265951783_n.webp",
+      "usage": "ACCESS / 入口看板",
+      "expectedSha256": "d298a50112f3fbed38d41a9e66539fe29a804c1ed8dd66a90175d79324d6fdc3",
+      "deliveryFiles": [
+        "images/web/hero/entrance-sign-400.webp",
+        "images/web/hero/entrance-sign-800.webp",
+        "images/web/hero/entrance-sign-1206.webp"
+      ],
+      "absentInClean": true,
+      "localOriginalUnchanged": true
+    }
+  ],
+  "qaArtifacts": [
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/about-1440.png",
+      "bytes": 2438240,
+      "sha256": "df5f369f4adfd0013643063b09d9713edddd73e4d72d3c9ae6860e42f9535b6e",
+      "width": 1440,
+      "height": 3235
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/about-390.png",
+      "bytes": 415690,
+      "sha256": "ed675bc1f9ee9052cb919d9aa920a20369a775b918fe2b89264dd2c5050fdf81",
+      "width": 390,
+      "height": 2651
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/access-1440.png",
+      "bytes": 166232,
+      "sha256": "23689e165cffdfb72512fa1256ce805f1ce3630cf85ac99706f88ef71f893913",
+      "width": 1440,
+      "height": 1093
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/access-390.png",
+      "bytes": 209202,
+      "sha256": "7d47132c78d18267c62df46bfc2eae32ed0a3f58a50d1915645f0988a2798f21",
+      "width": 390,
+      "height": 1615
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/browser-results.json",
+      "bytes": 72570,
+      "sha256": "bd45b19be40e93637ad62e0bcaf11d7ea9eed509798116c95dfb6885dd09a085",
+      "content": "inspection results only; no form input or credentials"
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/coffee-1440.png",
+      "bytes": 925166,
+      "sha256": "f3ae3fcf31b18edb05d7f76a698a433316d09286d93de099c4937eee58271cb0",
+      "width": 1440,
+      "height": 2680
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/coffee-390.png",
+      "bytes": 375040,
+      "sha256": "c16ff94b5998299b642e8bbf34743679dc949e0b13a5b3adfbc3e341319790cd",
+      "width": 390,
+      "height": 3034
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/contact-1440.png",
+      "bytes": 103031,
+      "sha256": "8eac63c579a4dde01df8dc61cbef5c910ee1ce29344e41904dc4ec5c51fcb259",
+      "width": 1440,
+      "height": 1342
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/contact-390.png",
+      "bytes": 82743,
+      "sha256": "70a94bf612b1916c376897692a5179ebe59124f876dbf5d4ccd690740897f4cb",
+      "width": 390,
+      "height": 1469
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/static-results.json",
+      "bytes": 919,
+      "sha256": "2080e3b72863aa703e82df6069d3105b451ba80559715e020f8cd5996f9a8a17",
+      "content": "inspection results only; no form input or credentials"
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/top-1440.png",
+      "bytes": 571451,
+      "sha256": "327dc176ed656dd9b013191a6fb6c8db8903d03599de7c9d0bd8025df245c11d",
+      "width": 1440,
+      "height": 1553
+    },
+    {
+      "file": "docs/qa/store-revisions-2026-11-13/top-390.png",
+      "bytes": 170025,
+      "sha256": "179115f0724ed0c4335f17d9be94de339f12f904fab11e0be9da6efcbac6ae79",
+      "width": 390,
+      "height": 1635
+    }
+  ],
+  "security": {
+    "qaCredentialPatternHits": 0,
+    "candidateScan": {
+      "realCredentialFindings": 0,
+      "syntheticFixtureFindings": [
+        {
+          "file": "scripts/production-seo.test.mjs",
+          "type": "credential-url",
+          "disposition": "existing rejected-origin test fixture; unchanged from HEAD; not a real credential"
+        }
+      ]
+    },
+    "screenshots": "existing site images and blank form; no authentication UI or submitted personal data",
+    "privateFilesInStaticOutput": 0
+  },
+  "gitSelection": {
+    "plan": "docs/qa/github-save-plan-2026-11-15.json",
+    "A": 34,
+    "B": 56,
+    "C": 0,
+    "stagedFiles": 0
+  },
+  "limitations": [
+    "Browser/mobile/external-service checks were not rerun; delivery bytes unchanged",
+    "Historical 2026-11-13 browser/HTTP results remain historical",
+    "Production SEO, GA4, real Siteverify/email and publication approval are separate"
+  ],
+  "links": {
+    "documents": [
+      "README.md",
+      "docs/asset-map.md",
+      "docs/qa/store-design-revisions-2026-11-13.md",
+      "docs/qa/build-reproducibility-2026-11-15.md"
+    ],
+    "localReferences": 36,
+    "brokenLinks": [],
+    "allTargetsGitTrackedOrSelected": true
+  }
+}

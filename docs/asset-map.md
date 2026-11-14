@@ -23,7 +23,7 @@
 | TOP | HERO 3 | `images/web/journal/spoon-400.webp`<br>`images/web/journal/spoon-800.webp`<br>`images/web/journal/spoon-1206.webp` | `830324349_4550763371904964_7100813407432157579_n.webp` | 木のテーブルと金属のスプーン | 使用中／最終掲載許可は要確認 |
 | TOP | HERO 4 | `images/web/journal/DSC_0132-400.webp`<br>`images/web/journal/DSC_0132-800.webp`<br>`images/web/journal/DSC_0132-1450.webp` | `DSC_0132.webp` | 氷入りドリンク・焼き菓子・カード | 使用中／最終掲載許可は要確認 |
 | TOP | HERO 5 | `images/web/journal/coffee-pouring-400.webp`<br>`images/web/journal/coffee-pouring-800.webp`<br>`images/web/journal/coffee-pouring-1206.webp` | `833135303_1893980718650582_7245257760060958267_n.webp` | ミルクと氷入りグラスへコーヒーを注ぐ手元 | 使用中／最終掲載許可は要確認 |
-| ABOUT | SPACE | `images/web/space/DSC_0167-400.webp`<br>`images/web/space/DSC_0167-800.webp`<br>`images/web/space/DSC_0167-1450.webp` | `DSC_0167.webp` | カウンター・テーブル・コーヒー器具のある店内 | 使用中／最終掲載許可は要確認 |
+| ABOUT | SPACE | `images/web/space/DSC_0030-400.webp`<br>`images/web/space/DSC_0030-800.webp`<br>`images/web/space/DSC_0030-1450.webp` | `DSC_0030.jpeg` | 白いシャツの人物、コーヒーを準備する手元、ドリッパーとサーバー | 使用中／2026-11-13店舗指定写真①・制作使用指示あり、全ページ最終公開承認は未完了 |
 | ABOUT | SWEETS | `images/web/sweets/R0000476-400.webp`<br>`images/web/sweets/R0000476-800.webp`<br>`images/web/sweets/R0000476-1920.webp` | `R0000476.webp` | プリン・皿・スプーン | 使用中／最終掲載許可は要確認 |
 | ABOUT | CULTURE | `images/web/culture/DSC_0165-400.webp`<br>`images/web/culture/DSC_0165-800.webp`<br>`images/web/culture/DSC_0165-1450.webp` | `DSC_0165.webp` | レンガ壁とイラスト入りTシャツ | 使用中／最終掲載許可は要確認 |
 | COFFEE | メイン写真 | `images/web/coffee/coffee-preparation-400.webp`<br>`images/web/coffee/coffee-preparation-800.webp`<br>`images/web/coffee/coffee-preparation-1206.webp` | `836650886_1839293087060384_1504843703391329726_n.webp` | ドリッパー・サーバー・ポットとコーヒーを準備する手元 | 使用中／最終掲載許可は要確認 |
@@ -49,7 +49,7 @@ HERO表示順は表の1〜5です。`journal/` の3点は現在TOPのみ、`hero
 | `images/web/journal/spoon` | 400×600 / 800×1200 / 1206×1809 | 1206×1809 | `ce0d341a89a895ad9a709a006fa0218eb3c503d12f21be095a9b09a432fdc2af` |
 | `images/web/journal/DSC_0132` | 400×265 / 800×530 / 1450×960 | 1450×960 | `5a72bf5c5642d9bb8ef99ddc4f8657f37e535c1e19bbb0e7623d669ddd4319fa` |
 | `images/web/journal/coffee-pouring` | 400×265 / 800×529 / 1206×798 | 1206×798 | `abdbddc69ac46e578ec637230ce2eba1aa8936aed8073cd9f312b83b9b9fa115` |
-| `images/web/space/DSC_0167` | 400×265 / 800×530 / 1450×960 | 1450×960 | `ecccbd75db17ad4ffd42d3ad75686fa775097bb8efdeeb11019137a4a71d70a6` |
+| `images/web/space/DSC_0030` | 400×265 / 800×530 / 1450×960 | 1450×960 | `f254b238e0be41618d00e9082101f81c183bc2a1b5170f0932ac14d8fa279114` |
 | `images/web/sweets/R0000476` | 400×267 / 800×533 / 1920×1280 | 1920×1280 | `b88bff4c7c22eb38e40f3a73ec7427df1affd95b0a173966757526525c6f912e` |
 | `images/web/culture/DSC_0165` | 400×265 / 800×530 / 1450×960 | 1450×960 | `400a7e2890118d2b60ca83caf3bcd6dce89af812a39564592db5a6caf1f27bb1` |
 | `images/web/coffee/coffee-preparation` | 400×265 / 800×529 / 1206×798 | 1206×798 | `91de56aa925f761a15ae59af840f955ffebab98e7d0cd9a5904f30e4a31a0cca` |
@@ -147,3 +147,24 @@ HERO表示順は表の1〜5です。`journal/` の3点は現在TOPのみ、`hero
 - logo候補：`images/web/logo-header.png`（ブランド例外）。
 - OGP写真候補：`images/web/hero/DSC_0052-1450.webp`。選定・比率・本番絶対URL・最終承認は要確認。OGP画像は今回作成・確定していません。
 - 原本や未使用画像、入力資料 `bashiiin_coffee_jsonld.html` をそのまま本番配信しません。正式な配信対象限定は後続のCloudflare Workers Static Assets実装で行います。既存GitHub Pages workflowは5ページ版へ流用しません。
+
+## 2026-11-13 店舗指定写真①への差し替え
+
+- 最新状態は本追記と上の使用写真・寸法表を優先する。過去の件数・追跡状態の説明は各記録日時点のもの。
+- 受領素材 `images/DSC_0030.jpeg`（JPEG、1450×960px、未追跡）を目視し、白いシャツの人物・抽出器具・手元が写る指定写真①と照合した。2026-11-13の店舗修正指示によりABOUT / SPACEでの制作使用が指定された。全ページの最終公開承認とは区別する。
+- 原本管理規則に従い、`images/formal ver/DSC_0030.jpeg` にバイト同一の保管コピーを追加した。受領ファイルの削除・移動・rename・上書きは行っていない。両ファイルのSHA-256は上の表と一致する。いずれも配信対象外・未ステージ。
+- 上表のWebP 3サイズをChrome CanvasのWebP品質0.84で生成。400×265（17,692 bytes）／800×530（59,968 bytes）／1450×960（238,360 bytes）。元サイズを超える拡大・トリミング・色調補正・AI加工なし。EXIFは配信画像へ引き継がない。
+- 配信用ファイルはABOUT / SPACEだけで使用。`width="1450" height="960"`、同じ比率のsrcset、eager・fetchpriority high・decoding asyncを設定。CSSの共通高さ制限をこの写真のみ解除し、手元と抽出器具を全幅で保持する。
+- alt：白いシャツの人物が木のカウンターでコーヒーを準備する手元と、ドリッパーやガラスサーバー。
+- 旧配信用 `images/web/space/DSC_0167-400.webp` / `images/web/space/DSC_0167-800.webp` / `images/web/space/DSC_0167-1450.webp` と原本 `images/formal ver/DSC_0167.webp` は保持し、配信許可リストから旧3サイズを除外した。旧写真は現在全ページ未使用。上の未使用原本・未使用Web画像の過去集計には未反映。
+- 写真配置は10箇所・配信WebP 30ファイル。目視照合で、新しい `DSC_0030.jpeg` とCOFFEEの既存原本 `836650886_1839293087060384_1504843703391329726_n.webp` は同一カットの別解像度と確認した。実質9カットで、ABOUT / SPACEの `images/web/space/DSC_0030-*` とCOFFEEメインの `images/web/coffee/coffee-preparation-*` が重複する。最新の店舗指示によるABOUT差し替えを優先し、変更対象外のCOFFEEは維持した。
+- 1450×960pxの指定受領素材を原本と対応付けた配信セットを使用する。保管コピーは原本管理用、3サイズは従来どおりのレスポンシブ配信用。既存COFFEE素材は1206×798pxで、今回は再生成・変更していない。重複回避を理由にCOFFEEの写真を無断変更したり、低解像度版を指定受領原本からの派生と偽って扱ったりしない。
+
+## 2026-11-15 配信ビルドと原本監査の分離
+
+- 原本名・使用箇所・原本SHA-256は上の使用写真／寸法表を維持する。原本の作成元・制作使用指示・最終公開承認の区別は変更しない。
+- 配信用画像32件（WebP 30件・PNG 2件）の固定SHA-256は [asset-integrity.json](../scripts/asset-integrity.json) で管理する。通常build／verifyは全画像の存在・ハッシュ・形式と許可リストとの一致を必須確認する。画像の生成・変更・削除は行っていない。
+- 通常buildはGit保存対象の配信用画像を複製する。高解像度原本10点の不在だけを許容し、存在する原本は従来のSHA-256と照合する。不一致・symlink・権限等のI/Oエラーは失敗させる。対応する原本名や原本ハッシュ記録の欠落も拒否する。
+- `node scripts/build-static.mjs --verify-originals` は全10点の保管原本を必須とする読み取り専用監査。通常配信ビルドと区別する。原本を利用した派生画像の再生成は制作時の別作業で、通常buildには含めない。
+- 原本のGit追加は不要で、既存保管場所から移動・削除・上書きしていない。未使用の旧SPACE画像等も今回削除しない。新規WebP 3件は次回Git保存対象、原本・管理JSON・本資料・QA資料はStatic Assets対象外。
+- クリーン環境の検証結果と原本10点の正確な対応一覧は [再現性改善報告](qa/build-reproducibility-2026-11-15.md) を参照。

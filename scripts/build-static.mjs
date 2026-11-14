@@ -53,7 +53,7 @@ function cssReferences(text) {
   const clean = text.replace(/\/\*[\s\S]*?\*\//g, '');
   return [...clean.matchAll(/url\(\s*["']?([^"')]+)["']?\s*\)|@import\s+["']([^"']+)["']/g)].map(m => (m[1] || m[2]).trim());
 }
-export function sourceInventory(root = ROOT) {
+export function sourceInventory(root = ROOT, { requireOriginals = false } = {}) {
   root = path.resolve(root);
   const manifest = JSON.parse(read(root, 'scripts/public-files.json'));
   requireCondition(Array.isArray(manifest.files), 'Invalid public manifest');
@@ -65,6 +65,19 @@ export function sourceInventory(root = ROOT) {
       || /^images\/web\/(hero|coffee|sweets|space|culture|journal)\/[A-Za-z0-9_-]+\.webp$/.test(f)), `Not a public file: ${f}`);
   }
   const buffers = new Map(files.map(f => [f, read(root, f)]));
+  // Reviewed delivery bytes are independent of the locally archived originals.
+  // This manifest is build input only and must never enter Static Assets.
+  const integrity = JSON.parse(read(root, 'scripts/asset-integrity.json'));
+  const assets = files.filter(f => f.startsWith('images/'));
+  requireCondition(integrity.version === 1 && integrity.sha256 && typeof integrity.sha256 === 'object'
+    && !Array.isArray(integrity.sha256)
+    && JSON.stringify(Object.keys(integrity).sort()) === '["sha256","version"]'
+    && JSON.stringify(Object.keys(integrity.sha256).sort()) === JSON.stringify([...assets].sort()),
+  'Asset integrity manifest must match the public images exactly');
+  for (const f of assets) {
+    requireCondition(typeof integrity.sha256[f] === 'string' && /^[a-f0-9]{64}$/.test(integrity.sha256[f]), `Invalid asset hash: ${f}`);
+    requireCondition(sha(buffers.get(f)) === integrity.sha256[f], `Asset hash mismatch: ${f}`);
+  }
   const used = new Set(BASE);
   const links = [];
   const ids = new Map();
@@ -118,11 +131,17 @@ export function sourceInventory(root = ROOT) {
       const row = assetMap.split('\n').find(line => line.includes('使用中／') && line.includes('`' + f + '`'));
       const original = row && [...row.matchAll(/`([^`]+)`/g)][3]?.[1];
       requireCondition(original && !original.includes('/'), `Original mapping missing: ${f}`);
-      const source = read(root, 'images/formal ver/' + original);
       const stem = f.replace(/-\d+\.webp$/, '');
       const hashRow = assetMap.split('\n').find(line => line.includes('`' + stem + '`'));
       const expectedHash = hashRow?.match(/`([a-f0-9]{64})`/)?.[1];
-      requireCondition(expectedHash && sha(source) === expectedHash, `Original hash mismatch: ${f}`);
+      requireCondition(expectedHash, `Original hash missing: ${f}`);
+      let source;
+      try { source = read(root, 'images/formal ver/' + original); }
+      catch (error) {
+        // Only absence is optional. Symlinks, permissions and other I/O errors fail.
+        if (error.code !== 'ENOENT' || requireOriginals) throw error;
+      }
+      if (source) requireCondition(sha(source) === expectedHash, `Original hash mismatch: ${f}`);
     } else requireCondition(data.subarray(0, 8).equals(Buffer.from([137,80,78,71,13,10,26,10])), `Not PNG: ${f}`);
   }
   return { files: [...files].sort(), buffers };
@@ -172,8 +191,14 @@ export function build(root = ROOT) {
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
-    requireCondition(process.argv.slice(2).every(a => a === '--verify'), 'Only --verify is supported');
-    const files = process.argv.includes('--verify') ? verifyOutput() : build();
-    console.log(`${process.argv.includes('--verify') ? 'Verified' : 'Built'} ${files.length} allowlisted public files in dist/`);
+    const args = process.argv.slice(2);
+    requireCondition(args.length <= 1 && args.every(a => ['--verify', '--verify-originals'].includes(a)), 'Use --verify or --verify-originals');
+    if (args.includes('--verify-originals')) {
+      const { files } = sourceInventory(ROOT, { requireOriginals: true });
+      console.log(`Verified delivery assets and all source originals for ${files.length} public files (no output written)`);
+    } else {
+      const files = args.includes('--verify') ? verifyOutput() : build();
+      console.log(`${args.includes('--verify') ? 'Verified' : 'Built'} ${files.length} allowlisted public files in dist/`);
+    }
   } catch (error) { console.error(`Static build failed: ${error.message}`); process.exitCode = 1; }
 }

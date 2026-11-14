@@ -2,7 +2,11 @@
 
 京都・河原町のスペシャルティコーヒー店、Bashiiin! coffeeの正式Webサイト制作リポジトリです。写真主体・白／生成りを基調とするシンプルなデザインを、Mobile Firstの静的HTML / CSS / JavaScriptで実装しています。2026-11-03のユーザー指示により、文章量を抑える方針をSEO改善の範囲で緩和し、各ページの内容を理解できる可視本文を掲載しています。
 
-最終更新：2026-11-03（5ページのSEO・本文拡充、ローカル検証）
+最終更新：2026-11-15（配信画像ハッシュ検証・原本なしビルド再現性・QA保存対象の整理）
+
+2026-11-13の店舗最新指示により、TOPの店舗紹介・LATEST INFO・ページ案内の説明文、ABOUT／ACCESSの指定文章と全5ページのフッター住所を削除しました。ACCESS本文の住所とTOPのJSON-LDは維持しています。ABOUT / SPACEには店舗指定の自家焙煎・常時5種類の文章と写真①を反映しました。過去資料の文章量・明朝見出し指定よりこの指示を優先します。詳細とQAは [店舗修正報告](docs/qa/store-design-revisions-2026-11-13.md) を参照してください。
+
+2026-11-15に、配信用画像の固定SHA-256検証を追加し、通常のbuild・検証・自動テストからローカル原本の必須依存を外しました。店舗修正済みのHTML・CSS・JS・画像は変更していません。結果と保存範囲は [再現性改善・QA保存報告](docs/qa/build-reproducibility-2026-11-15.md) と [Git保存対象一覧](docs/qa/github-save-plan-2026-11-15.json) を参照してください。
 
 ## 現在の状態と基準資料
 
@@ -19,7 +23,7 @@
 
 | ページ | URLパス | ファイル | 現在の役割 |
 |---|---|---|---|
-| TOP | `/` | `index.html` | スペシャルティコーヒーの第一印象、連続写真トラック、営業情報のInstagram案内、各ページへの入口 |
+| TOP | `/` | `index.html` | スペシャルティコーヒーの第一印象、連続写真トラック、各ページへの入口 |
 | ABOUT | `/about/` | `about/index.html` | SPACE / SWEETS / CULTUREを実写と説明文で紹介、ページ内案内と関連ページへの導線 |
 | COFFEE | `/coffee/` | `coffee/index.html` | 店内のコーヒー準備の写真、スペシャルティコーヒーの説明、豆の紹介の読み方、CURRENT BEANSの確認先 |
 | CONTACT | `/contact/` | `contact/index.html` | 3項目の問い合わせフォーム。バックエンドは実装済み、現在は送信不可 |
@@ -79,16 +83,16 @@ bashiiin_coffee_jsonld.html  # 作業用入力資料。配信対象外
 
 | 共通設定 | Mobile（〜640px） | Tablet（641〜1099px） | Desktop（1100px〜） |
 |---|---|---|---|
-| H1 | 40px | 48px | 64px |
-| H2 | 28px | 32px | 36px |
+| H1 | 34px | 44px | 56px |
+| H2 | 26px | 30px | 34px |
 | Eyebrow | 12px | 12px | 13px |
 | 本文 | 16px | 16px | 16px |
 | Eyebrow→見出し | 16px | 16px | 16px |
 | 見出し→コンテンツの基本間隔 | 28px | 36px | 44px |
 | セクション余白トークン | 88px | 104px | 120px |
 
-- 日本語見出し：`Noto Serif JP` / `Hiragino Mincho ProN` / `Yu Mincho` / serif。本文はHiragino / Yu Gothic / system-ui。外部Webフォントは読み込みません。環境に存在するフォントへフォールバックします。
-- 見出しweight 500・行高1.25。字間H1 `.02em` / H2 `.04em`。Eyebrowはweight 600・行高1.5・字間 `.12em`、本文はweight 400・行高1.85・字間 `.04em`。
+- 見出し・本文：`Hiragino Sans` / `Noto Sans JP` / `Hiragino Kaku Gothic ProN` / `Yu Gothic` / `YuGothic` / system-ui / sans-serif。外部Webフォントは読み込まず、環境に存在するフォントへフォールバックします。ロゴ画像は変更していません。
+- H1／H2はweight 500、行高H1 1.4／H2 1.5、字間H1 `.01em`／H2 `.02em`。本文内H3は20px／weight 600／行高1.5。Eyebrowはweight 600・行高1.5・字間 `.12em`、本文はweight 400・行高1.85・字間 `.04em`。
 - 共通幅は `--content-max: 1200px` と `--page-gutter` による中央コンテナ。本文は原則左揃え。Mobileの左右24pxからTablet、Desktopへ連続的に変化します。
 - `--page-gutter` は基本 `clamp(24px, calc(6.25vw - 16px), 48px)`、1024px以上は `clamp(48px, calc(23.076923vw - 188.307692px), 10vw)`。共通幅は `min(1200px, 100% - 左右余白)`。
 - 代表的な計算値：390pxは幅342px／左右24px、1024pxは幅928px／左右48px、1440pxは幅1152px／左右144px。ブラウザーのスクロールバー等による差は別途確認します。
@@ -110,7 +114,7 @@ bashiiin_coffee_jsonld.html  # 作業用入力資料。配信対象外
 
 正式写真は原本が `images/formal ver/` に存在する店舗提供写真だけを使用します。Web最適化版を `images/web/` に置くことは可能です。ロゴ・ワードマーク・faviconだけは原本フォルダ制限の例外です。
 
-現在は10原本由来のWebP 30ファイルとロゴ／favicon 2ファイルを参照しています。400 / 800 / 原本幅の3サイズを `srcset` / `sizes` で選択します。TOP・ABOUT・COFFEEは各ページ先頭の主写真1点にhigh priorityを設定し、それ以外の本文写真はlazy loadingです。寸法属性を保持しています。
+現在は10原本由来（実質9カット、ABOUT／COFFEEで同一カット重複）のWebP 30ファイルとロゴ／favicon 2ファイルを参照しています。400 / 800 / 原本幅の3サイズを `srcset` / `sizes` で選択します。TOP・ABOUT・COFFEEは各ページ先頭の主写真1点にhigh priorityを設定し、それ以外の本文写真はlazy loadingです。寸法属性を保持しています。
 
 原本の削除・移動・rename・上書き、AI生成・内容改変は行いません。派生生成は必要性と保存先を確認したうえで原本を残して行い、画像管理表に対応関係を記録します。制作使用の許可回答と、個別写真の撮影元・被写体の掲載許可・店舗の最終公開承認は区別します。
 
@@ -139,14 +143,14 @@ bashiiin_coffee_jsonld.html  # 作業用入力資料。配信対象外
 
 ## SEO・JSON-LD
 
-- 5ページそれぞれに固有のtitle / descriptionと、対応するOGPのtitle / description / type / site_name / localeを設定しています。全ページ `noindex, nofollow, noarchive` を維持。正式なcanonical・og:url・og:image・sitemap・robots.txtは本番ドメインと公開承認の確定後に別工程で設定します。GA4接続も未完了です。
+- 5ページそれぞれに固有のtitle / descriptionと、対応するOGPのtitle / description / type / site_name / localeを設定しています。全ページ `noindex, nofollow, noarchive` を維持。正式なcanonical・og:url・og:image・sitemap・robots.txtは、指定済み本番ドメインを使うSEO設定・公開承認の別工程で設定します。GA4接続も未完了です。
 - ABOUT / COFFEEの本文は写真・見出し・段落に分散し、ページ内リンクで移動できます。共通の本文行幅・段落間隔は `styles.css` の `.content-copy`、ページ内案内は `.section-links` で管理します。店内写真の説明と、一般的なコーヒーの説明を店舗の未確認な提供情報と混同しません。
 - 2026-11-03の実装範囲・ページ別本文・メタ情報・ローカル検証・店舗確認待ちは [SEO改善報告](docs/qa/seo-improvement-2026-11-03.md) を参照してください。公開切替・実メール送信の完了を意味しません。
 - TOPの `<head>` に `application/ld+json` を1つ設置。JSON-LDの掲載項目は `@context` / `@type: CafeOrCoffeeShop` / `name` / 確認済み内容の `description` / `address` / Instagramの `sameAs`。
 - メニューページがないため `menu`、固定営業時間を掲載しないため `openingHoursSpecification` を除外しています。
-- 正式ドメイン未確定のため `@id` / `url` / `image` / `logo` は省略。公開時に確定済みの絶対URLで追加し、ACCESSの実表示と整合させます。推測ドメイン・example.com・架空画像URLは設定しません。
-- `alternateName` / `priceRange` / `currenciesAccepted` / `geo` / `hasMap` / `servesCuisine` / `acceptsReservations` / `postalCode` は未確認のため掲載していません。必要な項目だけ店舗確認後に検討します。自家焙煎・自家製・人気等を補完しません。
-- JSON-LD image候補は `images/web/space/DSC_0167-1450.webp` または `images/web/hero/DSC_0052-1450.webp`、logo候補は `images/web/logo-header.png`。OGP写真候補は後者ですが、最終選定・比率・本番URLは未確定です。
+- `@id` / `url` / `image` / `logo` は現在省略。2026-11-13に正式ドメイン `bashiiin-coffee.com` が指定されましたが、今回の修正では本番SEO・ドメイン設定を行いません。公開時に確定済みの絶対URLで追加し、ACCESSの実表示と整合させます。推測ドメイン・example.com・架空画像URLは設定しません。
+- `alternateName` / `priceRange` / `currenciesAccepted` / `geo` / `hasMap` / `servesCuisine` / `acceptsReservations` / `postalCode` は未確認のため掲載していません。必要な項目だけ店舗確認後に検討します。店舗指定の自家焙煎・常時5種類はABOUT / SPACEのみに反映し、JSON-LD等へ自動追加しません。自家製・人気等を補完しません。
+- JSON-LD imageの過去候補は現在未使用の `images/web/space/DSC_0167-1450.webp` または `images/web/hero/DSC_0052-1450.webp`、logo候補は `images/web/logo-header.png`。OGP写真候補は後者ですが、最終選定・比率・本番URLは未確定です。
 - 提供原稿 `bashiiin_coffee_jsonld.html` は未確認値・仮URLを含む入力資料です。公開用HTMLとして配信・一括Git追加しません。
 
 ## ビルド・テスト・ローカル配信
@@ -160,9 +164,25 @@ npm test
 ```
 
 - `build`：`scripts/public-files.json` の明示的な許可リストを検査し、40ファイルだけを `dist/` に複製します。5ページHTML＋404.html＋CSS/JS 2件＋WebP 30件＋ロゴ/favicon 2件です。
-- 参照切れ・許可リスト外参照・未使用の許可ファイル・パス逸脱・シンボリックリンク・原本の対応／ハッシュ不一致を拒否します。固定の生成先を置き換え、旧出力の残存を防ぎます。
+- `scripts/asset-integrity.json` に配信用WebP 30件・PNG 2件のSHA-256を固定しています。画像の存在・固定ハッシュ・WebP/PNG形式・画像管理表の原本対応／原本ハッシュ記録を必須検証します。通常buildは配信用画像をそのまま複製し、画像を再生成・再圧縮しません。
+- ローカル原本が存在する場合は従来どおり原本SHA-256も照合します。原本の不在（ENOENT）だけを通常buildでは許容し、原本の不一致・symlink・I/Oエラーや配信用画像の変更・欠落を無視しません。
+- 参照切れ・許可リスト外参照・未使用の許可ファイル・パス逸脱・シンボリックリンクも拒否します。固定の生成先を置き換え、旧出力の残存を防ぎます。管理用JSON・画像管理表・原本はdistへ含めません。
 - `verify:dist`：出力一覧が許可リストと完全一致し、内容もソースと一致するか検証します。
-- `test`：静的ビルド12テストとCONTACT API関連テストを実行します。Siteverify・メール・レート制限はメモリー内モックで、実認証・実メール送信は行いません。
+- `test`：ビルド・SEO・CONTACT・Turnstile等の367テストを実行します。原本がない環境でも動くfixtureを使い、12件の新規検証と既存2件の原本テスト更新を含みます。Siteverify・メール・レート制限はメモリー内モックで、実認証・実メール送信は行いません。
+
+### GitHub取得後の再現と原本監査
+
+Node.js 22以上で `npm ci` 後、上記3コマンドを実行できます。配信用WebP・ロゴ・favicon・許可リスト・画像ハッシュ管理JSON・画像管理表をGit保存対象とし、高解像度原本10点はGit保存の必須条件にしません。
+
+原本を保管する制作者の環境では、次の読み取り専用コマンドで全10点の存在・対応・SHA-256を厳密に照合できます。原本がない環境でこのコマンドが失敗するのは仕様です。
+
+```sh
+node scripts/build-static.mjs --verify-originals
+```
+
+画像の再生成は通常buildから分離した制作作業です。必要時のみ保管原本から別名で派生画像を生成し、品質・寸法・掲載許可・画像管理表を確認したうえで、配信用画像と `scripts/asset-integrity.json` のハッシュを一緒にレビューします。ビルド中にハッシュを自動更新して不一致を隠す処理はありません。今回、再生成・画像変更は行っていません。
+
+今回のQA報告書Markdown、390／1440pxのPNG 10枚、検証結果JSON 2件は、READMEからの参照を保つため個別にGit保存する候補です。今回の再現性報告・結果JSON・保存計画JSONも候補とします。いずれもStatic Assetsへは配信しません。過去の無関係な未追跡QA資料・ログ・原本・未使用画像を一括追加しません。
 
 ローカル配信は別のターミナルで起動します。
 

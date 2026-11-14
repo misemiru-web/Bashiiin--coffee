@@ -1,0 +1,23 @@
+{
+  "checks": [
+    "index.html: head / H1 / header unchanged",
+    "about/index.html: head / H1 / header unchanged",
+    "coffee/index.html: head / H1 / header unchanged",
+    "coffee/index.html: main unchanged from working-tree baseline",
+    "contact/index.html: head / H1 / header unchanged",
+    "contact/index.html: main unchanged from working-tree baseline",
+    "access/index.html: head / H1 / header unchanged",
+    "wrangler.jsonc: byte identical",
+    "wrangler.staging.jsonc: byte identical",
+    "404.html: byte identical",
+    "TOP: gallery HTML unchanged",
+    "sitemap.xml: absent before/after (production SEO separate)",
+    "robots.txt: absent before/after (production SEO separate)",
+    "DSC_0030: received original and archive bytes/hash match"
+  ],
+  "externalHttp": {
+    "instagram": 200,
+    "googleMaps": 200
+  },
+  "metadata": "All five head blocks byte identical to pre-task working tree"
+}
